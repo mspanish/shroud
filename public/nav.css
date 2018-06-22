@@ -311,6 +311,7 @@ pre {
      background-image: url(./img/shroud.jpg);
      background-repeat: no-repeat;
      background-size: 100% 100%;
+     min-height:120vh;
    }
 
   .topTitle {
@@ -422,6 +423,7 @@ pre {
       }
     .lesson {
     padding-left: 20px;
+    min-height: 100vh;
     }
     pre {
       margin-left: -20px !important;
