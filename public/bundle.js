@@ -1027,7 +1027,7 @@ Link.prototype._checkReadOnly = function _checkReadOnly(newState) {
 
 const catsData = {
 	"event": {
-			"menu": "Our Event",
+			"menu": "Our Events",
 			"desc": "",
 			"img": ""
 		},
@@ -1760,7 +1760,7 @@ function create_if_block_1(component, ctx) {
 			iframe.src = "/tickets.html";
 			setAttribute(iframe, "frameborder", "0");
 			iframe.className = "svelte-4lo20b";
-			addLoc(iframe, file$3, 12, 2, 269);
+			addLoc(iframe, file$3, 12, 2, 271);
 			div.className = "lesson";
 			addLoc(div, file$3, 10, 1, 243);
 		},
@@ -1787,7 +1787,7 @@ function create_if_block_2(component, ctx) {
 	return {
 		c: function create() {
 			section = createElement("section");
-			addLoc(section, file$3, 16, 1, 358);
+			addLoc(section, file$3, 16, 1, 360);
 		},
 
 		m: function mount(target, anchor) {
