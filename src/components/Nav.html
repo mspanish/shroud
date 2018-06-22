@@ -1,0 +1,102 @@
+<div class="navbar" role="navigation" aria-label="main navigation">
+
+<div class="navbar-start">
+<div class="navbar-brand"><a href="" class="navbar-item" on:click="goto('/')">Home</a></div>
+<div class="navbar-brand"><a href="" class="navbar-item" on:click="goto('/snippets')">Snippets</a></div>
+</div>
+
+<div class="navbar-end">
+
+<div class="navbar-brand">
+<div class="navbar-item">
+<a class="twitter"
+ href="https://twitter.com/mspanish" target="_blank">
+ <img src="/img/twitter.svg" />
+</a>
+</div>
+</div>
+
+<a class="navbar-item">
+  <img src="https://kwippe.com/img/logo2.png" width="40" height="40" alt="Kwippe">
+  <span>kwippe</span>
+</a>
+
+
+<div class="navbar-item has-dropdown is-hoverable">
+    <a class="navbar-link">
+      About
+    </a>
+    <div class="navbar-dropdown">
+	   <a class="navbar-item">
+        Kwippe App
+      </a>
+      <a class="navbar-item">
+        Tech Stack
+      </a>
+      <a class="navbar-item">
+        ES6 Resources
+      </a>	  
+      <a class="navbar-item">
+        Contact
+      </a>
+      <a class="navbar-item">
+        About Me
+      </a>
+      <a class="navbar-item">
+        Twitter
+      </a>
+      <hr class="navbar-divider">
+      <div class="navbar-item">
+        Version 1.0.0
+      </div>
+    </div>
+  </div>
+
+  </div>
+
+  <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+
+</div>
+
+<style>
+.twitter {
+  height: 30px;
+  width: 30px;
+  background-color:#00aced;
+  border-radius:5px;
+  padding: 5px;
+}
+.navbar-item img {
+max-height: 40px;
+}
+.navbar-start {
+padding-left: 20px;
+}
+.navbar-end {
+padding-right: 50px;
+}
+span {
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-right: 15px;
+    font-family: 'Luckiest Guy', cursive;
+    font-size: 1.4rem;
+    text-shadow: -2px -2px 1px white;
+}
+</style>
+
+<script>
+import roadtrip from 'roadtrip';
+
+  export default {
+    methods: {
+      goto(path) {
+        roadtrip.goto(path);
+      }
+    }
+  }
+</script>

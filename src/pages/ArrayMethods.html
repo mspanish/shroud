@@ -1,0 +1,46 @@
+
+  <div class="content is-medium">
+  <h1>Array Methods</h1>
+
+  <section>
+    <h2>Cool obj → array method: Object.entries()</h2>
+
+    <p>The entries() method is a very cool way to create an <b>iterable data structure</b> using key value pairs.</p>
+
+    <p>One problem I run into with using Svelte is that the #each template block can only take an array, whereas a lot of my data is in objects. The way to do that automatically is by using the <b>entries() method.</b> It's cleaner than running a loop to build a new array...Check it out below.</p>
+
+
+
+    <Runkit code={code_1} title={title_1} />
+  </section>
+
+</div>
+<style>
+	.content {
+	padding-top:20px;
+	}
+  
+  </style>
+  
+<script>
+  import roadtrip from 'roadtrip';
+  import Runkit from '../components/Runkit.html';
+
+  export default {
+    data() {
+        return {
+        code_1:"const cats = {\n \"arrow_functions\": {\n \"menu\": \"Arrow Functions\",\n \"links\": [\"link1\", \"link2\"],\n },\n \"template_strings\": {\n \"menu\": \"Template Strings\",\n \"links\": [\"link1\", \"link2\"],\n }}\nconst catsArray = Object.entries(cats);"
+        ,
+        title_1: "entries()"
+        }
+    },
+    components: { Runkit },
+  	oncreate() {
+	},
+    methods: {
+      goto(path) {
+        roadtrip.goto(path);
+      }
+    }
+  }
+</script>

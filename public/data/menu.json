@@ -1,0 +1,129 @@
+{
+	"arrow_functions": {
+		"menu": "Arrow Functions",
+		"desc": "<div class='lesson has-background-white'><div>The syntax of arrow functions that ES6 brings is a real breath of fresh air! You'll find them everywhere too - so it's important to know a few things.</div> <h2>parens ()</h2> <ul> <li>when there's 1 argument, you can omit the parentheses (i.e. 'parens'), like so: <pre><code class='language-javascript'> const addTwo = num => num + 2; </pre></code> </li> <li>when there are no arguments, you <i>cannot</i> omit the parens. <pre><code class='language-javascript'> const dog = () => 'Spot'; </pre></code> </li> <li>when there are multiple arguments, you <i>cannot</i> omit the parens. <pre><code class='language-javascript'> const dog = (size, name) => size + name ; </pre></code> </li> </ul> <h2>curly braces {}</h2> <ul> <li>when your body contains just 1 expression, you can <b>omit</b> the curly braces. <pre><code class='language-javascript'> const dog = () => 'Spot'; </pre></code> </li> <li>when your body contains more than 1 expression or a statement, you <b>must</b> have curly braces. See <a href='https://jaketrent.com/post/javascript-arrow-function-return-rules/' target='_blank' >here for the difference between expressions & statements.</a> <pre><code class='language-javascript'> const dog = () => { const types = ['weiner', 'lab', 'poodle'];\n const random = Math.floor(Math.random() * Math.floor(types.length));\n return types[random]; } </pre></code> </li> </ul> </div>",
+		"img": "",
+		"tips": ["doesn't have a <b>this</b>",
+			"no curly braces needed for single expressions",
+			"return statement not always needed"
+		],
+		"syntax": "",
+		"post": "",
+		"links": ["http://stack.formidable.com/es6-interactive-guide/#/arrow-functions", "https://runkit.com/tonic/es6-arrow-functions", "https://jaketrent.com/post/javascript-arrow-function-return-rules/"],
+		"tags": [],
+		"mdn": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions"
+	},
+	"template_literals": {
+		"menu": "Template Literals",
+		"desc": "<div class='lesson has-background-white'> <div>Trying to write out strings with variables inside used to be pretty unwieldy in Javascript, especially with multi-line strings. Let's look at a couple of key aspects:</div> <h2>back-tick: <b>`</b></h2> <ul> <li>Template literals use a funky character that you may be familiar with if you've written code blocks in markdown: the back-tick. While it looks a bit foreign at first, they make strings easy to spot. </li> </ul> <h2>${ name }</h2> <ul> <li>While at first this seems a little complicated for a simple string, at least the variables/expressions are clearly delineated. <pre><code class='language-javascript'> const fullName = `${ firstName } ${ lastName }`; </pre></code> </li> <li>You can also so more when them - you can use a ternary expression or even a function inside of your placeholder. <pre><code class='language-javascript'> const fullName = `${ firstName } ${ lastName }`; </pre></code> </li> </ul> </div> d",
+		"img": "",
+		"tips": [
+			"the $ is <b><i>NOT</b></i> jQuery!",
+			"uses the weird backtick <b>`</b> character",
+			"reference your variables with <b>${</b>myCoolVar<b>}</b>"
+		],
+		"post": "",
+		"links": ["https://wesbos.com/javascript-template-strings", "https://closebrace.com/tutorials/2018-03-07/js-quick-hits-7-template-literals"],
+		"tags": [],
+		"mdn": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals"
+	},
+	"iteration": {
+		"menu": "Iteration",
+		"desc": "a basic introduction to iteration in ES6",
+		"img": "",
+		"tips": [
+			"for/of loops <b>rock</b>!",
+			"use <b>entries()</b> to convert objects to arrays",
+			"now possible to create <b>custom</b> iterators"
+		],
+		"post": "",
+		"links": ["https://hacks.mozilla.org/2015/04/es6-in-depth-iterators-and-the-for-of-loop/"],
+		"tags": []
+	},
+	"object_literals": {
+		"menu": "Object Literals",
+		"desc": "<div class='lesson has-background-white'>ES6 makes working with objects <b>way easier</b> than before. Whereas we used to write this:<pre class='preMe'><code class='language-javascript'>var obj = {id: id, color: color, name: name};</code></pre>Now we can just write this:<pre class='preMe'><code class='language-javascript'>const obj = { id, color, name }</code></pre><br /><pre class='preMe'><code class='language-javascript'> const obj = { ...colorObj, ...nameObj }</code></pre><br /></div>",
+		"img": "",
+		"tips": [
+			"you can still do it the old way, but shouldn't!",
+			"way <b>simpler</b> way to create objects",
+			"can even be used to <b><i>merge</b></i> objects! (shallow)"
+		],
+		"post": "",
+		"links": ["https://davidwalsh.name/merge-objects", "https://davidwalsh.name/javascript-deep-merge"],
+		"tags": [],
+		"mdn": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Working_with_Objects"
+	},
+	"destructuring": {
+		"menu": "Destructuring",
+		"desc": "a basic introduction to destructuring in ES6",
+		"img": "",
+		"tips": [
+			"unpacking of values into distinct variables",
+			"used for so many things, can be <b>confusing!</b>",
+			"can include fallback defaults - <b>awesome!</b>"
+		],
+		"post": "",
+		"links": ["https://wesbos.com/destructuring-default-values/"],
+		"tags": [],
+		"mdn": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment"
+	},
+
+	"spread_rest": {
+		"menu": "Spread, Rest",
+		"desc": "a basic introduction to rest and spread operators in ES6",
+		"img": "",
+		"tips": [
+			"spread <b>expands</b> the items referenced",
+			"great for function arguments",
+			"makes code shorter, but overuse <b>can be confusing!</b>"
+		],
+		"post": "",
+		"links": ["https://davidwalsh.name/spread-operator", "https://closebrace.com/tutorials/2018-03-14/js-quick-hits-8-the-spread-operator"],
+		"tags": [],
+		"mdn": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax"
+	},
+	"map_filter_reduce": {
+		"menu": "Map, Filter, Reduce",
+		"desc": "a basic introduction to map, filter, and reduce in ES6",
+		"img": "",
+		"tips": [
+			"<b>easy to use</b>, shortens your code",
+			"no more looping to find 1 thing...",
+			"adding <b>returns</b> correctly can be tricky"
+		],
+		"post": "",
+		"links": "",
+		"tags": []
+	},
+	"array_methods": {
+		"menu": "Array Methods",
+		"desc": "a basic introduction to array methods in ES6",
+		"img": "",
+		"tips": [
+			"you might say goodbye to Lodash...",
+			"<b>Array.from</b> is a superhero",
+			"many great ways to manipulate data"
+		],
+		"post": "",
+		"links": "",
+		"tags": [],
+		"page": "Array Methods",
+		"mdn": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/from"
+	},
+	"map_set": {
+		"menu": "Map, Set Constructors",
+		"desc": "a basic introduction to Map() and Set() in ES6",
+		"img": "",
+		"tips": [
+			"like objects, but can hold more things including <b>functions</b>",
+			"they are directly iterable",
+			"non-strings can be used as keys"
+		],
+		"post": "",
+		"links": ["https://hackernoon.com/what-you-should-know-about-es6-maps-dc66af6b9a1e", "http://www.samanthaming.com/tidbits/10-remove-array-duplicates-using-set"],
+		"tags": [],
+		"page": "Map",
+		"mdn": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map"
+	}
+}

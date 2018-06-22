@@ -1,0 +1,44 @@
+<div class="content is-medium">
+  <h1>Map, Set, WeakMap, WeakSet</h1>
+
+  <section>
+    <h2>Map: Making your Objects Iterable</h2>
+
+    <p>The Map() contructor is a very cool way to create an <b>iterable data structure</b> using key value pairs.</p>
+
+    <p>One problem I run into with using Svelte is that the #each template block can only take an array, whereas a lot of my data is in objects. Map() seems like a pretty cool alternative when I need object data to be iterable. The way to do that automatically is by using the <b>entries() method.</b> That is way better than runing all of my data through a loop to rewrite it as an array! </p>
+
+    <Runkit code={code_map1} id={title_map1} />
+
+</div>
+
+
+<style>
+	.content {
+	padding-top:20px;
+	}
+  
+  </style>
+  
+<script>
+  import roadtrip from 'roadtrip';
+  import Runkit from '../components/Runkit.html';
+
+  export default {
+    store: () => store,
+    data() {
+      return {
+        code_map1:"const cats = {\n \"arrow_functions\": {\n \"menu\": \"Arrow Functions\",\n \"links\": [\"http:\x2F\x2Fstack.formidable.com\x2Fes6-interactive-guide\x2F#\x2Farrow-functions\",\"https:\x2F\x2Frunkit.com\x2Ftonic\x2Fes6-arrow-functions\"],\n },\n \"template_strings\": {\n \"menu\": \"Template Strings\",\n \"links\": [\"http:\x2F\x2Fes6-features.org\x2F#StringInterpolation\"],\n }}\nconst catsArray = new Map(Object.entries(cats));",
+        title_map1: 'Create iterable object with Map() and entries()'
+      }
+    },
+    components: { Runkit },
+  	oncreate() {
+	},
+    methods: {
+      goto(path) {
+        roadtrip.goto(path);
+      }
+    }
+  }
+</script>

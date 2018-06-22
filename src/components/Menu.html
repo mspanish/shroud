@@ -1,0 +1,111 @@
+<div class="topTitle">Shroud Alaska Group</div>
+
+<nav >
+  <ul>
+	{#each cats as cat}
+	  <li data-id="{cat[0]}"><Link href="/topics/{cat[0]}">{cat[1].menu}</Link></li>
+	{/each}
+  </ul>
+</nav>
+
+<style>
+
+	.menu-list, .menu-label, a{
+		color: hsl(0, 0%, 96%);
+	}
+ 
+</style>
+
+<script>
+
+
+import roadtrip from 'roadtrip';
+//on:click="goto(`snippets/${x}`)"
+//const baseUrl = 'http://localhost:5100';
+
+import Link from './Link.html';
+const catsData = {
+	"event": {
+			"menu": "Our Event",
+			"desc": "",
+			"img": ""
+		},
+		"speakers": {
+			"menu": "Speaker Bios",
+			"desc": "",
+			"img": ""
+		},		
+	"faq": {
+			"menu": "Why the Shroud?",
+			"desc": "",
+			"img": ""
+		},
+		"videos": {
+			"menu": "Shroud Videos",
+			"desc": "",
+			"img": ""
+		},
+		"articles": {
+			"menu": "Shroud Articles",
+			"desc": "",
+			"img": ""
+		},
+		"about": {
+			"menu": "About Us",
+			"desc": "",
+			"img": ""
+		},
+		"donate": {
+			"menu": "Donate",
+			"desc": "",
+			"img": ""
+		}					
+}
+
+// let cats = [];
+//   for (let cat in catsData) {
+//   cats.push({id: cat, ...catsData[cat]});
+// }
+// you don't need to do map AND entries - just 1 will do!! Just use [0] for the key, [1] for the value
+ let cats = Object.entries(catsData);
+
+//console.log('cats are now '+JSON.stringify(cats))
+ //each Object.entries(obj) and each [...iterable].
+
+  export default {
+    data() {
+	return { 
+		snippets: [],
+		sectionColors: [],
+		cats: cats,
+	 }
+	},
+	components: {Link
+	},
+ 	onstate({ changed, current, previous }) {
+			// this fires before oncreate, and on every state change.
+			// the first time it runs, `previous` is undefined
+			if (changed.snippets) {
+				console.log('hey snippets have changed');
+			}
+	},
+    oncreate() {
+
+			/* get the colors for each menu item to use in their section */
+			let sections = document.querySelectorAll('nav > ul > li > a');
+			let sectionColors = {};
+			for (let element of sections) {
+				const id = element.parentNode.getAttribute('data-id');
+				const color1 = window.getComputedStyle(element).borderLeftColor;
+				const color2 = window.getComputedStyle(element,':after').backgroundColor;
+				sectionColors[id] = {color1,color2};
+			}
+    	store.set({ cats:cats, sectionColors:sectionColors });
+	},
+    methods: {
+      goto(path) {
+        roadtrip.goto(path);
+      }
+    }
+  }
+</script>

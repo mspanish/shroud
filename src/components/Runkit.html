@@ -1,0 +1,46 @@
+
+  <div id={name}></div>
+
+ <script >
+   import { getRandomWord } from '../utilities.js';
+  export default {
+      data() {
+          return {
+              code: '',
+              title: '',
+          }
+      },
+    computed: {
+        name: ({name}) => {
+            const n = 'eval_'+ getRandomWord(5);
+            return n;
+        }
+    },
+	oncreate() {
+    let code = this.get().code;
+    let title = this.get().title;
+
+    let main = () => {
+  
+      const { name } = this.get();
+    //  console.log('trying to create runkit name is '+name)
+      let element = document.getElementById(name);
+     // let code = element.innerHTML;
+      let notebook = RunKit.createNotebook({
+      // the parent element for the new notebook
+      element: element,
+      title:title,// $snippets[$id].title,
+      // specify the source of the notebook
+      source:code
+      ,
+      theme: "untilted-vb96xz8zr6ek"
+      }) 
+    }
+    ////$snippets[$id].code,
+    setTimeout(function(){
+      main();
+    },200)
+	}
+  }
+</script>
+

@@ -1,0 +1,26 @@
+<a href="{href}" class="LinkComp {cssClass || ''}" on:click="handleHref(href, event)">
+  <slot></slot>
+</a>
+
+<style>
+
+
+
+</style>
+
+<script>
+  import roadtrip from 'roadtrip';
+  export default {
+    data() {
+      return {
+        cssClass: ''
+      }
+    },
+    methods: {
+      handleHref(path, e) {
+        e.preventDefault();
+        roadtrip.goto(path);
+      }
+    }
+  }
+</script>

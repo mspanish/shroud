@@ -1,0 +1,452 @@
+{
+"snippets": [
+{
+	"title": "arrow fn: 0 arguments",
+	"cat": "arrow_functions",
+	"desc": "",
+	"code": "const dog = () => 'Spot'; ;\ndog();",
+	"tags": ["functions"],
+	"refs": [],
+	"spec": "",
+	"img": "",
+	"source": ""
+},
+{
+	"title": "arrow fn: 1 argument",
+	"cat": "arrow_functions",
+	"desc": "",
+	"code": "const addTwo = num => num + 2;\naddTwo(2);",
+	"tags": ["functions"],
+	"refs": [],
+	"spec": "",
+	"img": "",
+	"source": ""
+},
+ {
+	"title": "es6 strings: backtick",
+	"cat": "template_literals",
+	"desc": "",
+	"code": "const str = `my dog is named ${ name }`;",
+	"tags": ["strings"],
+	"refs": [],
+	"spec": "",
+	"img": "",
+	"source": ""
+},
+ {
+	"title": "es6 strings: variables",
+	"cat": "template_literals",
+	"desc": "",
+	"code": "const firstName = 'Marco';\nconst lastName = 'Bello';\nconst fullName = `name is ${ firstName } ${ lastName }`;",
+	"tags": ["strings"],
+	"refs": [],
+	"spec": "",
+	"img": "",
+	"source": ""
+},
+ {
+	"title": "es6 strings: expressions",
+	"cat": "template_literals",
+	"desc": "",
+	"code": "const firstName = '';\nconst fullName = `name is ${ firstName ? firstName : 'Bob'  }`;",
+	"tags": ["strings"],
+	"refs": [],
+	"spec": "",
+	"img": "",
+	"source": ""
+},
+
+{
+	"title": "arrow fn: > 2 arguments",
+	"cat": "arrow_functions",
+	"desc": "",
+	"code": "const dog = (size, name) => size + name ;\ndog('big','Spot');",
+	"tags": ["functions"],
+	"refs": [],
+	"spec": "",
+	"img": "",
+	"source": ""
+},
+{
+	"title": "arrow fn: no curly braces",
+	"cat": "arrow_functions",
+	"desc": "",
+	"code": "const dog = () => 'Spot'; ;\ndog();",
+	"tags": ["functions"],
+	"refs": [],
+	"spec": "",
+	"img": "",
+	"source": ""
+},
+{
+	"title": "arrow fn: curly braces",
+	"cat": "arrow_functions",
+	"desc": "",
+	"code": "const dog = () => {\n const types = ['weiner', 'lab', 'poodle'];\n const ran = Math.random() * Math.floor(types.length);\n const random = Math.floor(ran);\n return types[random];\n}\ndog();",
+	"tags": ["functions"],
+	"refs": [],
+	"spec": "",
+	"img": "",
+	"source": ""
+},
+
+{
+	"title": "object shorthand",
+	"cat": "object_literals",
+	"desc": "",
+	"code": "const id = 3, color = 'red', name = 'pete';\nconst obj = { id, color, name };",
+	"tags": ["objects"],
+	"refs": [],
+	"spec": "",
+	"img": ""
+},
+{
+	"title": "object shallow merge",
+	"cat": "object_literals",
+	"desc": "",
+	"code": "const colorObj = { color: 'purple' };\nconst nameObj = { name: 'Dave'};\nconst obj = { ...colorObj, ...nameObj };",
+	"tags": ["objects"],
+	"refs": [],
+	"spec": "",
+	"img": "",
+	"source": ""
+},
+
+{
+	"title": "object to array",
+	"cat": "array_methods",
+	"desc": "Cool obj → array method: Object.entries()",
+	"body": "<p>The entries() method is a very cool way to create an <b>iterable data structure</b> using key value pairs.</p> <p>One problem I run into with using Svelte is that the #each template block can only take an array, whereas a lot of my data is in objects. The way to do that automatically is by using the <b>entries() method.</b> It's cleaner than running a loop to build a new array...Check it out below.</p>", 
+	"code":"const cats = {\n \"arrow_functions\": {\n \"menu\": \"Arrow Functions\",\n \"links\": [\"link1\", \"link2\"],\n },\n \"template_strings\": {\n \"menu\": \"Template Strings\",\n \"links\": [\"link1\", \"link2\"],\n }}\nconst catsArray = Object.entries(cats);",
+	"tags": ["entries()"],
+	"refs": [],
+	"spec": "",
+	"source": ""
+},
+
+{
+	"title": "like .split('');",
+	"cat": "array_methods",
+	"desc": "",
+	"code": "\n\nArray.from('Stacey')\n\n",
+	"tags": ["Array.from"],
+	"refs": [],
+	"spec": "",
+	"img": "array_from_1",
+	"source": ""
+},
+{
+	"title": "string morpher",
+	"cat": "array_methods",
+	"desc": "wow cool way to adjust all values in an array or create new strings",
+	"code": "\n\nArray.from('Stacey', letter => letter + 'dog')\n\n",
+	"tags": ["Array.from"],
+	"refs": [],
+	"spec": "",
+	"img": "array_from_2",
+	"source": ""
+},
+{
+	"title": "append values",
+	"cat": "array_methods",
+	"desc": "",
+	"code": "\nArray.from([0,2,3], letter => letter + '_dog');\n",
+	"tags": ["Array.from"],
+	"refs": [],
+	"spec": "",
+	"img": "",
+	"source": ""
+},
+{
+	"title": "like_.range()",
+	"cat": "array_methods",
+	"desc": "",
+	"code": "\nArray.from({ length: 5  }, (val, key) => key);\n",
+	"tags": ["Array.from"],
+	"refs": [],
+	"spec": "",
+	"img": "range",
+	"source": ""
+},
+{
+	"title": "repeat value",
+	"cat": "array_methods",
+	"desc": "",
+	"code": "\nArray.from({ length: 4 }, () => 'jack');\n",
+	"tags": ["Array.from"],
+	"refs": [],
+	"spec": "",
+	"img": "array_from_repeat",
+	"source": ""
+},
+{
+	"title": "remove duplicates",
+	"cat": "map_set",
+	"desc": "Easy way to remove duplicates by adding to a Set like _.uniq from lodash.",
+	"code": "\nconst duplicates = [1,2,3,4,4,1,98,202];\nconst uniqs = new Set(duplicates);",
+	"tags": ["set"],
+	"refs": [],
+	"spec": "",
+	"img": "remove_duplicates",
+	"source": ""
+},
+{
+	"title": "remove duplicates",
+	"cat": "array_methods",
+	"desc": "Cool way to remove duplicates via Set then convert back into an array with Array.from",
+	"code": "const duplicates = [1,2,3,4,4,1,98,202];\nArray.from(new Set(duplicates));",
+	"tags": ["Array.from"],
+	"refs": [],
+	"spec": "",
+	"img": "remove_duplicates",
+	"source": ""
+},
+{
+	"title": "entries() with spread",
+	"cat": "array",
+	"desc": "",
+	"code": "\nlet people = ['rick', 'brad', 'ben', 'stacey', 'julio'];\nlet entries = people.entries();\nconsole.log(...entries);\n''\n",
+	"tags": ["entries()"],
+	"refs": [],
+	"spec": "",
+	"img": "",
+	"source": ""
+},
+{
+	"title": "find() first odd",
+	"cat": "array",
+	"desc": "",
+	"code": "\nlet numbers = [1, 2, 3];\nlet oddNumber = numbers.find(x => x % 2 == 1);\noddNumber;\n",
+	"tags": [],
+	"refs": [],
+	"spec": "",
+	"img": "",
+	"source": ""
+},
+{
+	"title": "find()get index",
+	"cat": "array",
+	"desc": "",
+	"code": "\n let people = ['jamie', 'jack', 'isaac'];\n let isaacIndex = people.findIndex(x => x === 'isaac');\n isaacIndex;\n ",
+	"tags": [],
+	"refs": [],
+	"spec": "",
+	"img": "",
+	"source": ""
+},
+{
+	"title": "repeat()",
+	"cat": "array",
+	"desc": "",
+	"code": "\nlet stacey = 'stacey';\nstacey.repeat(3);\n",
+	"tags": [],
+	"refs": [],
+	"spec": "",
+	"img": "",
+	"source": ""
+},
+{
+	"title": "drop decimals",
+	"cat": "numbers",
+	"desc": "",
+	"code": "\nMath.trunc(42.7);\n",
+	"tags": [],
+	"refs": [],
+	"spec": "",
+	"img": "strip_decimals",
+	"source": ""
+},
+{
+	"title": "map() capitalize first letter",
+	"cat": "map_filter_reduce",
+	"desc": "notice how you don't need curly braces in an arrow function when returning just 1 value.",
+	"code": "\n\nconst days = ['sunday', 'monday', 'tuesday', 'wednesday'];\n\ndays.map(day => day[0].toUpperCase() + day.slice(1;\n\ndays;\n",
+	"tags": [],
+	"refs": [],
+	"spec": "",
+	"img": "map_capitalize",
+	"source": ""
+},
+
+{
+	"title": "for/of loop: array",
+	"cat": "iteration",
+	"desc": "",
+	"code": "\nconst cars = ['chevy', 'prius', 'jeep'];\nfor (const car of cars)\n{\n  console.log(car);\n};",
+	"tags": [],
+	"refs": [],
+	"spec": "",
+	"img": "",
+	"source": ""
+},
+
+{
+	"title": "for/of loop: map",
+	"cat": "iteration",
+	"desc": "",
+	"code": "const kids = new Map([['jack', 'boy'], ['suzy', 'girl']]);\n for (const [key, value] of kids) {\n console.log(`Key: ${key} and Value: ${value}`);\n }",
+	"tags": [],
+	"refs": [],
+	"spec": "",
+	"img": "",
+	"source": ""
+},
+
+{
+	"title": "for/of loop: set",
+	"cat": "iteration",
+	"desc": "",
+	"code": "const kids = new Set('jack', 'suzy', 'betty', 'jack');\n \n for (const kid of kids) {\n console.log(kid);\n } ",
+	"tags": [],
+	"refs": [],
+	"spec": "",
+	"img": "",
+	"source": ""
+},
+
+{
+	"title": "for/of loop: string",
+	"cat": "iteration",
+	"desc": "",
+	"code": "const name = 'Antonio';\n\nfor (const letter of name) {\n  console.log(letter);\n }",
+	"tags": [],
+	"refs": [],
+	"spec": "",
+	"img": "",
+	"source": ""
+},
+{
+	"title": "for/of loop: capitalize first letter",
+	"cat": "iteration",
+	"desc": "",
+	"code": "\nconst days = ['sunday', 'monday', 'tuesday', 'wednesday'];\nlet properDays = [];\nfor (let day of days) {\n  properDays.push(day[0].toUpperCase() + day.slice(1));\n};\nproperDays;\n",
+	"tags": [],
+	"refs": [],
+	"spec": "",
+	"img": "",
+	"source": ""
+},
+{
+	"title": "forEach loop: array",
+	"cat": "iteration",
+	"desc": "",
+	"code": "const cars = ['chevy', 'prius', 'jeep'];\n \n cars.forEach(function(car){\n console.log(car);\n }; ",
+	"tags": [],
+	"refs": [],
+	"spec": "",
+	"img": "",
+	"source": ""
+},
+
+{
+	"title": "for/in loop: object",
+	"cat": "iteration",
+	"desc": "",
+	"code": "const kid = {name: 'Billy', 'grade': 4, 'sport': 'tennis'};\n \n for (const property in kid) {\n console.log(property);\n }",
+	"tags": [],
+	"refs": [],
+	"spec": "",
+	"img": "",
+	"source": ""
+},
+{
+	"title": "break in loop",
+	"cat": "iteration",
+	"desc": "",
+	"code": "const cars = ['chevy', 'prius', 'jeep'];\n \n for (const car of cars) {\n if (car == 'prius') break;\n console.log(car);\n };",
+	"tags": [],
+	"refs": [],
+	"spec": "",
+	"img": "",
+	"source": ""
+},
+
+{
+	"title": "continue in loop",
+	"cat": "iteration",
+	"desc": "",
+	"code": "const cars = ['chevy', 'prius', 'jeep'];\n \n for (const car of cars) {\n if (car == 'prius') continue;\n console.log(car);\n }; ",
+	"tags": [],
+	"refs": [],
+	"spec": "",
+	"img": "",
+	"source": ""
+},
+{
+	"title": "return in loop",
+	"cat": "iteration",
+	"desc": "",
+	"code": "const getCars = () => {\n \n const cars = ['chevy', 'prius', 'jeep'];\n \n for (const car of cars) {\n if (car == 'prius') return;\n console.log(car);\n };\n\ngetCars();",
+	"tags": [],
+	"refs": [],
+	"spec": "",
+	"img": "",
+	"source": ""
+},
+
+{
+	"title": "spread operator samples",
+	"cat": "default_rest_spread",
+	"desc": "notice how the console statement displays each element without putting them in an array, and the const <b>spread</b> turns the array into key value pairs. Try changing the const spread to square brackets instead of curly)",
+	"code": "\n\n  const books = [\"Don Quixote\", \"The Hobbit\", \"Alice in Wonderland\", \"Tale of Two Cities\"];\n  console.log(...books)\n  const spread = {...books}\n  spread;\n",
+	"tags": [],
+	"refs": [],
+	"img": "spread_operator",
+	"source": ""
+},
+{
+	"title": "spread operator to concat",
+	"cat": "default_rest_spread",
+	"desc": "",
+	"code": "\nconst fruits = [\"apples\", \"bananas\", \"pears\"];\nconst vegetables = [\"corn\", \"potatoes\", \"carrots\"];\nconst produce =[...fruits, ...vegetables];\nproduce;\n",
+	"tags": [],
+	"refs": [],
+	"spec": "",
+	"img": "spread_concat",
+	"source": ""
+},
+{
+	"title": "rest operator to destructured",
+	"cat": "default_rest_spread",
+	"desc": "this is pretty awmazing - i mean you're creating a new array but also creating individual variables that can be referenced. Very powerful, can do lots of stuff with this",
+	"code": "\nconst names = ['stacey', 'ben', 'julio', 'rick', 'brad']\nconst dudes = [ tester, coder, expert, ...items ] = names;\n\ntester\n\n",
+	"tags": [],
+	"refs": [],
+	"spec": "",
+	"img": "rest_destructured",
+	"source": ""
+},
+{
+	"title": "rest operator for arguments",
+	"cat": "default_rest_spread",
+	"desc": "I indeed had no idea where the arguments object comes from in fns like these, so this will surely help me understand dis shiz",
+	"code": "\nfunction sum(...nums) {\n  let total = 0;  \n  for(const num of nums) {\n    total += num;\n  }\n  return total;\n}\nsum(1,6,3,6);\n",
+	"tags": [],
+	"refs": [],
+	"spec": "",
+	"img": "",
+	"source": ""
+},
+{
+	"title": "rest operator find average",
+	"cat": "default_rest_spread",
+	"desc": "",
+	"code": "\nfunction average(...nums) {\n    let total = 0;\n    \n    for (let num of nums) {\n        total = total + num;       \n    }\n    return (total/nums.length) || 0;\n}\naverage(2, 6);\n",
+	"tags": [],
+	"refs": [],
+	"spec": "",
+	"img": "",
+	"source": ""
+},
+{
+	"title": "map(), filter(), and reduce() chained",
+	"cat": "chaining_methods",
+	"desc": "try refactoring this one using <b>arrow functions</b> where you can. Then try further simplifying by removing any unneeded curly braces, removing unecessary \"return\", and removing any unecessary lines in the arrow functions.",
+	"code": "\nconst watchList = [\n{Director: 'Christopher Nolan', rating: 4},\n{Director: 'James Cameron', rating: 8},\n{Director: 'Christopher Nolan', rating: 9},\n{Director: 'J.J. Abrams', rating: 9},\n]\nlet averageRating  = watchList\n.filter(function(item){\n  return item.Director == \"Christopher Nolan\"\n})\n.map(function(item){\n  return Number(item.rating);\n})\n.reduce((total, amount, index, array) => {\n  total += amount;\n  if( index === array.length-1) { \n    return total/array.length;\n  }else { \n    return total;\n  }\n});\naverageRating;\n",
+	"tags": [],
+	"refs": [],
+	"spec": "",
+	"img": "",
+	"source": ""
+}]
+}

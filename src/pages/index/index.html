@@ -1,0 +1,26 @@
+<div class="content is-medium home">
+
+</div>
+<style>
+
+.content {
+	padding-top:20px;
+	padding-bottom:50px;
+} 
+
+</style>
+
+<script>
+  import roadtrip from 'roadtrip';
+  
+
+  export default {
+    components: { 
+	},
+    methods: {
+      goto(path) {
+        roadtrip.goto(path);
+      }
+    }
+  }
+</script>
