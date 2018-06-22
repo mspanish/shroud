@@ -1756,8 +1756,8 @@ function create_if_block_1(component, ctx) {
 		c: function create() {
 			div = createElement("div");
 			iframe = createElement("iframe");
-			setAttribute(iframe, "border", "");
-			iframe.src = "/tickets.html";
+			iframe.sandbox = "allow-forms allow-scripts";
+			iframe.src = "https://www.tickettailor.com/events/allsaintschurch";
 			setAttribute(iframe, "frameborder", "0");
 			iframe.className = "svelte-4lo20b";
 			addLoc(iframe, file$3, 12, 2, 271);
@@ -1787,7 +1787,7 @@ function create_if_block_2(component, ctx) {
 	return {
 		c: function create() {
 			section = createElement("section");
-			addLoc(section, file$3, 16, 1, 360);
+			addLoc(section, file$3, 16, 1, 426);
 		},
 
 		m: function mount(target, anchor) {
