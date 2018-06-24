@@ -53,6 +53,10 @@ function createText(data) {
 	return document.createTextNode(data);
 }
 
+function createComment() {
+	return document.createComment('');
+}
+
 function addListener(node, event, handler) {
 	node.addEventListener(event, handler, false);
 }
@@ -1588,7 +1592,7 @@ function oncreate$1() {
 			// html = html.replace(/@@/g, '\n');
 			//html = html.replace(/<\/pre>/g, '</pre><div class="cns"></div')
 			comp.set({'desc':html});
-			//comp.addH2Tags(); 
+			comp.addH2Tags(); 
 
 			/* adds our bg colors to spans so we have colorful headings in sections */
 
@@ -1616,17 +1620,19 @@ function store_1() {
 const file$3 = "src\\pages\\post-details\\post-details.html";
 
 function create_main_fragment$3(component, ctx) {
-	var div, text, div_1, div_transition, current;
+	var div, text, div_1, text_1, div_transition, current;
 
 	var if_block = (ctx.details) && create_if_block(component, ctx);
 
+	var if_block_1 = (ctx.lessonTags) && create_if_block_1(component, ctx);
+
 	function select_block_type(ctx) {
-		if (ctx.details[0] == 'event') return create_if_block_1;
-		return create_if_block_2;
+		if (ctx.details[0] == 'event') return create_if_block_2;
+		return create_if_block_3;
 	}
 
 	var current_block_type = select_block_type(ctx);
-	var if_block_1 = current_block_type(component, ctx);
+	var if_block_2 = current_block_type(component, ctx);
 
 	return {
 		c: function create() {
@@ -1634,11 +1640,13 @@ function create_main_fragment$3(component, ctx) {
 			if (if_block) if_block.c();
 			text = createText("\r\n\r\n\r\n\r\n");
 			div_1 = createElement("div");
-			if_block_1.c();
+			if (if_block_1) if_block_1.c();
+			text_1 = createText("\r\n\r\n\t");
+			if_block_2.c();
 			div_1.className = "content is-large desc";
 			addLoc(div_1, file$3, 7, 0, 172);
 			div.id = "postWrap";
-			div.className = "content is-medium svelte-4lo20b";
+			div.className = "content is-medium svelte-1p8pexm";
 			addLoc(div, file$3, 0, 0, 0);
 		},
 
@@ -1647,7 +1655,9 @@ function create_main_fragment$3(component, ctx) {
 			if (if_block) if_block.m(div, null);
 			appendNode(text, div);
 			appendNode(div_1, div);
-			if_block_1.m(div_1, null);
+			if (if_block_1) if_block_1.m(div_1, null);
+			appendNode(text_1, div_1);
+			if_block_2.m(div_1, null);
 			current = true;
 		},
 
@@ -1665,13 +1675,26 @@ function create_main_fragment$3(component, ctx) {
 				if_block = null;
 			}
 
-			if (current_block_type === (current_block_type = select_block_type(ctx)) && if_block_1) {
-				if_block_1.p(changed, ctx);
-			} else {
+			if (ctx.lessonTags) {
+				if (if_block_1) {
+					if_block_1.p(changed, ctx);
+				} else {
+					if_block_1 = create_if_block_1(component, ctx);
+					if_block_1.c();
+					if_block_1.m(div_1, text_1);
+				}
+			} else if (if_block_1) {
 				if_block_1.d(1);
-				if_block_1 = current_block_type(component, ctx);
-				if_block_1.c();
-				if_block_1.m(div_1, null);
+				if_block_1 = null;
+			}
+
+			if (current_block_type === (current_block_type = select_block_type(ctx)) && if_block_2) {
+				if_block_2.p(changed, ctx);
+			} else {
+				if_block_2.d(1);
+				if_block_2 = current_block_type(component, ctx);
+				if_block_2.c();
+				if_block_2.m(div_1, null);
 			}
 		},
 
@@ -1706,7 +1729,8 @@ function create_main_fragment$3(component, ctx) {
 			}
 
 			if (if_block) if_block.d();
-			if_block_1.d();
+			if (if_block_1) if_block_1.d();
+			if_block_2.d();
 		}
 	};
 }
@@ -1721,7 +1745,7 @@ function create_if_block(component, ctx) {
 			text = createText(text_value);
 			h1.id = "post";
 			setStyle(h1, "background-color", ctx.colors.color1);
-			h1.className = "svelte-4lo20b";
+			h1.className = "svelte-1p8pexm";
 			addLoc(h1, file$3, 2, 2, 80);
 		},
 
@@ -1748,8 +1772,108 @@ function create_if_block(component, ctx) {
 	};
 }
 
-// (10:1) {#if details[0] == 'event'}
+// (10:2) {#each lessonTags as tag}
+function create_each_block$1(component, ctx) {
+	var span, text_value = ctx.tag.text, text;
+
+	return {
+		c: function create() {
+			span = createElement("span");
+			text = createText(text_value);
+			span._svelte = { component, ctx };
+
+			addListener(span, "click", click_handler);
+			span.className = "tag";
+			addLoc(span, file$3, 10, 2, 259);
+		},
+
+		m: function mount(target, anchor) {
+			insertNode(span, target, anchor);
+			appendNode(text, span);
+		},
+
+		p: function update(changed, ctx) {
+			if ((changed.lessonTags) && text_value !== (text_value = ctx.tag.text)) {
+				text.data = text_value;
+			}
+
+			span._svelte.ctx = ctx;
+		},
+
+		d: function destroy$$1(detach) {
+			if (detach) {
+				detachNode(span);
+			}
+
+			removeListener(span, "click", click_handler);
+		}
+	};
+}
+
+// (9:1) {#if lessonTags}
 function create_if_block_1(component, ctx) {
+	var each_anchor;
+
+	var each_value = ctx.lessonTags;
+
+	var each_blocks = [];
+
+	for (var i = 0; i < each_value.length; i += 1) {
+		each_blocks[i] = create_each_block$1(component, get_each_context$1(ctx, each_value, i));
+	}
+
+	return {
+		c: function create() {
+			for (var i = 0; i < each_blocks.length; i += 1) {
+				each_blocks[i].c();
+			}
+
+			each_anchor = createComment();
+		},
+
+		m: function mount(target, anchor) {
+			for (var i = 0; i < each_blocks.length; i += 1) {
+				each_blocks[i].m(target, anchor);
+			}
+
+			insertNode(each_anchor, target, anchor);
+		},
+
+		p: function update(changed, ctx) {
+			if (changed.lessonTags) {
+				each_value = ctx.lessonTags;
+
+				for (var i = 0; i < each_value.length; i += 1) {
+					const child_ctx = get_each_context$1(ctx, each_value, i);
+
+					if (each_blocks[i]) {
+						each_blocks[i].p(changed, child_ctx);
+					} else {
+						each_blocks[i] = create_each_block$1(component, child_ctx);
+						each_blocks[i].c();
+						each_blocks[i].m(each_anchor.parentNode, each_anchor);
+					}
+				}
+
+				for (; i < each_blocks.length; i += 1) {
+					each_blocks[i].d(1);
+				}
+				each_blocks.length = each_value.length;
+			}
+		},
+
+		d: function destroy$$1(detach) {
+			destroyEach(each_blocks, detach);
+
+			if (detach) {
+				detachNode(each_anchor);
+			}
+		}
+	};
+}
+
+// (17:1) {#if details[0] == 'event'}
+function create_if_block_2(component, ctx) {
 	var div, iframe;
 
 	return {
@@ -1759,10 +1883,10 @@ function create_if_block_1(component, ctx) {
 			iframe.sandbox = "allow-forms allow-scripts";
 			iframe.src = "https://www.tickettailor.com/events/allsaintschurch";
 			setAttribute(iframe, "frameborder", "0");
-			iframe.className = "svelte-4lo20b";
-			addLoc(iframe, file$3, 12, 2, 271);
+			iframe.className = "svelte-1p8pexm";
+			addLoc(iframe, file$3, 19, 2, 415);
 			div.className = "lesson";
-			addLoc(div, file$3, 10, 1, 243);
+			addLoc(div, file$3, 17, 1, 387);
 		},
 
 		m: function mount(target, anchor) {
@@ -1780,14 +1904,14 @@ function create_if_block_1(component, ctx) {
 	};
 }
 
-// (16:1) {:else}
-function create_if_block_2(component, ctx) {
+// (23:1) {:else}
+function create_if_block_3(component, ctx) {
 	var section;
 
 	return {
 		c: function create() {
 			section = createElement("section");
-			addLoc(section, file$3, 16, 1, 426);
+			addLoc(section, file$3, 23, 1, 570);
 		},
 
 		m: function mount(target, anchor) {
@@ -1809,6 +1933,20 @@ function create_if_block_2(component, ctx) {
 	};
 }
 
+function get_each_context$1(ctx, list, i) {
+	const child_ctx = Object.create(ctx);
+	child_ctx.tag = list[i];
+	child_ctx.each_value = list;
+	child_ctx.tag_index = i;
+	return child_ctx;
+}
+
+function click_handler(event) {
+	const { component, ctx } = this._svelte;
+
+	component.scrollTag(ctx.tag.id);
+}
+
 function Post_details(options) {
 	this._debugName = '<Post_details>';
 	if (!options || (!options.target && !options.root)) throw new Error("'target' is a required option");
@@ -1823,6 +1961,7 @@ function Post_details(options) {
 	if (!('$cats' in this._state)) console.warn("<Post_details> was created without expected data property '$cats'");
 
 
+	if (!('lessonTags' in this._state)) console.warn("<Post_details> was created without expected data property 'lessonTags'");
 	if (!('desc' in this._state)) console.warn("<Post_details> was created without expected data property 'desc'");
 	this._intro = true;
 
