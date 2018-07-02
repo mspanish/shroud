@@ -475,6 +475,12 @@ button {
     letter-spacing: 2px;
 }
 
+.imageLeft {
+  float:left;
+  padding-right: 30px;
+  padding-bottom: 30px;
+}
+
 input[type=submit]:hover {
     background-color: #45a049;
 }
