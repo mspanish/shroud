@@ -1646,7 +1646,7 @@ function create_main_fragment$3(component, ctx) {
 			div_1.className = "content is-large desc";
 			addLoc(div_1, file$3, 7, 0, 172);
 			div.id = "postWrap";
-			div.className = "content is-medium svelte-1p8pexm";
+			div.className = "content is-medium svelte-2rw6gw";
 			addLoc(div, file$3, 0, 0, 0);
 		},
 
@@ -1745,7 +1745,7 @@ function create_if_block(component, ctx) {
 			text = createText(text_value);
 			h1.id = "post";
 			setStyle(h1, "background-color", ctx.colors.color1);
-			h1.className = "svelte-1p8pexm";
+			h1.className = "svelte-2rw6gw";
 			addLoc(h1, file$3, 2, 2, 80);
 		},
 
@@ -1883,7 +1883,7 @@ function create_if_block_2(component, ctx) {
 			iframe.sandbox = "allow-forms allow-scripts";
 			iframe.src = "https://www.tickettailor.com/events/allsaintschurch";
 			setAttribute(iframe, "frameborder", "0");
-			iframe.className = "svelte-1p8pexm";
+			iframe.className = "svelte-2rw6gw";
 			addLoc(iframe, file$3, 19, 2, 415);
 			div.className = "lesson";
 			addLoc(div, file$3, 17, 1, 387);
