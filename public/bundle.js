@@ -31,9 +31,9 @@ function detachNode(node) {
 	node.parentNode.removeChild(node);
 }
 
-function detachBefore(after) {
-	while (after.previousSibling) {
-		after.parentNode.removeChild(after.previousSibling);
+function detachAfter(before) {
+	while (before.nextSibling) {
+		before.parentNode.removeChild(before.nextSibling);
 	}
 }
 
@@ -1070,7 +1070,12 @@ const catsData = {
 			"menu": "Donate",
 			"desc": "",
 			"img": ""
-		}					
+		},				
+		"contact": {
+			"menu": "Contact Us",
+			"desc": "",
+			"img": ""
+		}	
 };
 
 // let cats = [];
@@ -1880,35 +1885,35 @@ function create_if_block_1(component, ctx) {
 
 // (17:1) {#if details[0] == 'event'}
 function create_if_block_2(component, ctx) {
-	var div, raw_after, text, iframe;
+	var div, iframe, text, raw_before;
 
 	return {
 		c: function create() {
 			div = createElement("div");
-			raw_after = createElement('noscript');
-			text = createText(" \r\n\t\t");
 			iframe = createElement("iframe");
+			text = createText("\r\n\t\t");
+			raw_before = createElement('noscript');
 			iframe.sandbox = "allow-forms allow-scripts";
 			iframe.src = "https://www.tickettailor.com/events/allsaintschurch";
 			setAttribute(iframe, "frameborder", "0");
 			iframe.className = "svelte-2rw6gw";
-			addLoc(iframe, file$3, 19, 2, 428);
+			addLoc(iframe, file$3, 19, 2, 414);
 			div.className = "lesson";
 			addLoc(div, file$3, 17, 1, 387);
 		},
 
 		m: function mount(target, anchor) {
 			insertNode(div, target, anchor);
-			appendNode(raw_after, div);
-			raw_after.insertAdjacentHTML("beforebegin", ctx.desc);
-			appendNode(text, div);
 			appendNode(iframe, div);
+			appendNode(text, div);
+			appendNode(raw_before, div);
+			raw_before.insertAdjacentHTML("afterend", ctx.desc);
 		},
 
 		p: function update(changed, ctx) {
 			if (changed.desc) {
-				detachBefore(raw_after);
-				raw_after.insertAdjacentHTML("beforebegin", ctx.desc);
+				detachAfter(raw_before);
+				raw_before.insertAdjacentHTML("afterend", ctx.desc);
 			}
 		},
 
@@ -1927,7 +1932,7 @@ function create_if_block_3(component, ctx) {
 	return {
 		c: function create() {
 			section = createElement("section");
-			addLoc(section, file$3, 23, 1, 583);
+			addLoc(section, file$3, 23, 1, 582);
 		},
 
 		m: function mount(target, anchor) {
