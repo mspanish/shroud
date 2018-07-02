@@ -1070,12 +1070,7 @@ const catsData = {
 			"menu": "Donate",
 			"desc": "",
 			"img": ""
-		},				
-		"contact": {
-			"menu": "Contact Us",
-			"desc": "",
-			"img": ""
-		}	
+		}
 };
 
 // let cats = [];
