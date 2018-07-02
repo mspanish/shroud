@@ -31,6 +31,12 @@ function detachNode(node) {
 	node.parentNode.removeChild(node);
 }
 
+function detachBefore(after) {
+	while (after.previousSibling) {
+		after.parentNode.removeChild(after.previousSibling);
+	}
+}
+
 function reinsertChildren(parent, target) {
 	while (parent.firstChild) target.appendChild(parent.firstChild);
 }
@@ -1874,27 +1880,37 @@ function create_if_block_1(component, ctx) {
 
 // (17:1) {#if details[0] == 'event'}
 function create_if_block_2(component, ctx) {
-	var div, iframe;
+	var div, raw_after, text, iframe;
 
 	return {
 		c: function create() {
 			div = createElement("div");
+			raw_after = createElement('noscript');
+			text = createText(" \r\n\t\t");
 			iframe = createElement("iframe");
 			iframe.sandbox = "allow-forms allow-scripts";
 			iframe.src = "https://www.tickettailor.com/events/allsaintschurch";
 			setAttribute(iframe, "frameborder", "0");
 			iframe.className = "svelte-2rw6gw";
-			addLoc(iframe, file$3, 19, 2, 415);
+			addLoc(iframe, file$3, 19, 2, 428);
 			div.className = "lesson";
 			addLoc(div, file$3, 17, 1, 387);
 		},
 
 		m: function mount(target, anchor) {
 			insertNode(div, target, anchor);
+			appendNode(raw_after, div);
+			raw_after.insertAdjacentHTML("beforebegin", ctx.desc);
+			appendNode(text, div);
 			appendNode(iframe, div);
 		},
 
-		p: noop,
+		p: function update(changed, ctx) {
+			if (changed.desc) {
+				detachBefore(raw_after);
+				raw_after.insertAdjacentHTML("beforebegin", ctx.desc);
+			}
+		},
 
 		d: function destroy$$1(detach) {
 			if (detach) {
@@ -1911,7 +1927,7 @@ function create_if_block_3(component, ctx) {
 	return {
 		c: function create() {
 			section = createElement("section");
-			addLoc(section, file$3, 23, 1, 570);
+			addLoc(section, file$3, 23, 1, 583);
 		},
 
 		m: function mount(target, anchor) {
