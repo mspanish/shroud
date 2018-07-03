@@ -474,8 +474,15 @@ button {
     margin-bottom: 20px;
     letter-spacing: 2px;
 }
-
+.clear {
+  clear:both;
+}
+.top20 {
+  padding-top:20px;
+}
 .imageLeft {
+  margin-top:-10px;
+  max-width: 400px !important;
   float:left;
   padding-right: 30px;
   padding-bottom: 30px;
