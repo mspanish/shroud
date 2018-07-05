@@ -16,12 +16,18 @@ All Saints Episcopal is sponsoring the event, but we ask that anyone who is able
 
 <p>Please RSVP to our Shroud Event here. Let us know which day you'd like to attend (Aug 1 or Aug 2) and how many people will be attending!</p>
 
-<form name="contact" class="formy" netlify>
-        <input onfocus="this.value=''"  type="text" name="name"  placeholder="name" value="name">
-        <input onfocus="this.value=''"  name="email" placeholder="email" value="email">
-    
-        <textarea type="text" placeholder="type your message here" name="message" value="message" rows="4" cols="4"></textarea>
-       
-   
-    <button type="submit">submit</button>
- </form>
+<form class="formy" name="contact" method="POST" netlify>
+        <p>
+        <label>Name: <input type="text" name="name" /></label>
+              </p>
+    <p>
+          <label>Email: <input type="text" name="email" /></label>
+        </p>
+        <p>
+          <label>Message: <textarea name="message"></textarea></label>
+        </p>
+
+        <p>
+          <button type="submit">Send</button>
+        </p>
+</form>
