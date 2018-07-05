@@ -31,12 +31,6 @@ function detachNode(node) {
 	node.parentNode.removeChild(node);
 }
 
-function detachAfter(before) {
-	while (before.nextSibling) {
-		before.parentNode.removeChild(before.nextSibling);
-	}
-}
-
 function reinsertChildren(parent, target) {
 	while (parent.firstChild) target.appendChild(parent.firstChild);
 }
@@ -69,10 +63,6 @@ function addListener(node, event, handler) {
 
 function removeListener(node, event, handler) {
 	node.removeEventListener(event, handler, false);
-}
-
-function setAttribute(node, attribute, value) {
-	node.setAttribute(attribute, value);
 }
 
 function setStyle(node, key, value) {
@@ -1880,35 +1870,23 @@ function create_if_block_1(component, ctx) {
 
 // (17:1) {#if details[0] == 'event'}
 function create_if_block_2(component, ctx) {
-	var div, iframe, text, raw_before;
+	var div;
 
 	return {
 		c: function create() {
 			div = createElement("div");
-			iframe = createElement("iframe");
-			text = createText("\r\n\t\t");
-			raw_before = createElement('noscript');
-			iframe.sandbox = "allow-forms allow-scripts";
-			iframe.src = "https://www.tickettailor.com/events/allsaintschurch";
-			setAttribute(iframe, "frameborder", "0");
-			iframe.className = "svelte-2rw6gw";
-			addLoc(iframe, file$3, 19, 2, 414);
 			div.className = "lesson";
 			addLoc(div, file$3, 17, 1, 387);
 		},
 
 		m: function mount(target, anchor) {
 			insertNode(div, target, anchor);
-			appendNode(iframe, div);
-			appendNode(text, div);
-			appendNode(raw_before, div);
-			raw_before.insertAdjacentHTML("afterend", ctx.desc);
+			div.innerHTML = ctx.desc;
 		},
 
 		p: function update(changed, ctx) {
 			if (changed.desc) {
-				detachAfter(raw_before);
-				raw_before.insertAdjacentHTML("afterend", ctx.desc);
+				div.innerHTML = ctx.desc;
 			}
 		},
 
@@ -1920,14 +1898,14 @@ function create_if_block_2(component, ctx) {
 	};
 }
 
-// (23:1) {:else}
+// (22:1) {:else}
 function create_if_block_3(component, ctx) {
 	var section;
 
 	return {
 		c: function create() {
 			section = createElement("section");
-			addLoc(section, file$3, 23, 1, 582);
+			addLoc(section, file$3, 22, 1, 449);
 		},
 
 		m: function mount(target, anchor) {
