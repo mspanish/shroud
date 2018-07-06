@@ -1027,7 +1027,7 @@ Link.prototype._checkReadOnly = function _checkReadOnly(newState) {
 
 const catsData = {
 	"event": {
-			"menu": "Our Events",
+			"menu": "Event Sign Up",
 			"desc": "",
 			"img": ""
 		},
