@@ -1047,7 +1047,7 @@ const catsData = {
 			"img": ""
 		},
 		"articles": {
-			"menu": "Shroud Articles",
+			"menu": "Shroud Resources",
 			"desc": "",
 			"img": ""
 		},
@@ -1567,14 +1567,64 @@ var methods$3 = {
 				arr.push({text: tag.textContent, id: tagId });	
 			}
 			this.set({ lessonTags: arr });
-		}
+		},
+		checkForArticles(id,articles) {
+			if (id == 'articles') {
+				
+				let tbody = document.getElementById('articles');
+
+				for (let article of articles) {
+		
+					let row = `<tr>
+						<td><a  href="${ article.url }" target="_blank">${ article.title }</a></td>
+						<td>${ article.author}</td>
+						<td>${ article.cat}</td>
+					</tr>`;
+					tbody.insertAdjacentHTML('beforeend', row);
+				}
+			}			
+		},
+		checkForVideos(id,videos) {
+			if (id == 'videos') {
+					
+					let tbody = document.getElementById('videos');
+
+					for (let video of videos) {
+			
+						let row = `<tr>
+							<td><a href="${ video.url }" target="_blank"><img class="videoThumb" src="../img/${ video.img }.png"/></a></td>
+							<td><a href="${ video.url }" target="_blank"> ${ video.title }</a></td>
+							<td>${ video.platform}</td>
+							<td class="small">${ video.length}</td>
+							<td>${ video.price}</td>
+						</tr>`;
+						tbody.insertAdjacentHTML('beforeend', row);
+					}
+				}			
+		}		
 };
 
 function oncreate$1() {
 
+	
 
+	const videos = [
+		{img: 'russ', url: 'https://shroudstory.com/2014/12/14/russ-breault-the-shroud-of-turin-in-fifteen-minutes/', title: ' Russ Breault on the Shroud of Turin', platform: 'youtube', length: '15 minutes', price: 'free'},
+		{img: 'barrie', url: 'https://shroudstory.com/2013/05/03/barrie-schwortz-tedx-via-della-conciliazione-talk/', title: 'Barrie Schwortz Ted Talk', platform: 'youtube', length: '14 minutes', price: 'free'},
+		{img: 'face', url: 'https://vimeo.com/47220836', title: 'The Real Face of Jesus - History Channel', platform: 'vimeo', length: '90 minutes', price: 'free'},
+		{img: 'unwrap', url: 'https://www.youtube.com/watch?v=YWyiZtagxX8', title: 'Unwrapping The Shroud of Turin New Evidence - Discovery Channel', platform: 'vimeo', length: '43 minutes', price: 'free'},
+
+	];
+	const articles = [
+	{ url: 'http://shroud.com/', title: 'Shroud of Turin site', author: 'Barrie Schwortz', cat: 'news & articles'},
+		{ url: 'https://manoftheshroud.wordpress.com/', title: 'Man of the Shroud', author: 'White & Mangum', cat: 'podcast & blog'},
+		{ url: 'https://shroudstory.com', title: 'Shroud Story', author: 'Dan Porter', cat: 'blog'},
+	];		
 	const state = store.get();
 	const id = state.id;
+	console.log('dawg id is '+id);
+	console.log('id is '+id);
+
 	const comp = this;
 	const elmnt = document.getElementById("postWrap");
 	elmnt.scrollIntoView();	
@@ -1606,7 +1656,11 @@ function oncreate$1() {
 				}
 				//section.insertAdjacentHTML('beforeBegin', '<hr />');
 			});
+
+			comp.checkForArticles(id,articles);
+			comp.checkForVideos(id,videos);
 		});
+       
 
 	}
 function store_1() {
