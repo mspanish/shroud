@@ -1613,6 +1613,8 @@ function oncreate$1() {
 		{img: 'barrie', url: 'https://shroudstory.com/2013/05/03/barrie-schwortz-tedx-via-della-conciliazione-talk/', title: 'Barrie Schwortz Ted Talk', platform: 'youtube', length: '14 minutes', price: 'free'},
 		{img: 'face', url: 'https://vimeo.com/47220836', title: 'The Real Face of Jesus - History Channel', platform: 'vimeo', length: '90 minutes', price: 'free'},
 		{img: 'unwrap', url: 'https://www.youtube.com/watch?v=YWyiZtagxX8', title: 'Unwrapping The Shroud of Turin New Evidence - Discovery Channel', platform: 'youtube', length: '43 minutes', price: 'free'},
+		{img: 'cold', url: 'https://tubitv.com/movies/319148/cold_case_the_shroud_of_turin', title: 'Cold Case - Shroud of Turin (in Italian, subtitled)', platform: 'tubitv', length: '72 minutes', price: 'free'},
+		
 
 	];
 	const articles = [
