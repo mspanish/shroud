@@ -386,6 +386,10 @@ pre {
   /* MOBILE!!!!!!!!!!!!!!!!! */
    @media screen and (max-width: 1024px) {
 
+    .lesson img {
+      max-width: 60%;
+    }
+
     .tag {
       font-size:1.5rem;
     }
@@ -441,6 +445,12 @@ pre {
     }
 
   
+  }
+
+  @media screen and (max-width: 900px) {
+    .lesson img {
+      max-width: 90%;
+    }
   }
 
    /*    END MOBILE!!!!!!!!!!!!!!!! */
