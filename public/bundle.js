@@ -1592,7 +1592,7 @@ var methods$3 = {
 					for (let video of videos) {
 			
 						let row = `<tr>
-							<td><a href="${ video.url }" target="_blank"><img class="videoThumb" src="../img/${ video.img }.png"/></a></td>
+							<td><a href="${ video.url }" target="_blank"><img width="200" class="videoThumb" src="../img/${ video.img }.png"/></a></td>
 							<td><a href="${ video.url }" target="_blank"> ${ video.title }</a></td>
 							<td>${ video.platform}</td>
 							<td class="small">${ video.length}</td>
