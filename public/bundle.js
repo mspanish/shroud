@@ -1621,7 +1621,7 @@ function oncreate$1() {
 	//		{url: '', title: '', author: '', cat: ''},	
 	const articles = [  
 	{ url: 'http://shroud.com/', title: 'Shroud of Turin site', author: 'Barrie Schwortz', cat: 'news & articles'},
-		{ url: 'https://manoftheshroud.wordpress.com/', title: 'Man of the Shroud', author: 'White & Mangum', cat: 'podcast & blog'},
+		{ url: 'https://manoftheshroud.wordpress.com/', title: 'Who Is the Man of the Shroud?', author: 'White & Mangum', cat: 'podcast & blog'},
 		{ url: 'https://shroudstory.com', title: 'Shroud Story', author: 'Dan Porter', cat: 'blog'},
 		{ url: 'https://www.nationalreview.com/2016/04/shroud-turin-jesus-christ-blood-relic-sudarium-oviedo/', title: 'The Shroud of Turin, Authenticated Again', author: 'Myra Adams', cat: 'article'},	
 		{ url: 'https://www.catholicworldreport.com/2015/04/01/the-other-shroud-of-christ/', title: 'The “Other” Shroud of Christ (Sudarium)', author: 'Mary Jo Anderson', cat: 'article'},	
