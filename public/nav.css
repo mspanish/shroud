@@ -538,9 +538,6 @@ thead {
   vertical-align: bottom;
 }
 }
-td {
-  max-width: 400px;
-}
 /*
 striping:
  even - #fff (white)
@@ -583,5 +580,6 @@ th {
 }
 
 .videoThumb {
-	max-width: 200px !important;
+  width: 200px !important;
+  
 }
