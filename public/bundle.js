@@ -1621,6 +1621,7 @@ function oncreate$1() {
 	]; 
 	//		{url: '', title: '', author: '', cat: ''},	
 	const articles = [  
+		{url: 'https://www.catholic.com/magazine/print-edition/trial-of-the-shroud-of-turin', title: 'Trial of the Shroud of Turin', author: 'Lawrence E. Schauf', cat: 'article'},
 	{ url: 'http://shroud.com/', title: 'Shroud of Turin site', author: 'Barrie Schwortz', cat: 'news & articles'},
 		{ url: 'https://manoftheshroud.wordpress.com/', title: 'Who Is the Man of the Shroud?', author: 'White & Mangum', cat: 'podcast & blog'},
 		{ url: 'https://shroudstory.com', title: 'Shroud Story', author: 'Dan Porter', cat: 'blog'},	
