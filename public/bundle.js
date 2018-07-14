@@ -1636,9 +1636,9 @@ function oncreate$1() {
 		{url: 'https://www.shroud.com/pdfs/ohiomaloneypaper.pdf', title: 'What Went Wrong With the Shroud’s Radiocarbon Date?', author: 'Paul C. Maloney', cat: 'pdf'},
 		{url: 'https://www.scribd.com/doc/315981446/2012-07-26-Yannick-Clement-the-Evidence-of-the-Bloodstains', title: 'Don`t forget the evidence of the bloodstains!', author: 'Yannick Clement', cat: 'article'},
 		{url: 'http://shroudinquiry.com', title: 'Shroud Inquiry', author: 'Don Vickers', cat: 'website'},	
-		{url: 'http://www.shroud.com/pdfs/stlemarinellippt.pdf', title: 'The Shroud and the iconography of Christ', author: 'Emanuela Marinelli', cat: 'pdf'},	
-	    
-
+		{url: 'http://www.shroud.com/pdfs/stlemarinellippt.pdf', title: 'The Shroud and the iconography of Christ (images)', author: 'Emanuela Marinelli', cat: 'pdf'},	
+		{url: 'http://www.shroud.com/pdfs/stlemarinellipaper.pdf', title: 'The Shroud and the iconography of Christ (article)', author: 'Emanuela Marinelli', cat: 'pdf'},
+		{url: 'http://www.shroud.com/pdfs/marinellivppt.pdf', 'title': 'The setting for the radiocarbon dating of the Shroud', author: 'Emanuela Marinelli', cat: 'pdf'},
 	];		
 	const state = store.get();
 	const id = state.id;
