@@ -1623,7 +1623,9 @@ function oncreate$1() {
 	const articles = [  
 		{url: 'https://www.catholic.com/magazine/print-edition/trial-of-the-shroud-of-turin', title: 'Trial of the Shroud of Turin', author: 'Lawrence E. Schauf', cat: 'article'},
 	{ url: 'http://shroud.com/', title: 'Shroud of Turin site', author: 'Barrie Schwortz', cat: 'news & articles'},
+	{url: 'http://shroudresearch.net/conference-2017.html', title: '2017 Pasco Shroud Conference', author: 'various', cat: 'articles & videos'},	
 		{ url: 'https://manoftheshroud.wordpress.com/', title: 'Who Is the Man of the Shroud?', author: 'White & Mangum', cat: 'podcast & blog'},
+		{url: 'http://shroud.com/bstsmain.htm', title: 'British Society for the Turin Shroud', author: 'various', cat: 'article'},	
 		{ url: 'https://shroudstory.com', title: 'Shroud Story', author: 'Dan Porter', cat: 'blog'},	
 		{ url: 'http://shroudofturin.com/Resources/CRTSUM.pdf', title: 'A Critical Summary of Observations, Data and Hypotheses', author: 'Dr. John Jackson', cat: 'pdf'},
 		{url: 'http://shroudencounter.com/worddocuments/Fact_Sheet.pdf', title: 'Shroud Fact Sheet', author: 'Russ Breault', cat: 'pdf'},

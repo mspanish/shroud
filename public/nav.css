@@ -557,6 +557,7 @@ striping:
   background-color: transparent;
   padding-left:15px;
   line-height:2;
+  word-break: break-all;
 }
 .pure-table-odd td {
   background-color: #f2f2f2;
