@@ -1641,6 +1641,9 @@ function oncreate$1() {
 		{url: 'http://www.shroud.com/pdfs/stlemarinellippt.pdf', title: 'The Shroud and the iconography of Christ (images)', author: 'Emanuela Marinelli', cat: 'pdf'},	
 		{url: 'http://www.shroud.com/pdfs/stlemarinellipaper.pdf', title: 'The Shroud and the iconography of Christ (article)', author: 'Emanuela Marinelli', cat: 'pdf'},
 		{url: 'http://www.shroud.com/pdfs/marinellivppt.pdf', 'title': 'The setting for the radiocarbon dating of the Shroud', author: 'Emanuela Marinelli', cat: 'pdf'},
+		{url: 'https://www.shroud.com/pdfs/kearse.pdf', title: 'Blood on the Shroud of Turin: An Immunological Review', author: 'Kelly P. Kearse', cat: 'pdf'},	
+		
+		
 	];		
 	const state = store.get();
 	const id = state.id;
