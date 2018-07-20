@@ -1652,6 +1652,7 @@ function oncreate$1() {
 		{url: 'http://www.lastampa.it/2012/07/03/vaticaninsider/the-holy-shroud-one-big-bang-and-the-body-was-gone-3Nt6C7kPg9oMxFceRWVWlL/pagina.html', title: 'The Holy Shroud: One Big Bang and the body was gone',  author: 'Giuseppe Baldacchini', cat: 'article'},	
 		{url: 'https://www.shroud.com/fanti3en.pdf', title: 'Results of a probabilistic model', author: 'Fanti & Emanuelli', cat: 'pdf'},
 		{url: 'http://www.reviewofreligions.org/2242/the-turin-shroud-%E2%80%93-a-genuine-article/', title: 'Shroud of Turin - A Genuine Article (1997)', author: 'Basit Ahmad', cat: 'article'},
+		{url: 'http://www.sindone.info/TYRER1.PDF', title: 'Looking at the Turin Shroud as a Textile (1981)', author: 'John Tyrer', cat: 'pdf'},
 	
 
 	];		
