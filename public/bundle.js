@@ -1651,6 +1651,9 @@ function oncreate$1() {
 		{url: 'http://www.sindone.info/BALDAKI2.PDF', title: 'Religions, Christianity, and Shroud', author: 'Giuseppe Baldacchini', cat: 'pdf'},
 		{url: 'http://www.lastampa.it/2012/07/03/vaticaninsider/the-holy-shroud-one-big-bang-and-the-body-was-gone-3Nt6C7kPg9oMxFceRWVWlL/pagina.html', title: 'The Holy Shroud: One Big Bang and the body was gone',  author: 'Giuseppe Baldacchini', cat: 'article'},	
 		{url: 'https://www.shroud.com/fanti3en.pdf', title: 'Results of a probabilistic model', author: 'Fanti & Emanuelli', cat: 'pdf'},
+		{url: 'http://www.reviewofreligions.org/2242/the-turin-shroud-%E2%80%93-a-genuine-article/', title: 'Shroud of Turin - A Genuine Article (1997)', author: 'Basit Ahmad', cat: 'article'},
+	
+
 	];		
 	const state = store.get();
 	const id = state.id;
