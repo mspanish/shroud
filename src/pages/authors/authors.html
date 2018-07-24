@@ -1,0 +1,72 @@
+<div class="content is-medium home">
+<h1>Shroud Discussion Authors</h1>
+
+<table class="pure-table">
+	<thead>
+	  <tr>
+		<th>name</th>
+		<th>number posts</th>
+	  </tr>
+	</thead>
+	<!-- <tfoot>
+	  <tr>
+		<th>name</th>
+		<th>subject</th>
+	  </tr>
+	</tfoot> -->
+	<tbody id='authors'>
+    {#if $authors && $authors.length > 0}
+    {#each $authors as author}
+    <tr>
+      <td><Link href="/authors/{author.name}">{author.name}</Link></td>
+      <td>{author.ct}
+    </tr>
+    {/each}
+    {/if}
+	  </tbody>
+</table>
+
+
+</div>
+<style>
+
+.content {
+	padding-top:20px;
+	padding-bottom:50px;
+} 
+
+</style>
+
+<script>
+  import roadtrip from 'roadtrip';
+  import { fade } from 'svelte-transitions';		
+  import Link from '../../components/Link.html';
+
+  export default {
+    transitions: { fade },
+    store: () => store,
+    components: { Link
+  
+	},
+    methods: {
+      goto(path) {
+        roadtrip.goto(path);
+      }
+    },
+    oncreate() {
+      let right = document.getElementsByClassName('right')[0];
+      if (right) console.log('GOT RIGHT')
+      right.style.backgroundColor = '#f1ebda';
+      right.style.backgroundImage = 'none';
+      right.classList.remove('has-background-white-ter')
+      
+      let urly = './data/authors.json'
+      fetch(urly).then(function(res) {
+      return res.json() })
+      .then( json => {
+       store.set({authors: json});
+     //  console.table(json)
+			})
+    }
+  }
+</script>
