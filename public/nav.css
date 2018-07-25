@@ -620,3 +620,7 @@ th {
   font-family: monospace;
   font-size:1.3rem;
 }
+.right10 {
+  padding-left: 10px;
+  font-size: 1rem;
+}

@@ -1,5 +1,5 @@
 <div class="content is-medium home">
-<h1>Shroud Discussion Authors</h1>
+<h1 class="auth">Shroud Discussion Authors</h1>
 
 <table class="pure-table">
 	<thead>
@@ -34,14 +34,21 @@
 	padding-top:20px;
 	padding-bottom:50px;
 } 
+.auth {
+  color: black;
+  -webkit-text-fill-color: black;
+}
 
+td {
+	font-family: 'Montserrat', sans-serif;
+}
 </style>
 
 <script>
   import roadtrip from 'roadtrip';
   import { fade } from 'svelte-transitions';		
   import Link from '../../components/Link.html';
-  import startCase from '../../utilities.js';
+  //import { startCase } from '../../utilities.js';
 
   export default {
     transitions: { fade },

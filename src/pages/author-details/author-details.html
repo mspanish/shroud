@@ -1,5 +1,5 @@
 <div transition:fade id="postWrap" class="content is-medium">
- {$id}
+ <h1>{author_name}</h1>
 
  <table class="pure-table">
 		<thead>
@@ -48,7 +48,7 @@
 			<tr>
 			  <td>{cat.name}</td>
 			  <td class="posting">{post.post}</td>
-			  <td>{post.date}</td>			  
+			  <td class="date">{post.date}</td>			  
 			</tr>
 			{/each}
 		
@@ -91,14 +91,14 @@ ol > li {
 h1 {
 		padding: 10px;
 		padding-left: 50px;
-		color:  white;
+		color:  black;
 		border-radius: 0px;
 		border-top-right-radius: 20px;
     /* border-bottom-right-radius: 20px; */
 		margin-bottom:0;
 		margin-top: 5px;
 		box-shadow: 2px 2px 15px #ccc;
-		-webkit-text-fill-color: white;
+		-webkit-text-fill-color: black;
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: black;
     -webkit-text-stroke-width: .2px;
@@ -115,15 +115,18 @@ h3 {
 	padding-top:10px;
 	padding-bottom:10px;
 	border-bottom: solid 1px #ccc;
+	font-family: 'Montserrat', sans-serif;
 }
-.authorName {
-	font-style:bold;
+
+td {
+	font-family: 'Montserrat', sans-serif;
 }
 
 </style> 
 
 <script >
 		import { fade } from 'svelte-transitions';		
+		import { startCase } from '../../utilities.js';
   
  
   export default {
@@ -132,14 +135,59 @@ h3 {
     components:{ 
 	}, 
     methods: {
+		convertTimeformat(time) {
+			var hours = Number(time.match(/^(\d+)/)[1]);
+			var minutes = Number(time.match(/:(\d+)/)[1]);
+			var  AMPM = time.match(/\s(.*)$/)[1];
+			if (AMPM == "pm" && hours < 12) hours = hours + 12;
+			if (AMPM == "am" && hours == 12) hours = hours - 12;
+			var sHours = hours.toString();
+			var sMinutes = minutes.toString();
+			if (hours < 10) sHours = "0" + sHours;
+			if (minutes < 10) sMinutes = "0" + sMinutes;
+			return sHours + ":" + sMinutes;
+		},
+		shortenDates() {
+			let dates = document.getElementsByClassName('date');
+			let i = 0;
+			for (let date of dates) {
+		
+				let el = date;
+				date = date.textContent.toLowerCase();
+				date = date.split(' ');
+				let ml={
+					'january': '01',
+					'february': '02',
+					'march': '03',
+					'april': '04',
+					'may': '05',
+					'june': '06',
+					'july': '07',
+					'august': '08',
+					'september': '09',
+					'october': '10',
+					'november': '11',
+					'december': '12'
+				}
+				let minutes = date[4] + ' '+date[5];
+				//let mins = this.convertTimeformat(minutes)
+				let day = date[1].replace(',', '')
+				if (day.length == 1) day = '0'+day;
+				let str = date[2] + '-'+  ml[date[0]] + '-' + day;
+				// +  ':'+mins;
+				//str = new Date(str).toISOString();
+				dates[i].innerHTML = '<span>'+ str + '</span><span class="right10">'+minutes+'</span>';
+				i++;
+			}
+		},
 		addParagraphBreaks() {
 			let comp = this;
 			let postings = document.getElementsByClassName('posting');
-			console.log('got postings? '+postings)
+			//console.log('got postings? '+postings)
 			let j = 0;
 
 			const authorsArr  = ['david', 'hugh', 'dan', 'colin', 'yannick', 'charles', 'daveb', 'max', 'stephen', 'mario', 'mark', 'antonio', 'john', 'giulio', 'louis', 'anoxie', 'dave', 'kelly', 'barry', 'barrie', 'russ', 'joe', 'colinsberry', 'ron'];
-			const scholars = ['zugibe', 'wesselow', 'piczak', 'piczek', 'benford','vignon', 'bucklin', 'marino','rolfe', 'meacham', 'fanti', 'rogers', 'adler', 'heller', 'mccrone', 'jackson', 'strup', 'enea']
+			const scholars = ['rucker','zugibe', 'wesselow', 'piczak', 'piczek', 'benford','vignon', 'bucklin', 'marino','rolfe', 'meacham', 'fanti', 'rogers', 'adler', 'heller', 'mccrone', 'jackson', 'strup', 'enea']
 			const shroudWords = ['pray', 'codex', 'tomb', 'cloth', 'textile', 'shroud', 'woven', 'ancient', 'formation', 'pollen', 'dna']
 			const bloodWords = ['blood', 'bloodstains', 'bloodstain', 'bloody', 'wounds'];
 			const holyWords = ['christ', 'yeshua','jesus', 'god', 'holy', 'spirit', 'trinity', 'lord', 'lords']
@@ -167,7 +215,7 @@ h3 {
 				
 					let line = lines[i] || '';	
 					//console.log(word)
-					if (authorsArr.includes(word.trim().toLowerCase().replace('“', '').replace(',', '').replace('.', ''))) {
+					if (authorsArr.includes(word.trim().toLowerCase().replace('-','').replace('“', '').replace(',', '').replace('.', ''))) {
 						word = '<span class="authorName">'+word+'</span>';
 					}
 					if (scholars.includes(word.trim().toLowerCase().replace('“', '').replace('’s', '').replace(',', '').replace('.', ''))) {
@@ -232,7 +280,13 @@ h3 {
 			return tempArray;
 		}
     },
-
+	computed: {
+		author_name: ( { $id }) => {
+		let name = $id.replace(/_/g, ' ');
+			name = startCase(name);
+		return name 
+		}
+	},
 
 	oncreate() {
 		let right = document.getElementsByClassName('right')[0];
@@ -259,6 +313,7 @@ h3 {
 			 setTimeout(() => {
 			   console.log('adding Par.breaks')
 				comp.addParagraphBreaks();
+				comp.shortenDates();
 			}, 2000);
 			store.set({author: {name: id, cats: arr} })
 
