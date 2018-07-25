@@ -596,6 +596,9 @@ th {
 .authorName {
   font-weight:bold;
 }
+.linky {
+  color: blue;
+}
 .blood {
   font-weight: bold;
   font-family: monospace;

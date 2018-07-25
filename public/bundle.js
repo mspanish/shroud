@@ -1864,6 +1864,10 @@ return name
 }
 
 var methods$4 = {
+		moveTo(id) {
+			let elmnt = document.getElementById(id);
+			elmnt.scrollIntoView();	
+		},
 		convertTimeformat(time) {
 			var hours = Number(time.match(/^(\d+)/)[1]);
 			var minutes = Number(time.match(/:(\d+)/)[1]);
@@ -2186,10 +2190,13 @@ function create_each_block$2(component, ctx) {
 			text_1 = createText("\r\n\t\t  ");
 			td_1 = createElement("td");
 			text_2 = createText(text_2_value);
-			td.className = "svelte-vbobyl";
+			td._svelte = { component, ctx };
+
+			addListener(td, "click", click_handler);
+			td.className = "linky svelte-vbobyl";
 			addLoc(td, file$4, 20, 4, 406);
 			td_1.className = "svelte-vbobyl";
-			addLoc(td_1, file$4, 21, 4, 431);
+			addLoc(td_1, file$4, 21, 4, 473);
 			addLoc(tr, file$4, 19, 2, 396);
 		},
 
@@ -2207,6 +2214,7 @@ function create_each_block$2(component, ctx) {
 				text.data = text_value;
 			}
 
+			td._svelte.ctx = ctx;
 			if ((changed.$author) && text_2_value !== (text_2_value = ctx.cat.len)) {
 				text_2.data = text_2_value;
 			}
@@ -2216,6 +2224,8 @@ function create_each_block$2(component, ctx) {
 			if (detach) {
 				detachNode(tr);
 			}
+
+			removeListener(td, "click", click_handler);
 		}
 	};
 }
@@ -2284,7 +2294,7 @@ function create_if_block$1(component, ctx) {
 
 // (30:0) {#each $author.cats as cat}
 function create_each_block_1(component, ctx) {
-	var table, thead, tr, th, text, text_1, th_1, text_2, text_3, th_2, text_4, text_7, tbody;
+	var table, thead, tr, th, text, text_1, th_1, text_2, text_3, th_2, text_4, text_7, tbody, table_id_value;
 
 	var each_value_2 = ctx.cat.data;
 
@@ -2314,16 +2324,17 @@ function create_each_block_1(component, ctx) {
 				each_blocks[i].c();
 			}
 			setAttribute(th, "width", "200");
-			addLoc(th, file$4, 33, 4, 624);
-			addLoc(th_1, file$4, 34, 4, 656);
+			addLoc(th, file$4, 33, 4, 682);
+			addLoc(th_1, file$4, 34, 4, 714);
 			setAttribute(th_2, "width", "200");
-			addLoc(th_2, file$4, 35, 4, 676);
-			addLoc(tr, file$4, 32, 5, 614);
-			addLoc(thead, file$4, 31, 3, 600);
+			addLoc(th_2, file$4, 35, 4, 734);
+			addLoc(tr, file$4, 32, 5, 672);
+			addLoc(thead, file$4, 31, 3, 658);
 			tbody.id = "posts";
-			addLoc(tbody, file$4, 44, 3, 827);
-			table.className = "pure-table";
-			addLoc(table, file$4, 30, 1, 569);
+			addLoc(tbody, file$4, 44, 3, 885);
+			table.id = table_id_value = ctx.cat.name;
+			table.className = "pure-table svelte-vbobyl";
+			addLoc(table, file$4, 30, 1, 611);
 		},
 
 		m: function mount(target, anchor) {
@@ -2367,6 +2378,10 @@ function create_each_block_1(component, ctx) {
 				}
 				each_blocks.length = each_value_2.length;
 			}
+
+			if ((changed.$author) && table_id_value !== (table_id_value = ctx.cat.name)) {
+				table.id = table_id_value;
+			}
 		},
 
 		d: function destroy$$1(detach) {
@@ -2395,12 +2410,12 @@ function create_each_block_2(component, ctx) {
 			td_2 = createElement("td");
 			text_4 = createText(text_4_value);
 			td.className = "svelte-vbobyl";
-			addLoc(td, file$4, 48, 5, 893);
+			addLoc(td, file$4, 48, 5, 951);
 			td_1.className = "posting svelte-vbobyl";
-			addLoc(td_1, file$4, 49, 5, 919);
+			addLoc(td_1, file$4, 49, 5, 977);
 			td_2.className = "date svelte-vbobyl";
-			addLoc(td_2, file$4, 50, 5, 962);
-			addLoc(tr, file$4, 47, 3, 882);
+			addLoc(td_2, file$4, 50, 5, 1020);
+			addLoc(tr, file$4, 47, 3, 940);
 		},
 
 		m: function mount(target, anchor) {
@@ -2505,6 +2520,12 @@ function get_each_context$2(ctx, list, i) {
 	child_ctx.each_value = list;
 	child_ctx.cat_index = i;
 	return child_ctx;
+}
+
+function click_handler(event) {
+	const { component, ctx } = this._svelte;
+
+	component.moveTo(ctx.cat.name);
 }
 
 function get_each_context_1(ctx, list, i) {
@@ -2941,7 +2962,7 @@ function create_each_block$3(component, ctx) {
 			text = createText(text_value);
 			span._svelte = { component, ctx };
 
-			addListener(span, "click", click_handler);
+			addListener(span, "click", click_handler$1);
 			span.className = "tag";
 			addLoc(span, file$5, 10, 2, 259);
 		},
@@ -2964,7 +2985,7 @@ function create_each_block$3(component, ctx) {
 				detachNode(span);
 			}
 
-			removeListener(span, "click", click_handler);
+			removeListener(span, "click", click_handler$1);
 		}
 	};
 }
@@ -3098,7 +3119,7 @@ function get_each_context$3(ctx, list, i) {
 	return child_ctx;
 }
 
-function click_handler(event) {
+function click_handler$1(event) {
 	const { component, ctx } = this._svelte;
 
 	component.scrollTag(ctx.tag.id);

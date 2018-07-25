@@ -18,7 +18,7 @@
 		{#if $author && $author.cats}
 		{#each $author.cats as cat}
 		<tr>
-		  <td>{cat.name}</td>
+		  <td class="linky" on:click="moveTo(cat.name)">{cat.name}</td>
 		  <td>{cat.len}</td>
 		</tr>
 		{/each}
@@ -28,7 +28,7 @@
 
 	{#if $author && $author.cats}
 {#each $author.cats as cat}
-	<table class="pure-table">
+	<table id="{cat.name}" class="pure-table">
 			<thead>
 			  <tr>
 				<th width="200">topic</th>
@@ -135,6 +135,10 @@ td {
     components:{ 
 	}, 
     methods: {
+		moveTo(id) {
+			let elmnt = document.getElementById(id);
+			elmnt.scrollIntoView();	
+		},
 		convertTimeformat(time) {
 			var hours = Number(time.match(/^(\d+)/)[1]);
 			var minutes = Number(time.match(/:(\d+)/)[1]);
