@@ -22,5 +22,10 @@
     }
     return str
   }
-
-  export {getRandomWord}
+  const startCase = (str) => {
+    return str.split(' ')
+    .map(w => w[0].toUpperCase() + w.substr(1).toLowerCase())
+    .join(' ');	
+  }
+  
+  export {getRandomWord, startCase}

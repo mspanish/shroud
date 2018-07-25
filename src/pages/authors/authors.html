@@ -41,6 +41,7 @@
   import roadtrip from 'roadtrip';
   import { fade } from 'svelte-transitions';		
   import Link from '../../components/Link.html';
+  import startCase from '../../utilities.js';
 
   export default {
     transitions: { fade },
@@ -64,6 +65,8 @@
       fetch(urly).then(function(res) {
       return res.json() })
       .then( json => {
+       
+       
        store.set({authors: json});
      //  console.table(json)
 			})

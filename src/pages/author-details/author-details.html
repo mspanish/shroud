@@ -14,7 +14,7 @@
 			<th>subject</th>
 		  </tr>
 		</tfoot> -->
-		<tbody id='authors'>
+		<tbody id='categories'>
 		{#if $author && $author.cats}
 		{#each $author.cats as cat}
 		<tr>
@@ -25,6 +25,38 @@
 		{/if}
 		  </tbody>
 	</table>
+
+	{#if $author && $author.cats}
+{#each $author.cats as cat}
+	<table class="pure-table">
+			<thead>
+			  <tr>
+				<th width="200">topic</th>
+				<th >post</th>
+				<th width="200">date</th>
+			</tr>
+			</thead>
+			<!-- <tfoot>
+			  <tr>
+				<th>name</th>
+				<th>subject</th>
+			  </tr>
+			</tfoot> -->
+			<tbody id='posts'>
+	
+			{#each cat.data as post}
+			<tr>
+			  <td>{cat.name}</td>
+			  <td class="posting">{post.post}</td>
+			  <td>{post.date}</td>			  
+			</tr>
+			{/each}
+		
+			  </tbody>
+		</table>
+			{/each}
+		{/if}
+
 
 
 </div>
@@ -78,6 +110,15 @@ h3 {
 	font-size: 2rem;
 	margin-left:20px;
 } 
+.posting {
+	word-break:break-word;
+	padding-top:10px;
+	padding-bottom:10px;
+	border-bottom: solid 1px #ccc;
+}
+.authorName {
+	font-style:bold;
+}
 
 </style> 
 
@@ -91,12 +132,114 @@ h3 {
     components:{ 
 	}, 
     methods: {
+		addParagraphBreaks() {
+			let comp = this;
+			let postings = document.getElementsByClassName('posting');
+			console.log('got postings? '+postings)
+			let j = 0;
+
+			const authorsArr  = ['david', 'hugh', 'dan', 'colin', 'yannick', 'charles', 'daveb', 'max', 'stephen', 'mario', 'mark', 'antonio', 'john', 'giulio', 'louis', 'anoxie', 'dave', 'kelly', 'barry', 'barrie', 'russ', 'joe', 'colinsberry', 'ron'];
+			const scholars = ['zugibe', 'wesselow', 'piczak', 'piczek', 'benford','vignon', 'bucklin', 'marino','rolfe', 'meacham', 'fanti', 'rogers', 'adler', 'heller', 'mccrone', 'jackson', 'strup', 'enea']
+			const shroudWords = ['pray', 'codex', 'tomb', 'cloth', 'textile', 'shroud', 'woven', 'ancient', 'formation', 'pollen', 'dna']
+			const bloodWords = ['blood', 'bloodstains', 'bloodstain', 'bloody', 'wounds'];
+			const holyWords = ['christ', 'yeshua','jesus', 'god', 'holy', 'spirit', 'trinity', 'lord', 'lords']
+			alterPost(j);
+			
+			
+			function alterPost(j) { 
+				if (j > postings.length-1) return
+//			for (let posting of postings) {
 	
+				let str = postings[j].textContent.replace(/\\n/g, '');
+				//console.log(str)
+				str = comp.urlify(str)
+				let arr = [];
+				let words = str.split(' ');
+			
+				//let result = this.chunkArray(str, 50);
+				let newStr = '';
+				let lines = [];
+
+				let i = 0; // for lines
+				let e = 0; // for words
+				
+				for (let word of words) {
+				
+					let line = lines[i] || '';	
+					//console.log(word)
+					if (authorsArr.includes(word.trim().toLowerCase().replace('“', '').replace(',', '').replace('.', ''))) {
+						word = '<span class="authorName">'+word+'</span>';
+					}
+					if (scholars.includes(word.trim().toLowerCase().replace('“', '').replace('’s', '').replace(',', '').replace('.', ''))) {
+						word = '<span class="scholars">'+word+'</span>';
+					}
+
+
+					if (bloodWords.includes(word.trim().toLowerCase().replace('“', '').replace(',', '').replace('.', ''))) {
+						word = '<span class="blood">'+word+'</span>';
+					}
+
+					if (shroudWords.includes(word.trim().toLowerCase().replace('“', '').replace(',', '').replace('.', ''))) {
+						word = '<span class="shroud">'+word+'</span>';
+					}
+	
+					if (holyWords.includes(word.trim().toLowerCase().replace('“', '').replace(',', '').replace('.', '').replace('’s', ''))) {
+						word = '<span class="holy">'+word+'</span>';
+					}				
+
+					line = line + ' ' + word;
+					lines[i] = line;
+					e++
+					if (e > 50 && word.includes('.') || e > 50 && word.includes('!')) {
+						e = 0;
+						//console.log("\n\nGOT A HIT")
+						i++;
+					}
+				}
+				for (let line of lines) {
+					//console.log(line)
+					newStr = newStr + '<p>'+line+'.</p>'
+				}
+				postings[j].innerHTML =  newStr;
+				j++
+				setTimeout(() => {
+					alterPost(j);
+				}, 50);
+			
+			}
+		},
+		urlify(text) {
+			let urlRegex = /(((https?:\/\/)|(www\.))[^\s]+)/g;
+			//var urlRegex = /(https?:\/\/[^\s]+)/g;
+			return text.replace(urlRegex, function(url,b,c) {
+			let url2 = (c == 'www.') ?  'http://' +url : url;
+				return '<a href="' +url2+ '" target="_blank">' + url + '</a>';
+			}) 
+		},
+		chunkArray(myArray, chunk_size){
+			var index = 0;
+			var arrayLength = myArray.length;
+			var tempArray = [];
+
+			for (let index = 0; index < arrayLength; index += chunk_size) {
+		
+				let myChunk = myArray.slice(index, index+chunk_size);
+				// Do something if you want with the group
+				
+				tempArray.push(myChunk);
+			}
+
+			return tempArray;
+		}
     },
 
 
 	oncreate() {
-
+		let right = document.getElementsByClassName('right')[0];
+      if (right) console.log('GOT RIGHT')
+      right.style.backgroundColor = '#f1ebda';
+      right.style.backgroundImage = 'none';
+      right.classList.remove('has-background-white-ter')
 		const state = store.get();
 		const id = state.id;
 		console.log('dawg id is '+id)
@@ -113,11 +256,13 @@ h3 {
 		     for (let cat in json) {
 				 arr.push({name: cat, len: json[cat].length, data:json[cat]})
 			 }
-
+			 setTimeout(() => {
+			   console.log('adding Par.breaks')
+				comp.addParagraphBreaks();
+			}, 2000);
 			store.set({author: {name: id, cats: arr} })
 
 			});
-	       
 
 		}  // end oncreate()
 }

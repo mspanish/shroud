@@ -593,3 +593,30 @@ th {
 .videoThumb {
   width: 200px !important;
 }
+.authorName {
+  font-weight:bold;
+}
+.blood {
+  font-weight: bold;
+  font-family: monospace;
+  color: crimson;
+  font-size: 1.4rem;
+}
+.shroud {
+  font-weight: bold;
+  font-family: monospace;
+  color: darkgreen;
+  font-size:1.4rem;
+  letter-spacing: 1px;
+}
+.holy {
+  font-weight: bold;
+  font-family: monospace;
+  color: navy;
+  font-size:1.4rem;
+}
+.scholars{
+  font-weight: bold;
+  font-family: monospace;
+  font-size:1.3rem;
+}
