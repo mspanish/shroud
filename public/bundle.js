@@ -1918,7 +1918,7 @@ var methods$4 = {
 			let j = 0;
 
 			const authorsArr  = ['david', 'hugh', 'dan', 'colin', 'yannick', 'charles', 'daveb', 'max', 'stephen', 'mario', 'mark', 'antonio', 'john', 'giulio', 'louis', 'anoxie', 'dave', 'kelly', 'barry', 'barrie', 'russ', 'joe', 'colinsberry', 'ron'];
-			const scholars = ['rucker','zugibe', 'wesselow', 'piczak', 'piczek', 'benford','vignon', 'bucklin', 'marino','rolfe', 'meacham', 'fanti', 'rogers', 'adler', 'heller', 'mccrone', 'jackson', 'strup', 'enea'];
+			const scholars = ['barbet','rucker','zugibe', 'wesselow', 'piczak', 'piczek', 'benford','vignon', 'bucklin', 'marino','rolfe', 'meacham', 'fanti', 'rogers', 'adler', 'heller', 'mccrone', 'jackson', 'strup', 'enea'];
 			const shroudWords = ['pray', 'codex', 'tomb', 'cloth', 'textile', 'shroud', 'woven', 'ancient', 'formation', 'pollen', 'dna'];
 			const bloodWords = ['blood', 'bloodstains', 'bloodstain', 'bloody', 'wounds'];
 			const holyWords = ['christ', 'yeshua','jesus', 'god', 'holy', 'spirit', 'trinity', 'lord', 'lords'];
@@ -2036,6 +2036,9 @@ function oncreate$2() {
 		   console.log('adding Par.breaks');
 			comp.addParagraphBreaks();
 			comp.shortenDates();
+			for (let cat in json) {
+				new Tablesort(document.getElementById(cat));
+			}
 		}, 2000);
 		store.set({author: {name: id, cats: arr} });
 
