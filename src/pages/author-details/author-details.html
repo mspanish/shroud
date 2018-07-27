@@ -31,9 +31,9 @@
 	<table id="{cat.name}" class="pure-table">
 			<thead>
 			  <tr>
-				<th width="200">topic</th>
+			
 				<th >post</th>
-				<th width="200">date</th>
+				<th width="250">date</th>
 			</tr>
 			</thead>
 			<!-- <tfoot>
@@ -46,9 +46,9 @@
 	
 			{#each cat.data as post}
 			<tr>
-			  <td>{cat.name}</td>
+			 
 			  <td >
-				<p class="postInfo">source: <span><a href="{post.url}{post.id ? `#${post.id}` : ''}" target="_blank">{post.title}</a><span>
+				<p class="postInfo">{cat.name}  source: <span><a href="{post.url}{post.id ? `#${post.id}` : ''}" target="_blank">{post.title}</a><span>
 				</p>
 				<p class="posting">
 				{post.post}
