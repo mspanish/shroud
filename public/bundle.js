@@ -2394,44 +2394,53 @@ function create_each_block_1(component, ctx) {
 
 // (47:3) {#each cat.data as post}
 function create_each_block_2(component, ctx) {
-	var tr, td, p, text_value = ctx.cat.name, text, text_1, span, a, text_2_value = ctx.post.title, text_2, a_href_value, span_1, text_3, p_1, text_4_value = ctx.post.post, text_4, text_7, td_1, text_8_value = ctx.post.date, text_8, span_2, text_9_value = ctx.post.mins, text_9, span_3;
+	var tr, td, p, text, text_1_value = ctx.cat.name, text_1, text_2, span, a, text_3_value = ctx.post.title, text_3, a_href_value, span_1, span_2, text_4, text_6, p_1, text_7_value = ctx.post.post, text_7, text_10, td_1, text_11_value = ctx.post.date, text_11, span_3, text_12_value = ctx.post.mins, text_12, span_4;
 
 	return {
 		c: function create() {
 			tr = createElement("tr");
 			td = createElement("td");
 			p = createElement("p");
-			text = createText(text_value);
-			text_1 = createText("  source: ");
+			text = createText("/");
+			text_1 = createText(text_1_value);
+			text_2 = createText("/    article: ");
 			span = createElement("span");
 			a = createElement("a");
-			text_2 = createText(text_2_value);
+			text_3 = createText(text_3_value);
 			span_1 = createElement("span");
-			text_3 = createText("\r\n\t\t\t\t");
-			p_1 = createElement("p");
-			text_4 = createText(text_4_value);
-			text_7 = createText("\r\n\t\t\t  ");
-			td_1 = createElement("td");
-			text_8 = createText(text_8_value);
 			span_2 = createElement("span");
-			text_9 = createText(text_9_value);
+			text_4 = createText("↑ top");
+			text_6 = createText("\r\n\t\t\t\t");
+			p_1 = createElement("p");
+			text_7 = createText(text_7_value);
+			text_10 = createText("\r\n\t\t\t  ");
+			td_1 = createElement("td");
+			text_11 = createText(text_11_value);
 			span_3 = createElement("span");
+			text_12 = createText(text_12_value);
+			span_4 = createElement("span");
 			a.href = a_href_value = "" + ctx.post.url + (ctx.post.id ? `#${ctx.post.id}` : '');
 			a.target = "_blank";
-			addLoc(a, file$4, 50, 50, 987);
-			addLoc(span_1, file$4, 50, 133, 1070);
-			addLoc(span, file$4, 50, 44, 981);
+			addLoc(a, file$4, 50, 55, 992);
+
+			span_2._svelte = { component };
+
+			addListener(span_2, "click", click_handler_1);
+			span_2.className = "pull-right";
+			addLoc(span_2, file$4, 50, 144, 1081);
+			addLoc(span_1, file$4, 50, 138, 1075);
+			addLoc(span, file$4, 50, 49, 986);
 			p.className = "postInfo";
 			addLoc(p, file$4, 50, 4, 941);
 			p_1.className = "posting svelte-vbobyl";
-			addLoc(p_1, file$4, 52, 4, 1092);
+			addLoc(p_1, file$4, 52, 4, 1164);
 			td.className = "svelte-vbobyl";
 			addLoc(td, file$4, 49, 5, 930);
-			addLoc(span_3, file$4, 56, 66, 1217);
-			span_2.className = "right10";
-			addLoc(span_2, file$4, 56, 33, 1184);
+			addLoc(span_4, file$4, 56, 66, 1289);
+			span_3.className = "right10";
+			addLoc(span_3, file$4, 56, 33, 1256);
 			td_1.className = "date svelte-vbobyl";
-			addLoc(td_1, file$4, 56, 5, 1156);
+			addLoc(td_1, file$4, 56, 5, 1228);
 			addLoc(tr, file$4, 47, 3, 913);
 		},
 
@@ -2441,44 +2450,47 @@ function create_each_block_2(component, ctx) {
 			appendNode(p, td);
 			appendNode(text, p);
 			appendNode(text_1, p);
+			appendNode(text_2, p);
 			appendNode(span, p);
 			appendNode(a, span);
-			appendNode(text_2, a);
+			appendNode(text_3, a);
 			appendNode(span_1, span);
-			appendNode(text_3, td);
+			appendNode(span_2, span_1);
+			appendNode(text_4, span_2);
+			appendNode(text_6, td);
 			appendNode(p_1, td);
-			appendNode(text_4, p_1);
-			appendNode(text_7, tr);
+			appendNode(text_7, p_1);
+			appendNode(text_10, tr);
 			appendNode(td_1, tr);
-			appendNode(text_8, td_1);
-			appendNode(span_2, td_1);
-			appendNode(text_9, span_2);
-			appendNode(span_3, span_2);
+			appendNode(text_11, td_1);
+			appendNode(span_3, td_1);
+			appendNode(text_12, span_3);
+			appendNode(span_4, span_3);
 		},
 
 		p: function update(changed, ctx) {
-			if ((changed.$author) && text_value !== (text_value = ctx.cat.name)) {
-				text.data = text_value;
+			if ((changed.$author) && text_1_value !== (text_1_value = ctx.cat.name)) {
+				text_1.data = text_1_value;
 			}
 
-			if ((changed.$author) && text_2_value !== (text_2_value = ctx.post.title)) {
-				text_2.data = text_2_value;
+			if ((changed.$author) && text_3_value !== (text_3_value = ctx.post.title)) {
+				text_3.data = text_3_value;
 			}
 
 			if ((changed.$author) && a_href_value !== (a_href_value = "" + ctx.post.url + (ctx.post.id ? `#${ctx.post.id}` : ''))) {
 				a.href = a_href_value;
 			}
 
-			if ((changed.$author) && text_4_value !== (text_4_value = ctx.post.post)) {
-				text_4.data = text_4_value;
+			if ((changed.$author) && text_7_value !== (text_7_value = ctx.post.post)) {
+				text_7.data = text_7_value;
 			}
 
-			if ((changed.$author) && text_8_value !== (text_8_value = ctx.post.date)) {
-				text_8.data = text_8_value;
+			if ((changed.$author) && text_11_value !== (text_11_value = ctx.post.date)) {
+				text_11.data = text_11_value;
 			}
 
-			if ((changed.$author) && text_9_value !== (text_9_value = ctx.post.mins)) {
-				text_9.data = text_9_value;
+			if ((changed.$author) && text_12_value !== (text_12_value = ctx.post.mins)) {
+				text_12.data = text_12_value;
 			}
 		},
 
@@ -2486,6 +2498,8 @@ function create_each_block_2(component, ctx) {
 			if (detach) {
 				detachNode(tr);
 			}
+
+			removeListener(span_2, "click", click_handler_1);
 		}
 	};
 }
@@ -2580,6 +2594,12 @@ function get_each_context_2(ctx, list, i) {
 	child_ctx.each_value_2 = list;
 	child_ctx.post_index = i;
 	return child_ctx;
+}
+
+function click_handler_1(event) {
+	const { component } = this._svelte;
+
+	component.moveTo('postWrap');
 }
 
 function Author_details(options) {

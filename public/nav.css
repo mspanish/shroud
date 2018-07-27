@@ -673,3 +673,6 @@ th[role=columnheader]:not(.no-sort):hover:after {
   vertical-align: text-top;
   padding-top: 25px;
 }
+.pull-right {
+  float:right;
+}
