@@ -2402,7 +2402,7 @@ function create_each_block_1(component, ctx) {
 
 // (47:3) {#each cat.data as post}
 function create_each_block_2(component, ctx) {
-	var tr, td, text_value = ctx.cat.name, text, text_1, td_1, text_2_value = ctx.post.post, text_2, text_3, td_2, text_4_value = ctx.post.date, text_4, span, text_5_value = ctx.post.mins, text_5, span_1;
+	var tr, td, text_value = ctx.cat.name, text, text_1, td_1, p, text_2, span, a, text_3_value = ctx.post.title, text_3, a_href_value, span_1, text_4, p_1, text_5_value = ctx.post.post, text_5, text_8, td_2, text_9_value = ctx.post.date, text_9, span_2, text_10_value = ctx.post.mins, text_10, span_3;
 
 	return {
 		c: function create() {
@@ -2411,22 +2411,39 @@ function create_each_block_2(component, ctx) {
 			text = createText(text_value);
 			text_1 = createText("\r\n\t\t\t  ");
 			td_1 = createElement("td");
-			text_2 = createText(text_2_value);
-			text_3 = createText("\r\n\t\t\t  ");
-			td_2 = createElement("td");
-			text_4 = createText(text_4_value);
+			p = createElement("p");
+			text_2 = createText("source: ");
 			span = createElement("span");
-			text_5 = createText(text_5_value);
+			a = createElement("a");
+			text_3 = createText(text_3_value);
 			span_1 = createElement("span");
+			text_4 = createText("\r\n\t\t\t\t");
+			p_1 = createElement("p");
+			text_5 = createText(text_5_value);
+			text_8 = createText("\r\n\t\t\t  ");
+			td_2 = createElement("td");
+			text_9 = createText(text_9_value);
+			span_2 = createElement("span");
+			text_10 = createText(text_10_value);
+			span_3 = createElement("span");
 			td.className = "svelte-vbobyl";
 			addLoc(td, file$4, 48, 5, 951);
-			td_1.className = "posting svelte-vbobyl";
+			a.href = a_href_value = "" + ctx.post.url + (ctx.post.id ? `#${ctx.post.id}` : '');
+			a.target = "_blank";
+			addLoc(a, file$4, 50, 38, 1022);
+			addLoc(span_1, file$4, 50, 121, 1105);
+			addLoc(span, file$4, 50, 32, 1016);
+			p.className = "postInfo";
+			addLoc(p, file$4, 50, 4, 988);
+			p_1.className = "posting svelte-vbobyl";
+			addLoc(p_1, file$4, 52, 4, 1127);
+			td_1.className = "svelte-vbobyl";
 			addLoc(td_1, file$4, 49, 5, 977);
-			addLoc(span_1, file$4, 50, 66, 1081);
-			span.className = "right10";
-			addLoc(span, file$4, 50, 33, 1048);
+			addLoc(span_3, file$4, 56, 66, 1252);
+			span_2.className = "right10";
+			addLoc(span_2, file$4, 56, 33, 1219);
 			td_2.className = "date svelte-vbobyl";
-			addLoc(td_2, file$4, 50, 5, 1020);
+			addLoc(td_2, file$4, 56, 5, 1191);
 			addLoc(tr, file$4, 47, 3, 940);
 		},
 
@@ -2436,13 +2453,21 @@ function create_each_block_2(component, ctx) {
 			appendNode(text, td);
 			appendNode(text_1, tr);
 			appendNode(td_1, tr);
-			appendNode(text_2, td_1);
-			appendNode(text_3, tr);
-			appendNode(td_2, tr);
-			appendNode(text_4, td_2);
-			appendNode(span, td_2);
-			appendNode(text_5, span);
+			appendNode(p, td_1);
+			appendNode(text_2, p);
+			appendNode(span, p);
+			appendNode(a, span);
+			appendNode(text_3, a);
 			appendNode(span_1, span);
+			appendNode(text_4, td_1);
+			appendNode(p_1, td_1);
+			appendNode(text_5, p_1);
+			appendNode(text_8, tr);
+			appendNode(td_2, tr);
+			appendNode(text_9, td_2);
+			appendNode(span_2, td_2);
+			appendNode(text_10, span_2);
+			appendNode(span_3, span_2);
 		},
 
 		p: function update(changed, ctx) {
@@ -2450,16 +2475,24 @@ function create_each_block_2(component, ctx) {
 				text.data = text_value;
 			}
 
-			if ((changed.$author) && text_2_value !== (text_2_value = ctx.post.post)) {
-				text_2.data = text_2_value;
+			if ((changed.$author) && text_3_value !== (text_3_value = ctx.post.title)) {
+				text_3.data = text_3_value;
 			}
 
-			if ((changed.$author) && text_4_value !== (text_4_value = ctx.post.date)) {
-				text_4.data = text_4_value;
+			if ((changed.$author) && a_href_value !== (a_href_value = "" + ctx.post.url + (ctx.post.id ? `#${ctx.post.id}` : ''))) {
+				a.href = a_href_value;
 			}
 
-			if ((changed.$author) && text_5_value !== (text_5_value = ctx.post.mins)) {
+			if ((changed.$author) && text_5_value !== (text_5_value = ctx.post.post)) {
 				text_5.data = text_5_value;
+			}
+
+			if ((changed.$author) && text_9_value !== (text_9_value = ctx.post.date)) {
+				text_9.data = text_9_value;
+			}
+
+			if ((changed.$author) && text_10_value !== (text_10_value = ctx.post.mins)) {
+				text_10.data = text_10_value;
 			}
 		},
 

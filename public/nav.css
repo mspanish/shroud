@@ -661,3 +661,10 @@ th[role=columnheader]:not(.no-sort):hover:after {
 	visibility: visible;
 	opacity: 1;
 }
+.postInfo {
+  background-color: beige;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  margin-bottom: -30px;
+}
