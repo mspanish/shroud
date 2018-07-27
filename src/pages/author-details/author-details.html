@@ -48,7 +48,7 @@
 			<tr>
 			  <td>{cat.name}</td>
 			  <td class="posting">{post.post}</td>
-			  <td class="date">{post.date}</td>			  
+			  <td class="date">{post.date}<span class="right10">{post.mins}<span></td>			  
 			</tr>
 			{/each}
 		
@@ -204,7 +204,7 @@ td {
 	
 				let str = postings[j].textContent.replace(/\\n/g, '');
 				//console.log(str)
-				str = comp.urlify(str)
+			
 				let arr = [];
 				let words = str.split(' ');
 			
@@ -214,9 +214,11 @@ td {
 
 				let i = 0; // for lines
 				let e = 0; // for words
+				let z = 0;
+		
 				
 				for (let word of words) {
-				
+		
 					let line = lines[i] || '';	
 					//console.log(word)
 					if (authorsArr.includes(word.trim().toLowerCase().replace('-','').replace('“', '').replace(',', '').replace('.', ''))) {
@@ -250,7 +252,8 @@ td {
 				}
 				for (let line of lines) {
 					//console.log(line)
-					newStr = newStr + '<p>'+line+'.</p>'
+					line = comp.urlify(line);
+					newStr = newStr + '<p>'+line+'</p>'
 				}
 				postings[j].innerHTML =  newStr;
 				j++
@@ -264,8 +267,11 @@ td {
 			let urlRegex = /(((https?:\/\/)|(www\.))[^\s]+)/g;
 			//var urlRegex = /(https?:\/\/[^\s]+)/g;
 			return text.replace(urlRegex, function(url,b,c) {
+			
 			let url2 = (c == 'www.') ?  'http://' +url : url;
-				return '<a href="' +url2+ '" target="_blank">' + url + '</a>';
+				url2 = url2.replace(')', '').replace('(', '')
+			
+				return '<a href="' +url2.toLowerCase()+ '" target="_blank">' + url.toLowerCase() + '</a>';
 			}) 
 		},
 		chunkArray(myArray, chunk_size){
@@ -317,7 +323,7 @@ td {
 			 setTimeout(() => {
 			   console.log('adding Par.breaks')
 				comp.addParagraphBreaks();
-				comp.shortenDates();
+				//comp.shortenDates();
 				for (let cat in json) {
 					new Tablesort(document.getElementById(cat));
 				}

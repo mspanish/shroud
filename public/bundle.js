@@ -1930,8 +1930,6 @@ var methods$4 = {
 //			for (let posting of postings) {
 	
 				let str = postings[j].textContent.replace(/\\n/g, '');
-				//console.log(str)
-				str = comp.urlify(str);
 				let words = str.split(' ');
 			
 				//let result = this.chunkArray(str, 50);
@@ -1940,9 +1938,10 @@ var methods$4 = {
 
 				let i = 0; // for lines
 				let e = 0; // for words
+		
 				
 				for (let word of words) {
-				
+		
 					let line = lines[i] || '';	
 					//console.log(word)
 					if (authorsArr.includes(word.trim().toLowerCase().replace('-','').replace('“', '').replace(',', '').replace('.', ''))) {
@@ -1976,7 +1975,8 @@ var methods$4 = {
 				}
 				for (let line of lines) {
 					//console.log(line)
-					newStr = newStr + '<p>'+line+'.</p>';
+					line = comp.urlify(line);
+					newStr = newStr + '<p>'+line+'</p>';
 				}
 				postings[j].innerHTML =  newStr;
 				j++;
@@ -1990,8 +1990,11 @@ var methods$4 = {
 			let urlRegex = /(((https?:\/\/)|(www\.))[^\s]+)/g;
 			//var urlRegex = /(https?:\/\/[^\s]+)/g;
 			return text.replace(urlRegex, function(url,b,c) {
+			
 			let url2 = (c == 'www.') ?  'http://' +url : url;
-				return '<a href="' +url2+ '" target="_blank">' + url + '</a>';
+				url2 = url2.replace(')', '').replace('(', '');
+			
+				return '<a href="' +url2.toLowerCase()+ '" target="_blank">' + url.toLowerCase() + '</a>';
 			}) 
 		},
 		chunkArray(myArray, chunk_size){
@@ -2035,7 +2038,7 @@ function oncreate$2() {
 		 setTimeout(() => {
 		   console.log('adding Par.breaks');
 			comp.addParagraphBreaks();
-			comp.shortenDates();
+			//comp.shortenDates();
 			for (let cat in json) {
 				new Tablesort(document.getElementById(cat));
 			}
@@ -2399,7 +2402,7 @@ function create_each_block_1(component, ctx) {
 
 // (47:3) {#each cat.data as post}
 function create_each_block_2(component, ctx) {
-	var tr, td, text_value = ctx.cat.name, text, text_1, td_1, text_2_value = ctx.post.post, text_2, text_3, td_2, text_4_value = ctx.post.date, text_4;
+	var tr, td, text_value = ctx.cat.name, text, text_1, td_1, text_2_value = ctx.post.post, text_2, text_3, td_2, text_4_value = ctx.post.date, text_4, span, text_5_value = ctx.post.mins, text_5, span_1;
 
 	return {
 		c: function create() {
@@ -2412,10 +2415,16 @@ function create_each_block_2(component, ctx) {
 			text_3 = createText("\r\n\t\t\t  ");
 			td_2 = createElement("td");
 			text_4 = createText(text_4_value);
+			span = createElement("span");
+			text_5 = createText(text_5_value);
+			span_1 = createElement("span");
 			td.className = "svelte-vbobyl";
 			addLoc(td, file$4, 48, 5, 951);
 			td_1.className = "posting svelte-vbobyl";
 			addLoc(td_1, file$4, 49, 5, 977);
+			addLoc(span_1, file$4, 50, 66, 1081);
+			span.className = "right10";
+			addLoc(span, file$4, 50, 33, 1048);
 			td_2.className = "date svelte-vbobyl";
 			addLoc(td_2, file$4, 50, 5, 1020);
 			addLoc(tr, file$4, 47, 3, 940);
@@ -2431,6 +2440,9 @@ function create_each_block_2(component, ctx) {
 			appendNode(text_3, tr);
 			appendNode(td_2, tr);
 			appendNode(text_4, td_2);
+			appendNode(span, td_2);
+			appendNode(text_5, span);
+			appendNode(span_1, span);
 		},
 
 		p: function update(changed, ctx) {
@@ -2444,6 +2456,10 @@ function create_each_block_2(component, ctx) {
 
 			if ((changed.$author) && text_4_value !== (text_4_value = ctx.post.date)) {
 				text_4.data = text_4_value;
+			}
+
+			if ((changed.$author) && text_5_value !== (text_5_value = ctx.post.mins)) {
+				text_5.data = text_5_value;
 			}
 		},
 
