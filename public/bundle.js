@@ -2513,9 +2513,9 @@ var methods$5 = {
 function oncreate$2() {
   let bookmarks = localStorage.getItem('bookmarks');
   bookmarks = JSON.parse(bookmarks);
-  console.log('bm: '+JSON.stringify(bookmarks));
+ // console.log('bm: '+JSON.stringify(bookmarks))
   bookmarks = Object.entries(bookmarks);
-  console.table(bookmarks);
+ // console.table(bookmarks)
   store.set({bookmarks, bookmarks});
   let right = document.getElementsByClassName('right')[0];
   if (right) console.log('GOT RIGHT');
@@ -2571,16 +2571,21 @@ function create_main_fragment$6(component, ctx) {
 			h1.className = "auth svelte-124qc1x";
 			addLoc(h1, file$6, 1, 0, 38);
 			addLoc(p, file$6, 2, 0, 80);
+			setAttribute(th, "width", "100");
 			addLoc(th, file$6, 8, 4, 268);
-			addLoc(th_1, file$6, 9, 4, 293);
-			addLoc(th_2, file$6, 10, 4, 316);
-			addLoc(th_3, file$6, 11, 4, 336);
-			addLoc(th_4, file$6, 12, 4, 357);
-			addLoc(th_5, file$6, 13, 4, 376);
+			setAttribute(th_1, "width", "150");
+			addLoc(th_1, file$6, 9, 4, 305);
+			addLoc(th_2, file$6, 10, 4, 340);
+			setAttribute(th_3, "width", "150");
+			addLoc(th_3, file$6, 11, 4, 360);
+			setAttribute(th_4, "width", "100");
+			addLoc(th_4, file$6, 12, 4, 393);
+			setAttribute(th_5, "width", "200");
+			addLoc(th_5, file$6, 13, 4, 424);
 			addLoc(tr, file$6, 6, 3, 256);
 			addLoc(thead, file$6, 5, 1, 244);
 			tbody.id = "authors";
-			addLoc(tbody, file$6, 23, 1, 501);
+			addLoc(tbody, file$6, 23, 1, 561);
 			table.className = "pure-table";
 			addLoc(table, file$6, 4, 0, 215);
 			div.className = "content is-medium home svelte-124qc1x";
@@ -2647,7 +2652,7 @@ function create_main_fragment$6(component, ctx) {
 
 // (26:4) {#each $bookmarks as bookmark}
 function create_each_block$2(component, ctx) {
-	var tr, td, text_1, td_1, text_2_value = ctx.bookmark[1].cat, text_2, text_3, td_2, text_4_value = ctx.bookmark[1].title, text_4, text_5, p, text_6_value = ctx.bookmark[1].post, text_6, text_8, td_3, text_9_value = ctx.bookmark[1].author, text_9, text_10, td_4, text_11_value = ctx.bookmark[1].date, text_11, text_12, td_5;
+	var tr, td, text_1, td_1, text_2_value = ctx.bookmark[1].cat, text_2, text_3, td_2, a, text_4_value = ctx.bookmark[1].title, text_4, a_href_value, text_5, p, text_6_value = ctx.bookmark[1].post, text_6, text_8, td_3, text_9_value = ctx.bookmark[1].author, text_9, text_10, td_4, span, text_11_value = ctx.bookmark[1].date, text_11, text_13, td_5;
 
 	function select_block_type(ctx) {
 		if (ctx.bookmark[1].type) return create_if_block_1;
@@ -2683,6 +2688,7 @@ function create_each_block$2(component, ctx) {
 			text_2 = createText(text_2_value);
 			text_3 = createText("\r\n        ");
 			td_2 = createElement("td");
+			a = createElement("a");
 			text_4 = createText(text_4_value);
 			text_5 = createText("\r\n          ");
 			p = createElement("p");
@@ -2693,25 +2699,31 @@ function create_each_block$2(component, ctx) {
 			link._fragment.c();
 			text_10 = createText("\r\n      ");
 			td_4 = createElement("td");
+			span = createElement("span");
 			text_11 = createText(text_11_value);
-			text_12 = createText("\r\n\r\n      ");
+			text_13 = createText("\r\n\r\n      ");
 			td_5 = createElement("td");
 			if_block_1.c();
 			td.className = "svelte-124qc1x";
-			addLoc(td, file$6, 27, 8, 624);
-			td_1.className = "svelte-124qc1x";
-			addLoc(td_1, file$6, 34, 8, 838);
+			addLoc(td, file$6, 27, 8, 684);
+			td_1.className = "notebookInfo svelte-124qc1x";
+			addLoc(td_1, file$6, 34, 8, 898);
+			a.href = a_href_value = "" + ctx.bookmark[1].url + (ctx.bookmark[1].commentid ? `#${ctx.bookmark[1].commentid}` : '');
+			a.target = "_blank";
+			addLoc(a, file$6, 35, 12, 959);
 			p.className = "postTruncate";
-			addLoc(p, file$6, 36, 10, 909);
+			addLoc(p, file$6, 36, 10, 1096);
 			td_2.className = "svelte-124qc1x";
-			addLoc(td_2, file$6, 35, 8, 874);
-			td_3.className = "svelte-124qc1x";
-			addLoc(td_3, file$6, 38, 6, 978);
+			addLoc(td_2, file$6, 35, 8, 955);
+			td_3.className = "notebookInfo svelte-124qc1x";
+			addLoc(td_3, file$6, 38, 6, 1165);
+			span.className = "dSmall";
+			addLoc(span, file$6, 40, 8, 1287);
 			td_4.className = "svelte-124qc1x";
-			addLoc(td_4, file$6, 39, 6, 1065);
-			td_5.className = "svelte-124qc1x";
-			addLoc(td_5, file$6, 41, 6, 1102);
-			addLoc(tr, file$6, 26, 4, 610);
+			addLoc(td_4, file$6, 39, 6, 1273);
+			td_5.className = "rightAl svelte-124qc1x";
+			addLoc(td_5, file$6, 43, 6, 1356);
+			addLoc(tr, file$6, 26, 4, 670);
 		},
 
 		m: function mount(target, anchor) {
@@ -2723,7 +2735,8 @@ function create_each_block$2(component, ctx) {
 			appendNode(text_2, td_1);
 			appendNode(text_3, tr);
 			appendNode(td_2, tr);
-			appendNode(text_4, td_2);
+			appendNode(a, td_2);
+			appendNode(text_4, a);
 			appendNode(text_5, td_2);
 			appendNode(p, td_2);
 			appendNode(text_6, p);
@@ -2733,8 +2746,9 @@ function create_each_block$2(component, ctx) {
 			link._mount(td_3, null);
 			appendNode(text_10, tr);
 			appendNode(td_4, tr);
-			appendNode(text_11, td_4);
-			appendNode(text_12, tr);
+			appendNode(span, td_4);
+			appendNode(text_11, span);
+			appendNode(text_13, tr);
 			appendNode(td_5, tr);
 			if_block_1.m(td_5, null);
 		},
@@ -2755,6 +2769,10 @@ function create_each_block$2(component, ctx) {
 
 			if ((changed.$bookmarks) && text_4_value !== (text_4_value = ctx.bookmark[1].title)) {
 				text_4.data = text_4_value;
+			}
+
+			if ((changed.$bookmarks) && a_href_value !== (a_href_value = "" + ctx.bookmark[1].url + (ctx.bookmark[1].commentid ? `#${ctx.bookmark[1].commentid}` : ''))) {
+				a.href = a_href_value;
 			}
 
 			if ((changed.$bookmarks) && text_6_value !== (text_6_value = ctx.bookmark[1].post)) {
@@ -2804,7 +2822,7 @@ function create_if_block_1(component, ctx) {
 			span = createElement("span");
 			text = createText(text_value);
 			span.className = span_class_value = "tb_" + ctx.bookmark[1].type + " tb_buttons" + " svelte-124qc1x";
-			addLoc(span, file$6, 29, 10, 674);
+			addLoc(span, file$6, 29, 10, 734);
 		},
 
 		m: function mount(target, anchor) {
@@ -2838,7 +2856,7 @@ function create_if_block_2(component, ctx) {
 		c: function create() {
 			span = createElement("span");
 			text = createText("choose");
-			addLoc(span, file$6, 31, 10, 777);
+			addLoc(span, file$6, 31, 10, 837);
 		},
 
 		m: function mount(target, anchor) {
@@ -2856,17 +2874,21 @@ function create_if_block_2(component, ctx) {
 	};
 }
 
-// (43:10) {#if bookmark[1].note}
+// (45:10) {#if bookmark[1].note}
 function create_if_block_3(component, ctx) {
-	var text_value = ctx.bookmark[1].note, text;
+	var span, text_value = ctx.bookmark[1].note, text;
 
 	return {
 		c: function create() {
+			span = createElement("span");
 			text = createText(text_value);
+			span.className = "notebookInfo";
+			addLoc(span, file$6, 45, 10, 1422);
 		},
 
 		m: function mount(target, anchor) {
-			insertNode(text, target, anchor);
+			insertNode(span, target, anchor);
+			appendNode(text, span);
 		},
 
 		p: function update(changed, ctx) {
@@ -2877,13 +2899,13 @@ function create_if_block_3(component, ctx) {
 
 		d: function destroy$$1(detach) {
 			if (detach) {
-				detachNode(text);
+				detachNode(span);
 			}
 		}
 	};
 }
 
-// (45:10) {:else}
+// (47:10) {:else}
 function create_if_block_4(component, ctx) {
 	var span, text;
 
@@ -2892,7 +2914,7 @@ function create_if_block_4(component, ctx) {
 			span = createElement("span");
 			text = createText("add");
 			span.className = "tb_note tb_buttons";
-			addLoc(span, file$6, 45, 10, 1202);
+			addLoc(span, file$6, 47, 10, 1506);
 		},
 
 		m: function mount(target, anchor) {
@@ -3085,6 +3107,7 @@ var methods$6 = {
 			let st;
 			
 			let obj = {
+				commentid: post.id,
 				id: id,
 				cat: cat,
 				title: post.title,

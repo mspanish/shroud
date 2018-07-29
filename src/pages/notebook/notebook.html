@@ -6,12 +6,12 @@
 	<thead>
 	  <tr>
 
-    <th>pro or con</th>
-    <th>category</th>
+    <th width="100">pro or con</th>
+    <th width="150">category</th>
     <th>title</th>
-    <th>author</th>
-    <th>date</th>
-    <th>note</th>
+    <th width="150">author</th>
+    <th width="100">date</th>
+    <th width="200">note</th>
 
 	  </tr>
 	</thead>
@@ -32,16 +32,18 @@
           <span>choose</span>
           {/if}
         </td>
-        <td>{bookmark[1].cat}</td>
-        <td>{bookmark[1].title}
+        <td class="notebookInfo">{bookmark[1].cat}</td>
+        <td><a href="{bookmark[1].url}{bookmark[1].commentid ? `#${bookmark[1].commentid}` : ''}" target="_blank">{bookmark[1].title}</a>
           <p class="postTruncate">{bookmark[1].post}</p>
         </td>
-      <td><Link href="/authors/{bookmark[1].author}">{bookmark[1].author}</Link></td>
-      <td>{bookmark[1].date}</td>
-
+      <td class="notebookInfo"><Link href="/authors/{bookmark[1].author}">{bookmark[1].author}</Link></td>
       <td>
+        <span class="dSmall">{bookmark[1].date}</span>
+      </td>
+
+      <td class="rightAl">
           {#if bookmark[1].note}
-           {bookmark[1].note}
+          <span class="notebookInfo"> {bookmark[1].note}</span>
           {:else}
           <span class="tb_note tb_buttons">add</span>
           {/if}
@@ -92,9 +94,9 @@ td {
     oncreate() {
       let bookmarks = localStorage.getItem('bookmarks');
       bookmarks = JSON.parse(bookmarks);
-      console.log('bm: '+JSON.stringify(bookmarks))
+     // console.log('bm: '+JSON.stringify(bookmarks))
       bookmarks = Object.entries(bookmarks);
-      console.table(bookmarks)
+     // console.table(bookmarks)
       store.set({bookmarks, bookmarks})
       let right = document.getElementsByClassName('right')[0];
       if (right) console.log('GOT RIGHT')

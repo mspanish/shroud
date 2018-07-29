@@ -709,4 +709,14 @@ th[role=columnheader]:not(.no-sort):hover:after {
   text-overflow: ellipsis;
   height: 100px;
   width: 500px;
+  font-size: 1rem;
+}
+.notebookInfo {
+  font-size:1rem;
+}
+.dSmall {
+  font-size: .85rem;
+}
+.rightAl {
+  text-align:right;
 }
