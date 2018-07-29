@@ -676,3 +676,37 @@ th[role=columnheader]:not(.no-sort):hover:after {
 .pull-right {
   float:right;
 }
+.toolbar {
+  margin-top: 40px;
+  margin-bottom: -40px;
+}
+.toolbar span {
+  border-radius: 10px;
+  padding:3px;
+  padding-right: 10px;
+  padding-left: 10px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+.tb_buttons {
+  border-radius: 10px;
+  padding:3px;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+.tb_pro  {
+  background-color: lightgreen;
+}
+.tb_con  {
+  background-color: red;
+  color:white;
+}
+.tb_note {
+  background-color: #fff;
+}
+.postTruncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 100px;
+  width: 500px;
+}

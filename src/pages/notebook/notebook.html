@@ -1,0 +1,108 @@
+<div class="content is-medium home">
+<h1 class="auth">My Shroud Notebook</h1>
+<p>As you read comments and check the resources included, you can build your own list of evidence which will be listed  here.
+  </p>
+<table class="pure-table">
+	<thead>
+	  <tr>
+
+    <th>pro or con</th>
+    <th>category</th>
+    <th>title</th>
+    <th>author</th>
+    <th>date</th>
+    <th>note</th>
+
+	  </tr>
+	</thead>
+	<!-- <tfoot>
+	  <tr>
+		<th>name</th>
+		<th>subject</th>
+	  </tr>
+	</tfoot> -->
+	<tbody id='authors'>
+    {#if $bookmarks && $bookmarks.length > 0}
+    {#each $bookmarks as bookmark}
+    <tr>
+        <td>
+          {#if bookmark[1].type}
+          <span class="tb_{bookmark[1].type} tb_buttons">{bookmark[1].type}</span>
+          {:else}
+          <span>choose</span>
+          {/if}
+        </td>
+        <td>{bookmark[1].cat}</td>
+        <td>{bookmark[1].title}
+          <p class="postTruncate">{bookmark[1].post}</p>
+        </td>
+      <td><Link href="/authors/{bookmark[1].author}">{bookmark[1].author}</Link></td>
+      <td>{bookmark[1].date}</td>
+
+      <td>
+          {#if bookmark[1].note}
+           {bookmark[1].note}
+          {:else}
+          <span class="tb_note tb_buttons">add</span>
+          {/if}
+
+      </td>
+    </tr>
+    {/each}
+    {/if}
+	  </tbody>
+</table>
+
+
+</div>
+<style>
+
+.content {
+	padding-top:20px;
+	padding-bottom:50px;
+} 
+.auth {
+  color: black;
+  -webkit-text-fill-color: black;
+}
+
+td {
+	font-family: 'Montserrat', sans-serif;
+}
+</style>
+
+<script>
+  import roadtrip from 'roadtrip';
+  import { fade } from 'svelte-transitions';		
+  import Link from '../../components/Link.html';
+  import { Toast, deleteAllToasts} from '../../toaster-js/index.js';   
+  //import { startCase } from '../../utilities.js';
+
+  export default {
+    transitions: { fade },
+    store: () => store,
+    components: { Link
+  
+	},
+    methods: {
+      goto(path) {
+        roadtrip.goto(path);
+      }
+    },
+    oncreate() {
+      let bookmarks = localStorage.getItem('bookmarks');
+      bookmarks = JSON.parse(bookmarks);
+      console.log('bm: '+JSON.stringify(bookmarks))
+      bookmarks = Object.entries(bookmarks);
+      console.table(bookmarks)
+      store.set({bookmarks, bookmarks})
+      let right = document.getElementsByClassName('right')[0];
+      if (right) console.log('GOT RIGHT')
+      right.style.backgroundColor = '#f1ebda';
+      right.style.backgroundImage = 'none';
+      right.classList.remove('has-background-white-ter')
+      
+      
+    }
+  }
+</script>

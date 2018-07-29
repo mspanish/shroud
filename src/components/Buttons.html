@@ -1,0 +1,62 @@
+<!-- Button component can be instantiated like this
+
+  var input = new Buttons({
+         target: el2,
+         data: {
+             btn1: buttons[0],
+             btn2: buttons[1],
+             action1: 'close',
+             action2: 'reload'
+         }
+        });
+
+-->
+
+<div class="pure-g buttonHolder">
+    <button on:click="doIt(action1)" class="pure-button pure-button">{btn1}</button>
+    {#if btn2}
+    <button on:click="doIt(action2,value)" class="pure-button pure-button-primary">{btn2}</button>
+    {/if}
+</div>
+ 
+<style>
+.buttonHolder {
+     display:inline-block;
+}
+.buttonHolder > button {
+    margin: 10px;
+}
+</style>
+  
+<script>
+    import { Toast, deleteAllToasts} from '../toaster-js/index.js';   
+
+     export default { 
+     data() { 
+       return { 
+         visible: true, isFullScreen: false 
+         } 
+       },
+       methods: {
+             doIt(action,value){
+                switch (action) {
+                    /* close the modal */
+                    case 'delete':
+                    //algo
+                    break;
+                    case 'cancel':
+                      deleteAllToasts();    
+                    break;             
+                    case 'ok':
+                      deleteAllToasts();
+                    break;
+                    case 'close': 
+                      deleteAllToasts();
+                    break;
+                    /* for reloading icons back to whatever the store has, minus colors */
+      
+                }
+            }
+         }       
+   }
+</script>

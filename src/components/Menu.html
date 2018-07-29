@@ -20,6 +20,8 @@
 
 
 import roadtrip from 'roadtrip';
+import { SVG } from '../svg/sprite.svg';
+
 //on:click="goto(`snippets/${x}`)"
 //const baseUrl = 'http://localhost:5100';
 
@@ -100,7 +102,16 @@ const catsData = {
 				const color2 = window.getComputedStyle(element,':after').backgroundColor;
 				sectionColors[id] = {color1,color2};
 			}
-    	store.set({ cats:cats, sectionColors:sectionColors });
+			store.set({ cats:cats, sectionColors:sectionColors });
+			/* the windowise method for embedding beautiful SVGs in their modals
+			not sure I want to do this, but let's try and see how this goes! */
+
+			let dom = document.createElement('div');
+
+			dom.setAttribute('hidden', '');
+			dom.innerHTML = SVG;
+			document.body.insertBefore(dom, document.body.firstChild);
+
 	},
     methods: {
       goto(path) {
