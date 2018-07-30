@@ -26,10 +26,11 @@
     {#each $bookmarks as bookmark}
     <tr>
         <td>
+            <span on:click="removeBookmark(bookmark[1].id)" class="deleteRow"></span>
           {#if bookmark[1].type}
           <span class="tb_{bookmark[1].type} tb_buttons">{bookmark[1].type}</span>
           {:else}
-          <span>choose</span>
+          <span class="tb_buttons tb_note">?</span>
           {/if}
         </td>
         <td class="notebookInfo">{bookmark[1].cat}</td>
@@ -45,7 +46,7 @@
           {#if bookmark[1].note}
           <span class="notebookInfo"> {bookmark[1].note}</span>
           {:else}
-          <span class="tb_note tb_buttons">add</span>
+          <span on:click="saveData('note', bookmark[1])" class="tb_note tb_buttons">add</span>
           {/if}
 
       </td>
@@ -78,7 +79,7 @@ td {
   import { fade } from 'svelte-transitions';		
   import Link from '../../components/Link.html';
   import { Toast, deleteAllToasts} from '../../toaster-js/index.js';   
-  //import { startCase } from '../../utilities.js';
+  import { saveToNotebook } from '../../utilities.js';
 
   export default {
     transitions: { fade },
@@ -87,23 +88,39 @@ td {
   
 	},
     methods: {
+      saveData(type,post) {
+        let cat = post.cat, id = post.id;
+			  saveToNotebook(type,cat,post,false, id);
+		  },
+      removeBookmark(id) {
+      
+        let bookmarks = localStorage.getItem('bookmarks');
+        bookmarks = JSON.parse(bookmarks);
+        delete bookmarks[id];
+        localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+      // console.log('bm: '+JSON.stringify(bookmarks))
+        bookmarks = Object.entries(bookmarks);
+      // console.table(bookmarks)
+        store.set({bookmarks, bookmarks})
+      },
       goto(path) {
         roadtrip.goto(path);
       }
     },
     oncreate() {
-      let bookmarks = localStorage.getItem('bookmarks');
-      bookmarks = JSON.parse(bookmarks);
-     // console.log('bm: '+JSON.stringify(bookmarks))
-      bookmarks = Object.entries(bookmarks);
-     // console.table(bookmarks)
-      store.set({bookmarks, bookmarks})
       let right = document.getElementsByClassName('right')[0];
       if (right) console.log('GOT RIGHT')
       right.style.backgroundColor = '#f1ebda';
       right.style.backgroundImage = 'none';
       right.classList.remove('has-background-white-ter')
-      
+      let bookmarks = localStorage.getItem('bookmarks');
+      if (!bookmarks) return
+      bookmarks = JSON.parse(bookmarks);
+     // console.log('bm: '+JSON.stringify(bookmarks))
+      bookmarks = Object.entries(bookmarks);
+      bookmarks.sort((a, b) => a[1].updated - b[1].updated).reverse();
+     // console.table(bookmarks)
+      store.set({bookmarks: bookmarks})
       
     }
   }

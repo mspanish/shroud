@@ -1,3 +1,5 @@
+  import { Toast, deleteAllToasts } from './toaster-js/index.js'; 
+
   Array.prototype.diff = function (a) {
     return this.filter(function (i) {
       return a.indexOf(i) < 0;
@@ -74,5 +76,66 @@
     .map(w => w[0].toUpperCase() + w.substr(1).toLowerCase())
     .join(' ');	
   }
-  
-  export {getRandomWord, startCase}
+  const saveToNotebook = (type,cat,post, x, postid) => {
+    let str = cat;
+    // new Toast(str, 'modal','error', 0,[
+    // 		{ text:'ok', action:'cancel'}])
+    // 		return
+    /* the x ties us to the index, which I don't like, but I don't see any other way right now
+    as there are no unique ids accross the 3 blogs - stephen jones has no ids for comments. So basically this is lame and we can now only hide crap we may want to delete later, because it would screw up the index for everything saved to notebook
+    */
+    let bookmarks = localStorage.getItem('bookmarks') || {};
+    if (Object.keys(bookmarks).length > 0) bookmarks = JSON.parse(bookmarks);
+
+    console.log(x+ ' cat is '+cat)
+    console.log(x+ ' author is '+post.author)
+
+    /* if we're adjusting from notebook we already have an id, if we are adding from a comment then we need to create one */
+    let id = postid;
+
+    if (!postid) {
+      id = `${post.author}_${cat}_${x}`
+    }
+
+    let st;
+    
+    let obj = {
+      commentid: post.id,
+      id: id,
+      cat: cat,
+      title: post.title,
+      post: post.post,
+      author: post.author,
+      url: post.url,
+      date:post.date,
+      updated: Date.now()
+    }
+    
+    if (bookmarks[id] && bookmarks[id].note) obj.note = bookmarks[id].note;
+
+    switch (type) {
+      case 'pro':
+        obj.type = 'pro';				
+        bookmarks[id] = obj;
+        localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+         st = 'saved '+post.title+ ' to notebook as supporting authenticity.'
+        new Toast(st,'toast','success')
+        break;
+      case 'con':
+        obj.type = 'con';				
+        bookmarks[id] = obj;
+        localStorage.setItem('bookmarks', JSON.stringify(bookmarks));					
+        st = 'saved '+post.title+ ' to notebook as evidence against authenticity.'
+        new Toast(st,'toast','error')
+        break;			
+
+      case 'note':
+          if (post.type) obj.type = post.type;
+          st = 'Enter or paste text:';
+          store.set({temp:obj})
+        new Toast(str, 'modal', 'input', 0, [], 'note');
+        break;
+    }
+
+  }
+  export {getRandomWord, startCase, saveToNotebook}

@@ -24,10 +24,14 @@ const saveInput = (input, type) => {
         let obj = state.temp;
         let id = obj.id;
         obj.note = input;
+        obj.updated = Date.now();
         let bookmarks = localStorage.getItem('bookmarks') || {};
         bookmarks = JSON.parse(bookmarks)
         bookmarks[id] = obj;
         localStorage.setItem('bookmarks', JSON.stringify(bookmarks));	
+        bookmarks = Object.entries(bookmarks);
+        bookmarks.sort((a, b) => a[1].updated - b[1].updated).reverse();
+        store.set({bookmarks: bookmarks})
         break;
     }
     deleteAllToasts();

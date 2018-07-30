@@ -693,6 +693,7 @@ th[role=columnheader]:not(.no-sort):hover:after {
   padding:3px;
   padding-right: 10px;
   padding-left: 10px;
+  cursor:pointer;
 }
 .tb_pro  {
   background-color: lightgreen;
@@ -719,4 +720,31 @@ th[role=columnheader]:not(.no-sort):hover:after {
 }
 .rightAl {
   text-align:right;
+}
+.deleteRow {
+  margin-right: 100px;
+  position: absolute;
+  margin-left: -70px;
+  padding: 4px;
+  margin-top: -5px;
+  opacity: .5;
+  cursor:pointer;
+}
+.deleteRow:before {
+  content: 'X';
+  color: white;
+  background-color: crimson;
+  padding: 5px;
+  padding-right: 10px;
+  padding-left: 10px;
+  border-radius: 8px;
+}
+.follow {
+  margin-left: 60px;
+    font-size: 1.4rem;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: normal;
+    letter-spacing: 0;
+    padding-right: 10px;
+    padding-left: 10px;
 }

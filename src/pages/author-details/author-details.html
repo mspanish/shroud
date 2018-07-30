@@ -1,5 +1,7 @@
 <div transition:fade id="postWrap" class="content is-medium">
- <h1>{author_name}</h1>
+ <h1>{author_name}<span on:click="favorite(author_name)" class="follow tb_buttons tb_note">add to favorites</span>
+</h1>
+	<Link  href="../notebook" class="arrowRight">→ notebook</Link>
 
  <table class="pure-table">
 		<thead>
@@ -135,71 +137,42 @@ td {
 
 <script >
 		import { fade } from 'svelte-transitions';		
-		import { startCase } from '../../utilities.js';
+		import { startCase, saveToNotebook } from '../../utilities.js';
+		import Link from '../../components/Link.html';
 		import { Toast, deleteAllToasts} from '../../toaster-js/index.js';   
   
  
   export default {
 	transitions: { fade },
     store: () => store,
-    components:{ 
+    components:{ Link
 	}, 
     methods: {
+		favorite(id) {
+			id = id.replace(/ /g, '_').toLowerCase();
+			let favs = localStorage.getItem('favorites') || [];
+			if (favs && favs.length > 0) favs = JSON.parse(favs);
+			let contains = false;
+			favs.map(element => {
+				if (element == id){
+				  contains = true;
+				  let st = id+ ' is already in your favorites!'
+					new Toast(st,'toast','error')		
+				}
+			})
+			if (contains) return
+			favs.push(id);
+			store.set({favorites: favs})
+			localStorage.setItem('favorites', JSON.stringify(favs));
+			let st = 'saved '+id+ ' to your favorite authors.'
+        	new Toast(st,'toast','info')
+		},
 		moveTo(id) {
 			let elmnt = document.getElementById(id);
 			elmnt.scrollIntoView();	
 		},
-		saveData(type,cat,post, x) {
-			let str = cat;
-			// new Toast(str, 'modal','error', 0,[
-			// 		{ text:'ok', action:'cancel'}])
-			// 		return
-			/* the x ties us to the index, which I don't like, but I don't see any other way right now
-			as there are no unique ids accross the 3 blogs - stephen jones has no ids for comments. So basically this is lame and we can now only hide crap we may want to delete later, because it would screw up the index for everything saved to notebook
-			*/
-			let bookmarks = localStorage.getItem('bookmarks') || {};
-			if (Object.keys(bookmarks).length > 0) bookmarks = JSON.parse(bookmarks);
-
-			console.log(x+ ' cat is '+cat)
-			console.log(x+ ' author is '+post.author)
-			let id = `${post.author}_${cat}_${x}`
-			let st;
-			
-			let obj = {
-				commentid: post.id,
-				id: id,
-				cat: cat,
-				title: post.title,
-				post: post.post,
-				author: post.author,
-				url: post.url,
-				date:post.date
-			}
-			
-			if (bookmarks[id] && bookmarks[id].note) obj.note = bookmarks[id].note;
-
-			switch (type) {
-				case 'pro':
-					obj.type = 'pro';				
-					bookmarks[id] = obj;
-					localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
-					 st = 'saved '+post.title+ ' to notebook as supporting authenticity.'
-					new Toast(st,'toast','success')
-					break;
-				case 'con':
-					obj.type = 'con';				
-					bookmarks[id] = obj;
-					localStorage.setItem('bookmarks', JSON.stringify(bookmarks));					
-					st = 'saved '+post.title+ ' to notebook as evidence against authenticity.'
-					new Toast(st,'toast','error')
-					break;			
-
-				case 'note':
-				    st = 'Enter or paste text:';
-				    store.set({temp:obj})
-					new Toast(str, 'modal', 'input', 0, [], 'note');
-					break;
-			}
+		saveData(type,cat,post,x) {
+			saveToNotebook(type,cat,post,x);
 		},
 		addParagraphBreaks() {
 			let comp = this;
