@@ -1,6 +1,8 @@
 import { toaster } from "./Toaster.js";
 import Input from "../components/Input.html";
 
+import TextInput from "../components/TextInput.html";
+
 import Buttons from "../components/Buttons.html";
 
 /* here is how you can use this component!! 
@@ -149,11 +151,11 @@ export function Toast (text = `No text!`, type = Toast.TYPE, mode = Toast.MODE, 
         var input;
         
     
-            input = new Input({
+            input = new TextInput({
                 target: el2,
                 data: {
                     placeholder: 'enter text',
-                    maxLength: 20
+                    maxLength: 200
                 }
             });        
         input.on('saveInput', event => {

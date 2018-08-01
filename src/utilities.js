@@ -77,6 +77,19 @@
     .join(' ');	
   }
   const saveToNotebook = (type,cat,post, x, postid) => {
+ /* for entries coming from modal button click, they only have a postid - so we have to 'get'
+ the rest, i've hijacked the x var for that! They had to have clicked this from our notebook page,
+ so it's already transferred from localStorage to our store */
+    if (x == 'get') {
+     // console.log('postid is '+postid)
+      let bms = localStorage.getItem('bookmarks');
+      bms = JSON.parse(bms);
+      let bm = bms[postid]
+      cat = bm.cat
+      post = bm;
+      //console.log('got your modal click, bm is '+JSON.stringify(bm))
+    }
+
     let str = cat;
     // new Toast(str, 'modal','error', 0,[
     // 		{ text:'ok', action:'cancel'}])
@@ -87,8 +100,8 @@
     let bookmarks = localStorage.getItem('bookmarks') || {};
     if (Object.keys(bookmarks).length > 0) bookmarks = JSON.parse(bookmarks);
 
-    console.log(x+ ' cat is '+cat)
-    console.log(x+ ' author is '+post.author)
+    //console.log(x+ ' cat is '+cat)
+    //console.log(x+ ' author is '+post.author)
 
     /* if we're adjusting from notebook we already have an id, if we are adding from a comment then we need to create one */
     let id = postid;
@@ -119,12 +132,18 @@
         bookmarks[id] = obj;
         localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
          st = 'saved '+post.title+ ' to notebook as supporting authenticity.'
+         bookmarks = Object.entries(bookmarks);
+      //sorting here is confusing, leave as is
+         store.set({bookmarks: bookmarks})
         new Toast(st,'toast','success')
         break;
       case 'con':
         obj.type = 'con';				
         bookmarks[id] = obj;
-        localStorage.setItem('bookmarks', JSON.stringify(bookmarks));					
+        localStorage.setItem('bookmarks', JSON.stringify(bookmarks));	
+        bookmarks = Object.entries(bookmarks);
+   
+        store.set({bookmarks: bookmarks})				
         st = 'saved '+post.title+ ' to notebook as evidence against authenticity.'
         new Toast(st,'toast','error')
         break;			
@@ -136,6 +155,8 @@
         new Toast(str, 'modal', 'input', 0, [], 'note');
         break;
     }
-
+    setTimeout(() => {
+      deleteAllToasts();
+    }, 500);
   }
   export {getRandomWord, startCase, saveToNotebook}

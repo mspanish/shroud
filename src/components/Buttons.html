@@ -13,7 +13,7 @@
 -->
 
 <div class="pure-g buttonHolder">
-    <button on:click="doIt(action1)" class="pure-button pure-button">{btn1}</button>
+    <button on:click="doIt(action1,value)" class="pure-button pure-button">{btn1}</button>
     {#if btn2}
     <button on:click="doIt(action2,value)" class="pure-button pure-button-primary">{btn2}</button>
     {/if}
@@ -30,6 +30,7 @@
   
 <script>
     import { Toast, deleteAllToasts} from '../toaster-js/index.js';   
+    import { saveToNotebook } from '../utilities.js';
 
      export default { 
      data() { 
@@ -40,6 +41,13 @@
        methods: {
              doIt(action,value){
                 switch (action) {
+                  case 'pro':
+                   saveToNotebook('pro',false, false, 'get', value)
+                  break;
+                  case 'con':
+                  saveToNotebook('con',false, false, 'get', value)
+                  break;
+
                     /* close the modal */
                     case 'delete':
                     //algo

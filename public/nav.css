@@ -714,14 +714,23 @@ th[role=columnheader]:not(.no-sort):hover:after {
   width: 500px;
   font-size: 1rem;
 }
-.notebookInfo {
-  font-size:1rem;
-}
+
 .dSmall {
   font-size: .85rem;
 }
 .rightAl {
   text-align:right;
+}
+.notebookInfo {
+   font-size:1rem;
+
+}
+.note {
+  font-size:1rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 100px;
+  
 }
 .deleteRow {
   margin-right: 100px;
@@ -753,4 +762,47 @@ th[role=columnheader]:not(.no-sort):hover:after {
 }
 .btn-nav {
   background-color:white;
+}
+
+
+.tooltip {
+  position: relative;
+  color: #3B627E;
+  font-weight: bolder;
+  cursor: pointer;
+}
+.tooltip:hover::before {
+  content: "";
+  border: solid transparent;
+  border-bottom-color: #4862A3;
+  border-width: 10px;
+  position: absolute;
+  top: 20px;
+}
+.tooltip:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  min-width: 15em;
+  font-weight: 100;
+  line-height: 1.3em;
+  margin: 0;
+  background: #4862A3;
+  color: #fff;
+  padding: 15px;
+  border-radius: 5px;
+  right: 10%;
+  top: 40px;
+  z-index: 1;
+  word-break:normal;
+  line-break: word; 
+  font-size: 1.3rem;
+}
+
+.expand {
+  background-color: #d7eaf1;
+  padding: 5px 15px 5px 15px;
+  border-radius: 10px;
+  margin-top:-40px;
+  cursor:pointer;
+  color: grey;
 }

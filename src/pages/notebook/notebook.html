@@ -31,19 +31,20 @@
 
 	<tbody id='authors'>
  
-    {#each $bookmarks as bookmark}
+    {#each $bookmarks as bookmark, x}
     <tr>
         <td>
             <span on:click="removeBookmark(bookmark[1].id)" class="deleteRow"></span>
           {#if bookmark[1].type}
-          <span class="tb_{bookmark[1].type} tb_buttons">{bookmark[1].type}</span>
+          <span on:click="proCon(bookmark[1].id)" class="tb_{bookmark[1].type} tb_buttons">{bookmark[1].type}</span>
           {:else}
-          <span class="tb_buttons tb_note">?</span>
+          <span on:click="proCon(bookmark[1].id)" class="tb_buttons tb_note">?</span>
           {/if}
         </td>
         <td class="notebookInfo">{bookmark[1].cat}</td>
         <td><a href="{bookmark[1].url}{bookmark[1].commentid ? `#${bookmark[1].commentid}` : ''}" target="_blank">{bookmark[1].title}</a>
-          <p class="postTruncate">{bookmark[1].post}</p>
+          <p class="postTruncate">{@html bookmark[1].post} </p>
+          <span class="expand" on:click="expand(x)">expand...</span>
         </td>
       <td class="notebookInfo"><Link href="/authors/{bookmark[1].author}">{bookmark[1].author}</Link></td>
       <td>
@@ -52,7 +53,8 @@
 
       <td class="rightAl">
           {#if bookmark[1].note}
-          <span class="notebookInfo"> {bookmark[1].note}</span>
+          <p class="notebookInfo note"> {bookmark[1].note}</p> 
+          <span class="tooltip" data-tooltip="{bookmark[1].note}">see all...</span>
           {:else}
           <span on:click="saveData('note', bookmark[1])" class="tb_note tb_buttons">add</span>
           {/if}
@@ -210,6 +212,33 @@ td {
   
 	},
     methods: {
+      proCon(id){
+        let str = 'Pro or con authenticity argument?'
+        new Toast(str, 'modal', 'warning', 0, [
+          {text: 'pro', action: 'pro'},
+          {text: 'con', action: 'con', value: id}
+        ]);
+      },
+      expand(x) {
+        let div = document.getElementsByClassName('postTruncate')[x];
+        let text = document.getElementsByClassName('expand')[x];
+       // let note = document.getElementsByClassName('note')[x];   
+        if (div.getAttribute('data-expanded') ==='true') {
+          text.textContent = 'expand...'
+          div.style.height = '100px';
+     //     note.style.height = '100px';
+          div.setAttribute('data-expanded', false);
+        }
+        else {
+          text.textContent = 'collapse...'
+          div.style.height = '100%';
+        //  note.style.height = '100%';
+       //   note.style.backgroundColor = 'red'
+          div.setAttribute('data-expanded', true);
+        }
+        
+      },
+
       saveData(type,post) {
         let cat = post.cat, id = post.id;
 			  saveToNotebook(type,cat,post,false, id);
