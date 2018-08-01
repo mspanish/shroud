@@ -60,7 +60,7 @@
 					<span on:click="saveData('pro',$author.cat.name, post,x)" class="tb_pro">pro</span><span class="tb_con" on:click="saveData('con',$author.cat.name, post,x)">con</span><span class="tb_note" on:click="saveData('note',$author.cat.name, post,x)">add note</span>
 				</p>
 				<p class="posting">
-				{post.post}
+				{@html post.post}
 				</p>
 				</td>
 			  <td class="date">{post.date}<span class="right10">{post.mins}<span></td>			  
@@ -176,26 +176,34 @@ td {
 			 console.log('got data for '+cat);
 			 //console.table(json)
 			 store.set({author:{}});
+			 let e = 0;
+			 for (let post of json) {
+				// console.log(post.post)
+				json[e].post = comp.addParagraphBreaks(post.post);
+				//console.log('post return '+json[e].post)
+				e++;
+			 }
 			 obj = {name: cat, len: json.length, data:json};
 			 
 			 setTimeout(() => {
-			   console.log('adding Par.breaks')
-				comp.addParagraphBreaks();
+			
+			
 				//comp.shortenDates();
 				let state = store.get();
 				let firstRun = state.firstRun;
 				if (!firstRun) {
-					console.log('running SORT on first run')
+					//console.log('running SORT on first run')
 				    new Tablesort(document.getElementById('posts'));
-					store.set({firstRun: true}); 		
+				   store.set({firstRun: true}); 		
 				} 
 				else {
 					console.log('first run FALSE')
 					comp.moveTo('posts');
 				};
-			}, 1000);
-			store.set({catLoaded: cat, author: {name: id, cat: obj} })
 
+			}, 500);
+			store.set({catLoaded: cat, author: {name: id, cat: obj} })
+		
 		});
 		},
 		favorite(id) {
@@ -224,9 +232,9 @@ td {
 		saveData(type,cat,post,x) {
 			saveToNotebook(type,cat,post,x);
 		},
-		addParagraphBreaks() {
+		addParagraphBreaks(post) {
 			let comp = this;
-			let postings = document.getElementsByClassName('posting');
+		//	let postings = document.getElementsByClassName('posting');
 			//console.log('got postings? '+postings)
 			let j = 0;
 
@@ -235,14 +243,15 @@ td {
 			const shroudWords = ['pray', 'codex', 'tomb', 'cloth', 'textile', 'shroud', 'woven', 'ancient', 'formation', 'pollen', 'dna']
 			const bloodWords = ['blood', 'bloodstains', 'bloodstain', 'bloody', 'wounds'];
 			const holyWords = ['christ', 'yeshua','jesus', 'god', 'holy', 'spirit', 'trinity', 'lord', 'lords']
-			alterPost(j);
+			return alterPost(post);
 			
 			
-			function alterPost(j) { 
-				if (j > postings.length-1) return
+			function alterPost(str) { 
+				//console.log('altering: '+str)
+			//	if (j > postings.length-1) return
 //			for (let posting of postings) {
 	
-				let str = postings[j].textContent.replace(/\\n/g, '');
+			//	let str = post  // postings[j].textContent.replace(/\\n/g, '');
 				//console.log(str)
 			
 				let arr = [];
@@ -298,11 +307,13 @@ td {
 					line = comp.urlify(line);
 					newStr = newStr + '<p>'+line+'</p>'
 				}
-				postings[j].innerHTML =  newStr;
-				j++
-				setTimeout(() => {
-					alterPost(j);
-				}, 50);
+				return newStr;
+			//	postings[j].innerHTML =  newStr;
+			//	j++
+				
+				// setTimeout(() => {
+				// 	alterPost(j);
+				// }, 50);
 			
 			}
 		},
@@ -365,6 +376,7 @@ td {
 				{ name: 'history, len: 3}
 				*/
 			  store.set({
+				  firstRun: false,
 				  cats:json
 				})
 		      comp.getCategory(json[0].name, id)

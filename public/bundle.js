@@ -3558,25 +3558,33 @@ var methods$6 = {
 			 console.log('got data for '+cat);
 			 //console.table(json)
 			 store.set({author:{}});
+			 let e = 0;
+			 for (let post of json) {
+				// console.log(post.post)
+				json[e].post = comp.addParagraphBreaks(post.post);
+				//console.log('post return '+json[e].post)
+				e++;
+			 }
 			 obj = {name: cat, len: json.length, data:json};
 			 
 			 setTimeout(() => {
-			   console.log('adding Par.breaks');
-				comp.addParagraphBreaks();
+			
+			
 				//comp.shortenDates();
 				let state = store.get();
 				let firstRun = state.firstRun;
 				if (!firstRun) {
-					console.log('running SORT on first run');
+					//console.log('running SORT on first run')
 				    new Tablesort(document.getElementById('posts'));
-					store.set({firstRun: true}); 		
+				   store.set({firstRun: true}); 		
 				} 
 				else {
 					console.log('first run FALSE');
 					comp.moveTo('posts');
-				}			}, 1000);
+				}
+			}, 500);
 			store.set({catLoaded: cat, author: {name: id, cat: obj} });
-
+		
 		});
 		},
 		favorite(id) {
@@ -3605,25 +3613,18 @@ var methods$6 = {
 		saveData(type,cat,post,x) {
 			saveToNotebook(type,cat,post,x);
 		},
-		addParagraphBreaks() {
+		addParagraphBreaks(post) {
 			let comp = this;
-			let postings = document.getElementsByClassName('posting');
-			//console.log('got postings? '+postings)
-			let j = 0;
 
 			const authorsArr  = ['david', 'hugh', 'dan', 'colin', 'yannick', 'charles', 'daveb', 'max', 'stephen', 'mario', 'mark', 'antonio', 'john', 'giulio', 'louis', 'anoxie', 'dave', 'kelly', 'barry', 'barrie', 'russ', 'joe', 'colinsberry', 'ron'];
 			const scholars = ['barbet','rucker','zugibe', 'wesselow', 'piczak', 'piczek', 'benford','vignon', 'bucklin', 'marino','rolfe', 'meacham', 'fanti', 'rogers', 'adler', 'heller', 'mccrone', 'jackson', 'strup', 'enea'];
 			const shroudWords = ['pray', 'codex', 'tomb', 'cloth', 'textile', 'shroud', 'woven', 'ancient', 'formation', 'pollen', 'dna'];
 			const bloodWords = ['blood', 'bloodstains', 'bloodstain', 'bloody', 'wounds'];
 			const holyWords = ['christ', 'yeshua','jesus', 'god', 'holy', 'spirit', 'trinity', 'lord', 'lords'];
-			alterPost(j);
+			return alterPost(post);
 			
 			
-			function alterPost(j) { 
-				if (j > postings.length-1) return
-//			for (let posting of postings) {
-	
-				let str = postings[j].textContent.replace(/\\n/g, '');
+			function alterPost(str) { 
 
 				let words = str.split(' ');
 			
@@ -3675,11 +3676,13 @@ var methods$6 = {
 					line = comp.urlify(line);
 					newStr = newStr + '<p>'+line+'</p>';
 				}
-				postings[j].innerHTML =  newStr;
-				j++;
-				setTimeout(() => {
-					alterPost(j);
-				}, 50);
+				return newStr;
+			//	postings[j].innerHTML =  newStr;
+			//	j++
+				
+				// setTimeout(() => {
+				// 	alterPost(j);
+				// }, 50);
 			
 			}
 		},
@@ -3734,6 +3737,7 @@ function oncreate$3() {
 			{ name: 'history, len: 3}
 			*/
 		  store.set({
+			  firstRun: false,
 			  cats:json
 			});
 	      comp.getCategory(json[0].name, id);
@@ -4049,7 +4053,7 @@ function create_if_block$3(component, ctx) {
 
 // (53:3) {#each $author.cat.data as post, x}
 function create_each_block_1$1(component, ctx) {
-	var tr, td, p, text, text_1_value = ctx.$author.cat.name, text_1, text_2, span, a, text_3_value = ctx.post.title, text_3, a_href_value, span_1, span_2, text_4, text_6, p_1, span_3, text_7, span_4, text_8, span_5, text_9, text_11, p_2, text_12_value = ctx.post.post, text_12, text_15, td_1, text_16_value = ctx.post.date, text_16, span_6, text_17_value = ctx.post.mins, text_17, span_7;
+	var tr, td, p, text, text_1_value = ctx.$author.cat.name, text_1, text_2, span, a, text_3_value = ctx.post.title, text_3, a_href_value, span_1, span_2, text_4, text_6, p_1, span_3, text_7, span_4, text_8, span_5, text_9, text_11, p_2, raw_value = ctx.post.post, text_14, td_1, text_15_value = ctx.post.date, text_15, span_6, text_16_value = ctx.post.mins, text_16, span_7;
 
 	return {
 		c: function create() {
@@ -4075,12 +4079,11 @@ function create_each_block_1$1(component, ctx) {
 			text_9 = createText("add note");
 			text_11 = createText("\r\n\t\t\t\t");
 			p_2 = createElement("p");
-			text_12 = createText(text_12_value);
-			text_15 = createText("\r\n\t\t\t  ");
+			text_14 = createText("\r\n\t\t\t  ");
 			td_1 = createElement("td");
-			text_16 = createText(text_16_value);
+			text_15 = createText(text_15_value);
 			span_6 = createElement("span");
-			text_17 = createText(text_17_value);
+			text_16 = createText(text_16_value);
 			span_7 = createElement("span");
 			a.href = a_href_value = "" + ctx.post.url + (ctx.post.id ? `#${ctx.post.id}` : '');
 			a.target = "_blank";
@@ -4119,11 +4122,11 @@ function create_each_block_1$1(component, ctx) {
 			addLoc(p_2, file$7, 61, 4, 1769);
 			td.className = " svelte-peuc5d";
 			addLoc(td, file$7, 55, 5, 1220);
-			addLoc(span_7, file$7, 65, 66, 1894);
+			addLoc(span_7, file$7, 65, 66, 1900);
 			span_6.className = "right10";
-			addLoc(span_6, file$7, 65, 33, 1861);
+			addLoc(span_6, file$7, 65, 33, 1867);
 			td_1.className = "date svelte-peuc5d";
-			addLoc(td_1, file$7, 65, 5, 1833);
+			addLoc(td_1, file$7, 65, 5, 1839);
 			addLoc(tr, file$7, 53, 3, 1203);
 		},
 
@@ -4150,12 +4153,12 @@ function create_each_block_1$1(component, ctx) {
 			appendNode(text_9, span_5);
 			appendNode(text_11, td);
 			appendNode(p_2, td);
-			appendNode(text_12, p_2);
-			appendNode(text_15, tr);
+			p_2.innerHTML = raw_value;
+			appendNode(text_14, tr);
 			appendNode(td_1, tr);
-			appendNode(text_16, td_1);
+			appendNode(text_15, td_1);
 			appendNode(span_6, td_1);
-			appendNode(text_17, span_6);
+			appendNode(text_16, span_6);
 			appendNode(span_7, span_6);
 		},
 
@@ -4175,16 +4178,16 @@ function create_each_block_1$1(component, ctx) {
 			span_3._svelte.ctx = ctx;
 			span_4._svelte.ctx = ctx;
 			span_5._svelte.ctx = ctx;
-			if ((changed.$author) && text_12_value !== (text_12_value = ctx.post.post)) {
-				text_12.data = text_12_value;
+			if ((changed.$author) && raw_value !== (raw_value = ctx.post.post)) {
+				p_2.innerHTML = raw_value;
 			}
 
-			if ((changed.$author) && text_16_value !== (text_16_value = ctx.post.date)) {
+			if ((changed.$author) && text_15_value !== (text_15_value = ctx.post.date)) {
+				text_15.data = text_15_value;
+			}
+
+			if ((changed.$author) && text_16_value !== (text_16_value = ctx.post.mins)) {
 				text_16.data = text_16_value;
-			}
-
-			if ((changed.$author) && text_17_value !== (text_17_value = ctx.post.mins)) {
-				text_17.data = text_17_value;
 			}
 		},
 
