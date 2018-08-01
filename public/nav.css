@@ -730,7 +730,7 @@ th[role=columnheader]:not(.no-sort):hover:after {
   overflow: hidden;
   text-overflow: ellipsis;
   height: 100px;
-  
+
 }
 .deleteRow {
   margin-right: 100px;
@@ -799,10 +799,33 @@ th[role=columnheader]:not(.no-sort):hover:after {
 }
 
 .expand {
-  background-color: #d7eaf1;
-  padding: 5px 15px 5px 15px;
-  border-radius: 10px;
-  margin-top:-40px;
-  cursor:pointer;
-  color: grey;
+    background-color: #d7eaf1;
+    padding: 0px 15px 0px 15px;
+    border-radius: 10px;
+    margin: 10px;
+    margin-top: -10px;
+    cursor: pointer;
+    color: grey;
+    opacity: .7;
+    width: 130px;
+    text-align:center;
+}
+.hidden {
+  visibility:hidden;
+  height:0;
+}
+.db_welcome_buttons {
+  width: 100%;
+    text-align: center;
+}
+.big_button{
+background-color: seashell;
+padding: 20px;
+margin-right: 30px;
+margin-left: 30px;
+font-size: 2rem;
+font-family: monospace;
+display: inline-block;
+text-align: center;
+border-radius: 10px;
 }

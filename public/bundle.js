@@ -1047,6 +1047,11 @@ const catsData = {
 			"desc": "",
 			"img": ""
 		},
+		"database": {
+			"menu": "Shroud Database",
+			"desc": "",
+			"img": ""
+		},	
 		"videos": {
 			"menu": "Shroud Videos",
 			"desc": "",
@@ -2790,20 +2795,20 @@ const file$7 = "src\\pages\\notebook\\notebook.html";
 function create_main_fragment$7(component, ctx) {
 	var div, h1, text, text_1, p, text_2, text_3, div_1, input, text_4, label, text_5, text_6, input_1, text_7, label_1, text_8, text_9, input_2, text_10, label_2, text_11, text_12, section, text_14, section_1, text_16, section_2, text_17;
 
-	function select_block_type_2(ctx) {
-		if (ctx.$bookmarks && ctx.$bookmarks.length > 0) return create_if_block$2;
-		return create_if_block_5;
-	}
-
-	var current_block_type = select_block_type_2(ctx);
-	var if_block = current_block_type(component, ctx);
-
 	function select_block_type_3(ctx) {
-		if (ctx.$favorites && ctx.$favorites.length > 0) return create_if_block_6;
+		if (ctx.$bookmarks && ctx.$bookmarks.length > 0) return create_if_block$2;
 		return create_if_block_7;
 	}
 
-	var current_block_type_1 = select_block_type_3(ctx);
+	var current_block_type = select_block_type_3(ctx);
+	var if_block = current_block_type(component, ctx);
+
+	function select_block_type_4(ctx) {
+		if (ctx.$favorites && ctx.$favorites.length > 0) return create_if_block_8;
+		return create_if_block_9;
+	}
+
+	var current_block_type_1 = select_block_type_4(ctx);
 	var if_block_1 = current_block_type_1(component, ctx);
 
 	return {
@@ -2839,46 +2844,46 @@ function create_main_fragment$7(component, ctx) {
 			text_16 = createText("\r\n\r\n");
 			section_2 = createElement("section");
 			text_17 = createText("Resources");
-			h1.className = "auth svelte-1o2irb8";
+			h1.className = "auth svelte-1qtb0u3";
 			addLoc(h1, file$7, 1, 0, 38);
 			addLoc(p, file$7, 2, 0, 80);
 			input.id = "tab1";
 			setAttribute(input, "type", "radio");
 			input.name = "tabs";
 			input.checked = true;
-			input.className = "svelte-1o2irb8";
+			input.className = "svelte-1qtb0u3";
 			addLoc(input, file$7, 5, 4, 239);
 			label.htmlFor = "tab1";
-			label.className = "svelte-1o2irb8";
+			label.className = "svelte-1qtb0u3";
 			addLoc(label, file$7, 6, 2, 293);
 			input_1.id = "tab2";
 			setAttribute(input_1, "type", "radio");
 			input_1.name = "tabs";
-			input_1.className = "svelte-1o2irb8";
+			input_1.className = "svelte-1qtb0u3";
 			addLoc(input_1, file$7, 8, 2, 334);
 			label_1.htmlFor = "tab2";
-			label_1.className = "svelte-1o2irb8";
+			label_1.className = "svelte-1qtb0u3";
 			addLoc(label_1, file$7, 9, 2, 380);
 			input_2.id = "tab3";
 			setAttribute(input_2, "type", "radio");
 			input_2.name = "tabs";
-			input_2.className = "svelte-1o2irb8";
+			input_2.className = "svelte-1qtb0u3";
 			addLoc(input_2, file$7, 11, 2, 423);
 			label_2.htmlFor = "tab3";
-			label_2.className = "svelte-1o2irb8";
+			label_2.className = "svelte-1qtb0u3";
 			addLoc(label_2, file$7, 12, 2, 469);
 			section.id = "content1";
-			section.className = "svelte-1o2irb8";
+			section.className = "svelte-1qtb0u3";
 			addLoc(section, file$7, 14, 3, 513);
 			section_1.id = "content2";
-			section_1.className = "svelte-1o2irb8";
-			addLoc(section_1, file$7, 74, 0, 2422);
+			section_1.className = "svelte-1qtb0u3";
+			addLoc(section_1, file$7, 78, 0, 2556);
 			section_2.id = "content3";
-			section_2.className = "svelte-1o2irb8";
-			addLoc(section_2, file$7, 103, 0, 3041);
-			div_1.className = "tabs svelte-1o2irb8";
+			section_2.className = "svelte-1qtb0u3";
+			addLoc(section_2, file$7, 107, 0, 3175);
+			div_1.className = "tabs svelte-1qtb0u3";
 			addLoc(div_1, file$7, 4, 0, 215);
-			div.className = "content is-medium home svelte-1o2irb8";
+			div.className = "content is-medium home svelte-1qtb0u3";
 			addLoc(div, file$7, 0, 0, 0);
 		},
 
@@ -2917,7 +2922,7 @@ function create_main_fragment$7(component, ctx) {
 		},
 
 		p: function update(changed, ctx) {
-			if (current_block_type === (current_block_type = select_block_type_2(ctx)) && if_block) {
+			if (current_block_type === (current_block_type = select_block_type_3(ctx)) && if_block) {
 				if_block.p(changed, ctx);
 			} else {
 				if_block.d(1);
@@ -2926,7 +2931,7 @@ function create_main_fragment$7(component, ctx) {
 				if_block.m(section, null);
 			}
 
-			if (current_block_type_1 === (current_block_type_1 = select_block_type_3(ctx)) && if_block_1) {
+			if (current_block_type_1 === (current_block_type_1 = select_block_type_4(ctx)) && if_block_1) {
 				if_block_1.p(changed, ctx);
 			} else {
 				if_block_1.d(1);
@@ -2949,7 +2954,7 @@ function create_main_fragment$7(component, ctx) {
 
 // (34:4) {#each $bookmarks as bookmark, x}
 function create_each_block$2(component, ctx) {
-	var tr, td, span, text, text_2, td_1, text_3_value = ctx.bookmark[1].cat, text_3, text_4, td_2, a, text_5_value = ctx.bookmark[1].title, text_5, a_href_value, text_6, p, raw_value = ctx.bookmark[1].post, text_8, span_1, text_9, text_11, td_3, text_12_value = ctx.bookmark[1].author, text_12, text_13, td_4, span_2, text_14_value = ctx.bookmark[1].date, text_14, text_16, td_5;
+	var tr, td, span, text, text_2, td_1, text_3_value = ctx.bookmark[1].cat, text_3, text_4, td_2, a, text_5_value = ctx.bookmark[1].title, text_5, a_href_value, text_6, p, raw_value = ctx.bookmark[1].post, text_8, text_10, td_3, text_11_value = ctx.bookmark[1].author, text_11, text_12, td_4, span_1, text_13_value = ctx.bookmark[1].date, text_13, text_15, td_5;
 
 	function select_block_type(ctx) {
 		if (ctx.bookmark[1].type) return create_if_block_1;
@@ -2959,6 +2964,14 @@ function create_each_block$2(component, ctx) {
 	var current_block_type = select_block_type(ctx);
 	var if_block = current_block_type(component, ctx);
 
+	function select_block_type_1(ctx) {
+		if (ctx.bookmark[1].post.length> 200) return create_if_block_3;
+		return create_if_block_4;
+	}
+
+	var current_block_type_1 = select_block_type_1(ctx);
+	var if_block_1 = current_block_type_1(component, ctx);
+
 	var link_initial_data = { href: "/authors/" + ctx.bookmark[1].author };
 	var link = new Link({
 		root: component.root,
@@ -2967,13 +2980,13 @@ function create_each_block$2(component, ctx) {
 		data: link_initial_data
 	});
 
-	function select_block_type_1(ctx) {
-		if (ctx.bookmark[1].note) return create_if_block_3;
-		return create_if_block_4;
+	function select_block_type_2(ctx) {
+		if (ctx.bookmark[1].note) return create_if_block_5;
+		return create_if_block_6;
 	}
 
-	var current_block_type_1 = select_block_type_1(ctx);
-	var if_block_1 = current_block_type_1(component, ctx);
+	var current_block_type_2 = select_block_type_2(ctx);
+	var if_block_2 = current_block_type_2(component, ctx);
 
 	return {
 		c: function create() {
@@ -2992,49 +3005,43 @@ function create_each_block$2(component, ctx) {
 			text_6 = createText("\r\n          ");
 			p = createElement("p");
 			text_8 = createText("\r\n          ");
-			span_1 = createElement("span");
-			text_9 = createText("expand...");
-			text_11 = createText("\r\n      ");
-			td_3 = createElement("td");
-			text_12 = createText(text_12_value);
-			link._fragment.c();
-			text_13 = createText("\r\n      ");
-			td_4 = createElement("td");
-			span_2 = createElement("span");
-			text_14 = createText(text_14_value);
-			text_16 = createText("\r\n\r\n      ");
-			td_5 = createElement("td");
 			if_block_1.c();
+			text_10 = createText("\r\n      ");
+			td_3 = createElement("td");
+			text_11 = createText(text_11_value);
+			link._fragment.c();
+			text_12 = createText("\r\n      ");
+			td_4 = createElement("td");
+			span_1 = createElement("span");
+			text_13 = createText(text_13_value);
+			text_15 = createText("\r\n\r\n      ");
+			td_5 = createElement("td");
+			if_block_2.c();
 			span._svelte = { component, ctx };
 
 			addListener(span, "click", click_handler);
 			span.className = "deleteRow";
 			addLoc(span, file$7, 36, 12, 949);
-			td.className = "svelte-1o2irb8";
+			td.className = "svelte-1qtb0u3";
 			addLoc(td, file$7, 35, 8, 931);
-			td_1.className = "notebookInfo svelte-1o2irb8";
+			td_1.className = "notebookInfo svelte-1qtb0u3";
 			addLoc(td_1, file$7, 43, 8, 1322);
 			a.href = a_href_value = "" + ctx.bookmark[1].url + (ctx.bookmark[1].commentid ? `#${ctx.bookmark[1].commentid}` : '');
 			a.target = "_blank";
 			addLoc(a, file$7, 44, 12, 1383);
 			p.className = "postTruncate";
 			addLoc(p, file$7, 45, 10, 1520);
-
-			span_1._svelte = { component, ctx };
-
-			addListener(span_1, "click", click_handler_3);
-			span_1.className = "expand";
-			addLoc(span_1, file$7, 46, 10, 1585);
-			td_2.className = "svelte-1o2irb8";
+			td_2.className = "svelte-1qtb0u3";
 			addLoc(td_2, file$7, 44, 8, 1379);
-			td_3.className = "notebookInfo svelte-1o2irb8";
-			addLoc(td_3, file$7, 48, 6, 1666);
-			span_2.className = "dSmall";
-			addLoc(span_2, file$7, 50, 8, 1788);
-			td_4.className = "svelte-1o2irb8";
-			addLoc(td_4, file$7, 49, 6, 1774);
-			td_5.className = "rightAl svelte-1o2irb8";
-			addLoc(td_5, file$7, 53, 6, 1857);
+			td_3.className = "notebookInfo svelte-1qtb0u3";
+			addLoc(td_3, file$7, 52, 6, 1800);
+			span_1.className = "dSmall";
+			addLoc(span_1, file$7, 54, 8, 1922);
+			td_4.className = "svelte-1qtb0u3";
+			addLoc(td_4, file$7, 53, 6, 1908);
+			td_5.className = "rightAl svelte-1qtb0u3";
+			addLoc(td_5, file$7, 57, 6, 1991);
+			tr.className = "svelte-1qtb0u3";
 			addLoc(tr, file$7, 34, 4, 917);
 		},
 
@@ -3055,19 +3062,18 @@ function create_each_block$2(component, ctx) {
 			appendNode(p, td_2);
 			p.innerHTML = raw_value;
 			appendNode(text_8, td_2);
-			appendNode(span_1, td_2);
-			appendNode(text_9, span_1);
-			appendNode(text_11, tr);
+			if_block_1.m(td_2, null);
+			appendNode(text_10, tr);
 			appendNode(td_3, tr);
-			appendNode(text_12, link._slotted.default);
+			appendNode(text_11, link._slotted.default);
 			link._mount(td_3, null);
-			appendNode(text_13, tr);
+			appendNode(text_12, tr);
 			appendNode(td_4, tr);
-			appendNode(span_2, td_4);
-			appendNode(text_14, span_2);
-			appendNode(text_16, tr);
+			appendNode(span_1, td_4);
+			appendNode(text_13, span_1);
+			appendNode(text_15, tr);
 			appendNode(td_5, tr);
-			if_block_1.m(td_5, null);
+			if_block_2.m(td_5, null);
 		},
 
 		p: function update(changed, ctx) {
@@ -3098,26 +3104,32 @@ function create_each_block$2(component, ctx) {
 				p.innerHTML = raw_value;
 			}
 
-			span_1._svelte.ctx = ctx;
-			if ((changed.$bookmarks) && text_12_value !== (text_12_value = ctx.bookmark[1].author)) {
-				text_12.data = text_12_value;
+			if (current_block_type_1 !== (current_block_type_1 = select_block_type_1(ctx))) {
+				if_block_1.d(1);
+				if_block_1 = current_block_type_1(component, ctx);
+				if_block_1.c();
+				if_block_1.m(td_2, null);
+			}
+
+			if ((changed.$bookmarks) && text_11_value !== (text_11_value = ctx.bookmark[1].author)) {
+				text_11.data = text_11_value;
 			}
 
 			var link_changes = {};
 			if (changed.$bookmarks) link_changes.href = "/authors/" + ctx.bookmark[1].author;
 			link._set(link_changes);
 
-			if ((changed.$bookmarks) && text_14_value !== (text_14_value = ctx.bookmark[1].date)) {
-				text_14.data = text_14_value;
+			if ((changed.$bookmarks) && text_13_value !== (text_13_value = ctx.bookmark[1].date)) {
+				text_13.data = text_13_value;
 			}
 
-			if (current_block_type_1 === (current_block_type_1 = select_block_type_1(ctx)) && if_block_1) {
-				if_block_1.p(changed, ctx);
+			if (current_block_type_2 === (current_block_type_2 = select_block_type_2(ctx)) && if_block_2) {
+				if_block_2.p(changed, ctx);
 			} else {
-				if_block_1.d(1);
-				if_block_1 = current_block_type_1(component, ctx);
-				if_block_1.c();
-				if_block_1.m(td_5, null);
+				if_block_2.d(1);
+				if_block_2 = current_block_type_2(component, ctx);
+				if_block_2.c();
+				if_block_2.m(td_5, null);
 			}
 		},
 
@@ -3128,9 +3140,9 @@ function create_each_block$2(component, ctx) {
 
 			removeListener(span, "click", click_handler);
 			if_block.d();
-			removeListener(span_1, "click", click_handler_3);
-			link.destroy();
 			if_block_1.d();
+			link.destroy();
+			if_block_2.d();
 		}
 	};
 }
@@ -3146,7 +3158,7 @@ function create_if_block_1(component, ctx) {
 			span._svelte = { component, ctx };
 
 			addListener(span, "click", click_handler_1);
-			span.className = span_class_value = "tb_" + ctx.bookmark[1].type + " tb_buttons" + " svelte-1o2irb8";
+			span.className = span_class_value = "tb_" + ctx.bookmark[1].type + " tb_buttons" + " svelte-1qtb0u3";
 			addLoc(span, file$7, 38, 10, 1068);
 		},
 
@@ -3161,7 +3173,7 @@ function create_if_block_1(component, ctx) {
 			}
 
 			span._svelte.ctx = ctx;
-			if ((changed.$bookmarks) && span_class_value !== (span_class_value = "tb_" + ctx.bookmark[1].type + " tb_buttons" + " svelte-1o2irb8")) {
+			if ((changed.$bookmarks) && span_class_value !== (span_class_value = "tb_" + ctx.bookmark[1].type + " tb_buttons" + " svelte-1qtb0u3")) {
 				span.className = span_class_value;
 			}
 		},
@@ -3210,8 +3222,63 @@ function create_if_block_2(component, ctx) {
 	};
 }
 
-// (55:10) {#if bookmark[1].note}
+// (47:10) {#if bookmark[1].post.length> 200}
 function create_if_block_3(component, ctx) {
+	var div, text;
+
+	return {
+		c: function create() {
+			div = createElement("div");
+			text = createText("expand...");
+			div._svelte = { component, ctx };
+
+			addListener(div, "click", click_handler_3);
+			div.className = "expand";
+			addLoc(div, file$7, 47, 10, 1631);
+		},
+
+		m: function mount(target, anchor) {
+			insertNode(div, target, anchor);
+			appendNode(text, div);
+		},
+
+		d: function destroy$$1(detach) {
+			if (detach) {
+				detachNode(div);
+			}
+
+			removeListener(div, "click", click_handler_3);
+		}
+	};
+}
+
+// (49:10) {:else}
+function create_if_block_4(component, ctx) {
+	var div, text;
+
+	return {
+		c: function create() {
+			div = createElement("div");
+			text = createText("expand...");
+			div.className = "expand hidden";
+			addLoc(div, file$7, 49, 10, 1718);
+		},
+
+		m: function mount(target, anchor) {
+			insertNode(div, target, anchor);
+			appendNode(text, div);
+		},
+
+		d: function destroy$$1(detach) {
+			if (detach) {
+				detachNode(div);
+			}
+		}
+	};
+}
+
+// (59:10) {#if bookmark[1].note}
+function create_if_block_5(component, ctx) {
 	var p, text_value = ctx.bookmark[1].note, text, text_1, span, text_2, span_data_tooltip_value;
 
 	return {
@@ -3222,10 +3289,10 @@ function create_if_block_3(component, ctx) {
 			span = createElement("span");
 			text_2 = createText("see all...");
 			p.className = "notebookInfo note";
-			addLoc(p, file$7, 55, 10, 1923);
+			addLoc(p, file$7, 59, 10, 2057);
 			span.className = "tooltip";
 			span.dataset.tooltip = span_data_tooltip_value = ctx.bookmark[1].note;
-			addLoc(span, file$7, 56, 10, 1988);
+			addLoc(span, file$7, 60, 10, 2122);
 		},
 
 		m: function mount(target, anchor) {
@@ -3256,8 +3323,8 @@ function create_if_block_3(component, ctx) {
 	};
 }
 
-// (58:10) {:else}
-function create_if_block_4(component, ctx) {
+// (62:10) {:else}
+function create_if_block_6(component, ctx) {
 	var span, text;
 
 	return {
@@ -3268,7 +3335,7 @@ function create_if_block_4(component, ctx) {
 
 			addListener(span, "click", click_handler_4);
 			span.className = "tb_note tb_buttons";
-			addLoc(span, file$7, 58, 10, 2092);
+			addLoc(span, file$7, 62, 10, 2226);
 		},
 
 		m: function mount(target, anchor) {
@@ -3341,11 +3408,12 @@ function create_if_block$2(component, ctx) {
 			addLoc(th_4, file$7, 25, 4, 765);
 			setAttribute(th_5, "width", "200");
 			addLoc(th_5, file$7, 26, 4, 796);
+			tr.className = "svelte-1qtb0u3";
 			addLoc(tr, file$7, 19, 3, 628);
 			addLoc(thead, file$7, 18, 1, 616);
 			tbody.id = "authors";
 			addLoc(tbody, file$7, 31, 1, 849);
-			table.className = "pure-table svelte-1o2irb8";
+			table.className = "pure-table svelte-1qtb0u3";
 			addLoc(table, file$7, 17, 0, 587);
 		},
 
@@ -3411,8 +3479,8 @@ function create_if_block$2(component, ctx) {
 	};
 }
 
-// (69:0) {:else}
-function create_if_block_5(component, ctx) {
+// (73:0) {:else}
+function create_if_block_7(component, ctx) {
 	var text, text_1;
 
 	var link_initial_data = { href: "/authors" };
@@ -3448,7 +3516,7 @@ function create_if_block_5(component, ctx) {
 	};
 }
 
-// (87:6) {#each $favorites as author}
+// (91:6) {#each $favorites as author}
 function create_each_block_1(component, ctx) {
 	var tr, td, text_value = ctx.author, text, text_1, td_1;
 
@@ -3468,11 +3536,12 @@ function create_each_block_1(component, ctx) {
 			link._fragment.c();
 			text_1 = createText("\r\n      ");
 			td_1 = createElement("td");
-			td.className = "notebookInfo svelte-1o2irb8";
-			addLoc(td, file$7, 88, 6, 2716);
-			td_1.className = "svelte-1o2irb8";
-			addLoc(td_1, file$7, 89, 6, 2800);
-			addLoc(tr, file$7, 87, 6, 2704);
+			td.className = "notebookInfo svelte-1qtb0u3";
+			addLoc(td, file$7, 92, 6, 2850);
+			td_1.className = "svelte-1qtb0u3";
+			addLoc(td_1, file$7, 93, 6, 2934);
+			tr.className = "svelte-1qtb0u3";
+			addLoc(tr, file$7, 91, 6, 2838);
 		},
 
 		m: function mount(target, anchor) {
@@ -3504,8 +3573,8 @@ function create_each_block_1(component, ctx) {
 	};
 }
 
-// (77:4) {#if $favorites && $favorites.length > 0}
-function create_if_block_6(component, ctx) {
+// (81:4) {#if $favorites && $favorites.length > 0}
+function create_if_block_8(component, ctx) {
 	var text, text_1, table, thead, th, text_2, text_4, tbody;
 
 	var link_initial_data = { href: "/authors" };
@@ -3539,11 +3608,11 @@ function create_if_block_6(component, ctx) {
 			for (var i = 0; i < each_blocks.length; i += 1) {
 				each_blocks[i].c();
 			}
-			addLoc(th, file$7, 80, 6, 2600);
-			addLoc(thead, file$7, 79, 4, 2585);
-			addLoc(tbody, file$7, 84, 4, 2651);
-			table.className = "pure-table svelte-1o2irb8";
-			addLoc(table, file$7, 78, 0, 2553);
+			addLoc(th, file$7, 84, 6, 2734);
+			addLoc(thead, file$7, 83, 4, 2719);
+			addLoc(tbody, file$7, 88, 4, 2785);
+			table.className = "pure-table svelte-1qtb0u3";
+			addLoc(table, file$7, 82, 0, 2687);
 		},
 
 		m: function mount(target, anchor) {
@@ -3597,8 +3666,8 @@ function create_if_block_6(component, ctx) {
 	};
 }
 
-// (97:2) {:else}
-function create_if_block_7(component, ctx) {
+// (101:2) {:else}
+function create_if_block_9(component, ctx) {
 	var text, text_1;
 
 	var link_initial_data = { href: "/authors" };

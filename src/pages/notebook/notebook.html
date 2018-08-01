@@ -44,7 +44,11 @@
         <td class="notebookInfo">{bookmark[1].cat}</td>
         <td><a href="{bookmark[1].url}{bookmark[1].commentid ? `#${bookmark[1].commentid}` : ''}" target="_blank">{bookmark[1].title}</a>
           <p class="postTruncate">{@html bookmark[1].post} </p>
-          <span class="expand" on:click="expand(x)">expand...</span>
+          {#if bookmark[1].post.length> 200}
+          <div class="expand" on:click="expand(x)">expand...</div>
+          {:else}
+          <div class="expand hidden">expand...</div>
+          {/if}
         </td>
       <td class="notebookInfo"><Link href="/authors/{bookmark[1].author}">{bookmark[1].author}</Link></td>
       <td>
@@ -195,6 +199,10 @@ input:checked + label {
 
 td {
 	font-family: 'Montserrat', sans-serif;
+}
+tr {
+  padding-bottom: 5px;
+  border-bottom: 1px #ddd solid;
 }
 </style>
 
