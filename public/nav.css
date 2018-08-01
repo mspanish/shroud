@@ -599,6 +599,7 @@ th {
 }
 .linky {
   color: blue;
+  cursor:pointer;
 }
 .blood {
   font-weight: bold;
@@ -668,6 +669,7 @@ th[role=columnheader]:not(.no-sort):hover:after {
   border-radius: 10px;
   font-size: 1.1rem;
   margin-bottom: -30px;
+  cursor:pointer;
 }
 .date {
   vertical-align: text-top;
@@ -703,7 +705,7 @@ th[role=columnheader]:not(.no-sort):hover:after {
   color:white;
 }
 .tb_note {
-  background-color: #fff;
+  background-color: #f7ad7c;
 }
 .postTruncate {
   overflow: hidden;
@@ -747,4 +749,8 @@ th[role=columnheader]:not(.no-sort):hover:after {
     letter-spacing: 0;
     padding-right: 10px;
     padding-left: 10px;
+    display:inline-block;
+}
+.btn-nav {
+  background-color:white;
 }

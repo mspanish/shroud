@@ -1,7 +1,11 @@
 <div transition:fade id="postWrap" class="content is-medium">
- <h1>{author_name}<span on:click="favorite(author_name)" class="follow tb_buttons tb_note">add to favorites</span>
-</h1>
-	<Link  href="../notebook" class="arrowRight">→ notebook</Link>
+ <h1>{author_name}</h1>
+ <span on:click="favorite(author_name)" class="follow tb_buttons tb_note">add to favorites</span>
+ 
+ <span class="follow btn-nav tb_buttons tb_note"><Link href="../notebook">go to notebook</Link></span>
+
+ <span class="follow btn-nav tb_buttons tb_note"><Link href="../authors">all authors</Link></span>
+	
 
  <table class="pure-table">
 		<thead>
@@ -17,10 +21,10 @@
 		  </tr>
 		</tfoot> -->
 		<tbody id='categories'>
-		{#if $author && $author.cats}
-		{#each $author.cats as cat}
+		{#if $cats}
+		{#each $cats as cat}
 		<tr>
-		  <td class="linky" on:click="moveTo(cat.name)">{cat.name}</td>
+		  <td class="linky" on:click="loadCat(cat.name, $id)">{cat.name}</td>
 		  <td>{cat.len}</td>
 		</tr>
 		{/each}
@@ -28,9 +32,9 @@
 		  </tbody>
 	</table>
 
-	{#if $author && $author.cats}
-{#each $author.cats as cat}
-	<table id="{cat.name}" class="pure-table">
+	{#if $author && $author.cat  }
+
+	<table id="posts"  transition:fade  class="pure-table">
 			<thead>
 			  <tr>
 			
@@ -46,14 +50,14 @@
 			</tfoot> -->
 			<tbody id='posts'>
 	
-			{#each cat.data as post, x}
+			{#each $author.cat.data as post, x}
 			<tr>
 			 
-			  <td >
-				<p class="postInfo">/{cat.name}/    article: <span><a href="{post.url}{post.id ? `#${post.id}` : ''}" target="_blank">{post.title}</a><span><span on:click="moveTo('postWrap')" class="pull-right">↑ top</span>
+			  <td class="" >
+				<p class="postInfo">/{$author.cat.name}/    article: <span><a href="{post.url}{post.id ? `#${post.id}` : ''}" target="_blank">{post.title}</a><span><span on:click="moveTo('postWrap')" class="pull-right">↑ top</span>
 				</p>
 				<p class="toolbar">
-					<span on:click="saveData('pro',cat.name, post,x)" class="tb_pro">pro</span><span class="tb_con" on:click="saveData('con',cat.name, post,x)">con</span><span class="tb_note" on:click="saveData('note',cat.name, post,x)">add note</span>
+					<span on:click="saveData('pro',$author.cat.name, post,x)" class="tb_pro">pro</span><span class="tb_con" on:click="saveData('con',$author.cat.name, post,x)">con</span><span class="tb_note" on:click="saveData('note',$author.cat.name, post,x)">add note</span>
 				</p>
 				<p class="posting">
 				{post.post}
@@ -65,7 +69,7 @@
 		
 			  </tbody>
 		</table>
-			{/each}
+			
 		{/if}
 
 
@@ -108,7 +112,7 @@ h1 {
     /* border-bottom-right-radius: 20px; */
 		margin-bottom:0;
 		margin-top: 5px;
-		box-shadow: 2px 2px 15px #ccc;
+		/* box-shadow: 2px 2px 15px #ccc; */
 		-webkit-text-fill-color: black;
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: black;
@@ -116,6 +120,7 @@ h1 {
     word-spacing: 15px;
 	letter-spacing: 2px;		
 	opacity: .8;
+	display:inline-block;
 	}
 h3 { 
 	font-size: 2rem;
@@ -141,13 +146,58 @@ td {
 		import Link from '../../components/Link.html';
 		import { Toast, deleteAllToasts} from '../../toaster-js/index.js';   
   
- 
+
   export default {
 	transitions: { fade },
     store: () => store,
     components:{ Link
 	}, 
     methods: {
+		loadCat(cat,id) {
+			console.log('load '+cat)
+			let state = store.get();
+			let c = state.catLoaded;
+			console.log('c is '+c)
+			if (c == cat) {
+				new Toast(cat +' already loaded.', 'toast','error');
+				return
+			}
+			this.getCategory(cat,id)
+		},
+		getCategory(cat,id) {
+		let comp = this;
+	
+		const urly = `../data/authors_master_split/${ id }/${ cat }.json`;
+		return fetch(urly).then(function(res) {
+		return res.json();
+			})
+			.then(function(json) {
+			 let obj = {}
+			 console.log('got data for '+cat);
+			 //console.table(json)
+			 store.set({author:{}});
+			 obj = {name: cat, len: json.length, data:json};
+			 
+			 setTimeout(() => {
+			   console.log('adding Par.breaks')
+				comp.addParagraphBreaks();
+				//comp.shortenDates();
+				let state = store.get();
+				let firstRun = state.firstRun;
+				if (!firstRun) {
+					console.log('running SORT on first run')
+				    new Tablesort(document.getElementById('posts'));
+					store.set({firstRun: true}); 		
+				} 
+				else {
+					console.log('first run FALSE')
+					comp.moveTo('posts');
+				};
+			}, 1000);
+			store.set({catLoaded: cat, author: {name: id, cat: obj} })
+
+		});
+		},
 		favorite(id) {
 			id = id.replace(/ /g, '_').toLowerCase();
 			let favs = localStorage.getItem('favorites') || [];
@@ -285,18 +335,18 @@ td {
     },
 	computed: {
 		author_name: ( { $id }) => {
-		let name = $id.replace(/_/g, ' ');
-			name = startCase(name);
+		let name = $id.replace(/_/g, ' ')
+			name = startCase(name).replace('%c3%a9', 'é');
 		return name 
 		}
 	},
 
 	oncreate() {
 		let right = document.getElementsByClassName('right')[0];
-      if (right) console.log('GOT RIGHT')
-      right.style.backgroundColor = '#f1ebda';
-      right.style.backgroundImage = 'none';
-      right.classList.remove('has-background-white-ter')
+		if (right) console.log('GOT RIGHT')
+		right.style.backgroundColor = '#f1ebda';
+		right.style.backgroundImage = 'none';
+		right.classList.remove('has-background-white-ter')
 		const state = store.get();
 		const id = state.id;
 		console.log('dawg id is '+id)
@@ -304,25 +354,20 @@ td {
 
 		const comp = this;
 
-		const urly = `../data/authors_master/${ id }.json`;
+		const urly = `../data/authors_master_split_keys/${ id }.json`;
 		return fetch(urly).then(function(res) {
 		return res.json();
 			})
 			.then(function(json) {
-			let arr = [];
-		     for (let cat in json) {
-				 arr.push({name: cat, len: json[cat].length, data:json[cat]})
-			 }
-			 setTimeout(() => {
-			   console.log('adding Par.breaks')
-				comp.addParagraphBreaks();
-				//comp.shortenDates();
-				for (let cat in json) {
-					new Tablesort(document.getElementById(cat));
-				}
-			}, 2000);
-			store.set({author: {name: id, cats: arr} })
-
+				/* we need to know how many posts per category so we can list it on each author's page,
+				so JSON can't be an array of strings, but rather need to be an arr of objects like 
+				{ name: 'art', len: 15 },
+				{ name: 'history, len: 3}
+				*/
+			  store.set({
+				  cats:json
+				})
+		      comp.getCategory(json[0].name, id)
 			});
 
 		}  // end oncreate()

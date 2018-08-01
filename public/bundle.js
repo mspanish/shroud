@@ -2593,10 +2593,15 @@ var methods$5 = {
   // console.log('bm: '+JSON.stringify(bookmarks))
     bookmarks = Object.entries(bookmarks);
   // console.table(bookmarks)
-    store.set({bookmarks, bookmarks});
+    store.set({bookmarks: bookmarks});
   },
   goto(path) {
     roadtrip.goto(path);
+  },
+  addAuthors() {
+    let authors = localStorage.getItem('favorites') || [];
+    if (authors && authors.length > 0) authors = JSON.parse(authors);
+    store.set({favorites: authors});
   }
 };
 
@@ -2614,7 +2619,7 @@ function oncreate$2() {
   bookmarks.sort((a, b) => a[1].updated - b[1].updated).reverse();
  // console.table(bookmarks)
   store.set({bookmarks: bookmarks});
-  
+  this.addAuthors();
 }
 function store_1$1() {
 	return store;
@@ -2623,9 +2628,23 @@ function store_1$1() {
 const file$6 = "src\\pages\\notebook\\notebook.html";
 
 function create_main_fragment$6(component, ctx) {
-	var div, h1, text, text_1, p, text_2, text_3, table, thead, tr, th, text_4, text_5, th_1, text_6, text_7, th_2, text_8, text_9, th_3, text_10, text_11, th_4, text_12, text_13, th_5, text_14, text_17, tbody;
+	var div, h1, text, text_1, p, text_2, text_3, div_1, input, text_4, label, text_5, text_6, input_1, text_7, label_1, text_8, text_9, input_2, text_10, label_2, text_11, text_12, section, text_14, section_1, text_16, section_2, text_17;
 
-	var if_block = (ctx.$bookmarks && ctx.$bookmarks.length > 0) && create_if_block$2(component, ctx);
+	function select_block_type_2(ctx) {
+		if (ctx.$bookmarks && ctx.$bookmarks.length > 0) return create_if_block$2;
+		return create_if_block_5;
+	}
+
+	var current_block_type = select_block_type_2(ctx);
+	var if_block = current_block_type(component, ctx);
+
+	function select_block_type_3(ctx) {
+		if (ctx.$favorites && ctx.$favorites.length > 0) return create_if_block_6;
+		return create_if_block_7;
+	}
+
+	var current_block_type_1 = select_block_type_3(ctx);
+	var if_block_1 = current_block_type_1(component, ctx);
 
 	return {
 		c: function create() {
@@ -2636,50 +2655,70 @@ function create_main_fragment$6(component, ctx) {
 			p = createElement("p");
 			text_2 = createText("As you read comments and check the resources included, you can build your own list of evidence which will be listed  here.");
 			text_3 = createText("\r\n");
-			table = createElement("table");
-			thead = createElement("thead");
-			tr = createElement("tr");
-			th = createElement("th");
-			text_4 = createText("pro or con");
-			text_5 = createText("\r\n    ");
-			th_1 = createElement("th");
-			text_6 = createText("category");
-			text_7 = createText("\r\n    ");
-			th_2 = createElement("th");
-			text_8 = createText("title");
-			text_9 = createText("\r\n    ");
-			th_3 = createElement("th");
-			text_10 = createText("author");
-			text_11 = createText("\r\n    ");
-			th_4 = createElement("th");
-			text_12 = createText("date");
-			text_13 = createText("\r\n    ");
-			th_5 = createElement("th");
-			text_14 = createText("note");
-			text_17 = createText("\r\n\t\r\n\t");
-			tbody = createElement("tbody");
-			if (if_block) if_block.c();
-			h1.className = "auth svelte-124qc1x";
+			div_1 = createElement("div");
+			input = createElement("input");
+			text_4 = createText("\r\n  ");
+			label = createElement("label");
+			text_5 = createText("Notes");
+			text_6 = createText("\r\n    \r\n  ");
+			input_1 = createElement("input");
+			text_7 = createText("\r\n  ");
+			label_1 = createElement("label");
+			text_8 = createText("Authors");
+			text_9 = createText("\r\n    \r\n  ");
+			input_2 = createElement("input");
+			text_10 = createText("\r\n  ");
+			label_2 = createElement("label");
+			text_11 = createText("Resources");
+			text_12 = createText("\r\n  \r\n   ");
+			section = createElement("section");
+			if_block.c();
+			text_14 = createText("\r\n");
+			section_1 = createElement("section");
+			if_block_1.c();
+			text_16 = createText("\r\n\r\n");
+			section_2 = createElement("section");
+			text_17 = createText("Resources");
+			h1.className = "auth svelte-1o2irb8";
 			addLoc(h1, file$6, 1, 0, 38);
 			addLoc(p, file$6, 2, 0, 80);
-			setAttribute(th, "width", "100");
-			addLoc(th, file$6, 8, 4, 268);
-			setAttribute(th_1, "width", "150");
-			addLoc(th_1, file$6, 9, 4, 305);
-			addLoc(th_2, file$6, 10, 4, 340);
-			setAttribute(th_3, "width", "150");
-			addLoc(th_3, file$6, 11, 4, 360);
-			setAttribute(th_4, "width", "100");
-			addLoc(th_4, file$6, 12, 4, 393);
-			setAttribute(th_5, "width", "200");
-			addLoc(th_5, file$6, 13, 4, 424);
-			addLoc(tr, file$6, 6, 3, 256);
-			addLoc(thead, file$6, 5, 1, 244);
-			tbody.id = "authors";
-			addLoc(tbody, file$6, 23, 1, 561);
-			table.className = "pure-table";
-			addLoc(table, file$6, 4, 0, 215);
-			div.className = "content is-medium home svelte-124qc1x";
+			input.id = "tab1";
+			setAttribute(input, "type", "radio");
+			input.name = "tabs";
+			input.checked = true;
+			input.className = "svelte-1o2irb8";
+			addLoc(input, file$6, 5, 4, 239);
+			label.htmlFor = "tab1";
+			label.className = "svelte-1o2irb8";
+			addLoc(label, file$6, 6, 2, 293);
+			input_1.id = "tab2";
+			setAttribute(input_1, "type", "radio");
+			input_1.name = "tabs";
+			input_1.className = "svelte-1o2irb8";
+			addLoc(input_1, file$6, 8, 2, 334);
+			label_1.htmlFor = "tab2";
+			label_1.className = "svelte-1o2irb8";
+			addLoc(label_1, file$6, 9, 2, 380);
+			input_2.id = "tab3";
+			setAttribute(input_2, "type", "radio");
+			input_2.name = "tabs";
+			input_2.className = "svelte-1o2irb8";
+			addLoc(input_2, file$6, 11, 2, 423);
+			label_2.htmlFor = "tab3";
+			label_2.className = "svelte-1o2irb8";
+			addLoc(label_2, file$6, 12, 2, 469);
+			section.id = "content1";
+			section.className = "svelte-1o2irb8";
+			addLoc(section, file$6, 14, 3, 513);
+			section_1.id = "content2";
+			section_1.className = "svelte-1o2irb8";
+			addLoc(section_1, file$6, 72, 0, 2189);
+			section_2.id = "content3";
+			section_2.className = "svelte-1o2irb8";
+			addLoc(section_2, file$6, 101, 0, 2808);
+			div_1.className = "tabs svelte-1o2irb8";
+			addLoc(div_1, file$6, 4, 0, 215);
+			div.className = "content is-medium home svelte-1o2irb8";
 			addLoc(div, file$6, 0, 0, 0);
 		},
 
@@ -2691,43 +2730,49 @@ function create_main_fragment$6(component, ctx) {
 			appendNode(p, div);
 			appendNode(text_2, p);
 			appendNode(text_3, div);
-			appendNode(table, div);
-			appendNode(thead, table);
-			appendNode(tr, thead);
-			appendNode(th, tr);
-			appendNode(text_4, th);
-			appendNode(text_5, tr);
-			appendNode(th_1, tr);
-			appendNode(text_6, th_1);
-			appendNode(text_7, tr);
-			appendNode(th_2, tr);
-			appendNode(text_8, th_2);
-			appendNode(text_9, tr);
-			appendNode(th_3, tr);
-			appendNode(text_10, th_3);
-			appendNode(text_11, tr);
-			appendNode(th_4, tr);
-			appendNode(text_12, th_4);
-			appendNode(text_13, tr);
-			appendNode(th_5, tr);
-			appendNode(text_14, th_5);
-			appendNode(text_17, table);
-			appendNode(tbody, table);
-			if (if_block) if_block.m(tbody, null);
+			appendNode(div_1, div);
+			appendNode(input, div_1);
+			appendNode(text_4, div_1);
+			appendNode(label, div_1);
+			appendNode(text_5, label);
+			appendNode(text_6, div_1);
+			appendNode(input_1, div_1);
+			appendNode(text_7, div_1);
+			appendNode(label_1, div_1);
+			appendNode(text_8, label_1);
+			appendNode(text_9, div_1);
+			appendNode(input_2, div_1);
+			appendNode(text_10, div_1);
+			appendNode(label_2, div_1);
+			appendNode(text_11, label_2);
+			appendNode(text_12, div_1);
+			appendNode(section, div_1);
+			if_block.m(section, null);
+			appendNode(text_14, div_1);
+			appendNode(section_1, div_1);
+			if_block_1.m(section_1, null);
+			appendNode(text_16, div_1);
+			appendNode(section_2, div_1);
+			appendNode(text_17, section_2);
 		},
 
 		p: function update(changed, ctx) {
-			if (ctx.$bookmarks && ctx.$bookmarks.length > 0) {
-				if (if_block) {
-					if_block.p(changed, ctx);
-				} else {
-					if_block = create_if_block$2(component, ctx);
-					if_block.c();
-					if_block.m(tbody, null);
-				}
-			} else if (if_block) {
+			if (current_block_type === (current_block_type = select_block_type_2(ctx)) && if_block) {
+				if_block.p(changed, ctx);
+			} else {
 				if_block.d(1);
-				if_block = null;
+				if_block = current_block_type(component, ctx);
+				if_block.c();
+				if_block.m(section, null);
+			}
+
+			if (current_block_type_1 === (current_block_type_1 = select_block_type_3(ctx)) && if_block_1) {
+				if_block_1.p(changed, ctx);
+			} else {
+				if_block_1.d(1);
+				if_block_1 = current_block_type_1(component, ctx);
+				if_block_1.c();
+				if_block_1.m(section_1, null);
 			}
 		},
 
@@ -2736,12 +2781,13 @@ function create_main_fragment$6(component, ctx) {
 				detachNode(div);
 			}
 
-			if (if_block) if_block.d();
+			if_block.d();
+			if_block_1.d();
 		}
 	};
 }
 
-// (26:4) {#each $bookmarks as bookmark}
+// (34:4) {#each $bookmarks as bookmark}
 function create_each_block$2(component, ctx) {
 	var tr, td, span, text, text_2, td_1, text_3_value = ctx.bookmark[1].cat, text_3, text_4, td_2, a, text_5_value = ctx.bookmark[1].title, text_5, a_href_value, text_6, p, text_7_value = ctx.bookmark[1].post, text_7, text_9, td_3, text_10_value = ctx.bookmark[1].author, text_10, text_11, td_4, span_1, text_12_value = ctx.bookmark[1].date, text_12, text_14, td_5;
 
@@ -2801,27 +2847,27 @@ function create_each_block$2(component, ctx) {
 
 			addListener(span, "click", click_handler);
 			span.className = "deleteRow";
-			addLoc(span, file$6, 28, 12, 702);
-			td.className = "svelte-124qc1x";
-			addLoc(td, file$6, 27, 8, 684);
-			td_1.className = "notebookInfo svelte-124qc1x";
-			addLoc(td_1, file$6, 35, 8, 1007);
+			addLoc(span, file$6, 36, 12, 946);
+			td.className = "svelte-1o2irb8";
+			addLoc(td, file$6, 35, 8, 928);
+			td_1.className = "notebookInfo svelte-1o2irb8";
+			addLoc(td_1, file$6, 43, 8, 1251);
 			a.href = a_href_value = "" + ctx.bookmark[1].url + (ctx.bookmark[1].commentid ? `#${ctx.bookmark[1].commentid}` : '');
 			a.target = "_blank";
-			addLoc(a, file$6, 36, 12, 1068);
+			addLoc(a, file$6, 44, 12, 1312);
 			p.className = "postTruncate";
-			addLoc(p, file$6, 37, 10, 1205);
-			td_2.className = "svelte-124qc1x";
-			addLoc(td_2, file$6, 36, 8, 1064);
-			td_3.className = "notebookInfo svelte-124qc1x";
-			addLoc(td_3, file$6, 39, 6, 1274);
+			addLoc(p, file$6, 45, 10, 1449);
+			td_2.className = "svelte-1o2irb8";
+			addLoc(td_2, file$6, 44, 8, 1308);
+			td_3.className = "notebookInfo svelte-1o2irb8";
+			addLoc(td_3, file$6, 47, 6, 1518);
 			span_1.className = "dSmall";
-			addLoc(span_1, file$6, 41, 8, 1396);
-			td_4.className = "svelte-124qc1x";
-			addLoc(td_4, file$6, 40, 6, 1382);
-			td_5.className = "rightAl svelte-124qc1x";
-			addLoc(td_5, file$6, 44, 6, 1465);
-			addLoc(tr, file$6, 26, 4, 670);
+			addLoc(span_1, file$6, 49, 8, 1640);
+			td_4.className = "svelte-1o2irb8";
+			addLoc(td_4, file$6, 48, 6, 1626);
+			td_5.className = "rightAl svelte-1o2irb8";
+			addLoc(td_5, file$6, 52, 6, 1709);
+			addLoc(tr, file$6, 34, 4, 914);
 		},
 
 		m: function mount(target, anchor) {
@@ -2916,7 +2962,7 @@ function create_each_block$2(component, ctx) {
 	};
 }
 
-// (30:10) {#if bookmark[1].type}
+// (38:10) {#if bookmark[1].type}
 function create_if_block_1(component, ctx) {
 	var span, text_value = ctx.bookmark[1].type, text, span_class_value;
 
@@ -2924,8 +2970,8 @@ function create_if_block_1(component, ctx) {
 		c: function create() {
 			span = createElement("span");
 			text = createText(text_value);
-			span.className = span_class_value = "tb_" + ctx.bookmark[1].type + " tb_buttons" + " svelte-124qc1x";
-			addLoc(span, file$6, 30, 10, 821);
+			span.className = span_class_value = "tb_" + ctx.bookmark[1].type + " tb_buttons" + " svelte-1o2irb8";
+			addLoc(span, file$6, 38, 10, 1065);
 		},
 
 		m: function mount(target, anchor) {
@@ -2938,7 +2984,7 @@ function create_if_block_1(component, ctx) {
 				text.data = text_value;
 			}
 
-			if ((changed.$bookmarks) && span_class_value !== (span_class_value = "tb_" + ctx.bookmark[1].type + " tb_buttons" + " svelte-124qc1x")) {
+			if ((changed.$bookmarks) && span_class_value !== (span_class_value = "tb_" + ctx.bookmark[1].type + " tb_buttons" + " svelte-1o2irb8")) {
 				span.className = span_class_value;
 			}
 		},
@@ -2951,7 +2997,7 @@ function create_if_block_1(component, ctx) {
 	};
 }
 
-// (32:10) {:else}
+// (40:10) {:else}
 function create_if_block_2(component, ctx) {
 	var span, text;
 
@@ -2960,7 +3006,7 @@ function create_if_block_2(component, ctx) {
 			span = createElement("span");
 			text = createText("?");
 			span.className = "tb_buttons tb_note";
-			addLoc(span, file$6, 32, 10, 924);
+			addLoc(span, file$6, 40, 10, 1168);
 		},
 
 		m: function mount(target, anchor) {
@@ -2978,7 +3024,7 @@ function create_if_block_2(component, ctx) {
 	};
 }
 
-// (46:10) {#if bookmark[1].note}
+// (54:10) {#if bookmark[1].note}
 function create_if_block_3(component, ctx) {
 	var span, text_value = ctx.bookmark[1].note, text;
 
@@ -2987,7 +3033,7 @@ function create_if_block_3(component, ctx) {
 			span = createElement("span");
 			text = createText(text_value);
 			span.className = "notebookInfo";
-			addLoc(span, file$6, 46, 10, 1531);
+			addLoc(span, file$6, 54, 10, 1775);
 		},
 
 		m: function mount(target, anchor) {
@@ -3009,7 +3055,7 @@ function create_if_block_3(component, ctx) {
 	};
 }
 
-// (48:10) {:else}
+// (56:10) {:else}
 function create_if_block_4(component, ctx) {
 	var span, text;
 
@@ -3021,7 +3067,7 @@ function create_if_block_4(component, ctx) {
 
 			addListener(span, "click", click_handler_1);
 			span.className = "tb_note tb_buttons";
-			addLoc(span, file$6, 48, 10, 1615);
+			addLoc(span, file$6, 56, 10, 1859);
 		},
 
 		m: function mount(target, anchor) {
@@ -3043,9 +3089,9 @@ function create_if_block_4(component, ctx) {
 	};
 }
 
-// (25:4) {#if $bookmarks && $bookmarks.length > 0}
+// (16:4) {#if $bookmarks && $bookmarks.length > 0}
 function create_if_block$2(component, ctx) {
-	var each_anchor;
+	var table, thead, tr, th, text, text_1, th_1, text_2, text_3, th_2, text_4, text_5, th_3, text_6, text_7, th_4, text_8, text_9, th_5, text_10, text_13, tbody;
 
 	var each_value = ctx.$bookmarks;
 
@@ -3057,19 +3103,78 @@ function create_if_block$2(component, ctx) {
 
 	return {
 		c: function create() {
+			table = createElement("table");
+			thead = createElement("thead");
+			tr = createElement("tr");
+			th = createElement("th");
+			text = createText("pro or con");
+			text_1 = createText("\r\n    ");
+			th_1 = createElement("th");
+			text_2 = createText("category");
+			text_3 = createText("\r\n    ");
+			th_2 = createElement("th");
+			text_4 = createText("title");
+			text_5 = createText("\r\n    ");
+			th_3 = createElement("th");
+			text_6 = createText("author");
+			text_7 = createText("\r\n    ");
+			th_4 = createElement("th");
+			text_8 = createText("date");
+			text_9 = createText("\r\n    ");
+			th_5 = createElement("th");
+			text_10 = createText("note");
+			text_13 = createText("\r\n\r\n\t");
+			tbody = createElement("tbody");
+
 			for (var i = 0; i < each_blocks.length; i += 1) {
 				each_blocks[i].c();
 			}
-
-			each_anchor = createComment();
+			setAttribute(th, "width", "100");
+			addLoc(th, file$6, 21, 4, 640);
+			setAttribute(th_1, "width", "150");
+			addLoc(th_1, file$6, 22, 4, 677);
+			addLoc(th_2, file$6, 23, 4, 712);
+			setAttribute(th_3, "width", "150");
+			addLoc(th_3, file$6, 24, 4, 732);
+			setAttribute(th_4, "width", "100");
+			addLoc(th_4, file$6, 25, 4, 765);
+			setAttribute(th_5, "width", "200");
+			addLoc(th_5, file$6, 26, 4, 796);
+			addLoc(tr, file$6, 19, 3, 628);
+			addLoc(thead, file$6, 18, 1, 616);
+			tbody.id = "authors";
+			addLoc(tbody, file$6, 31, 1, 849);
+			table.className = "pure-table svelte-1o2irb8";
+			addLoc(table, file$6, 17, 0, 587);
 		},
 
 		m: function mount(target, anchor) {
-			for (var i = 0; i < each_blocks.length; i += 1) {
-				each_blocks[i].m(target, anchor);
-			}
+			insertNode(table, target, anchor);
+			appendNode(thead, table);
+			appendNode(tr, thead);
+			appendNode(th, tr);
+			appendNode(text, th);
+			appendNode(text_1, tr);
+			appendNode(th_1, tr);
+			appendNode(text_2, th_1);
+			appendNode(text_3, tr);
+			appendNode(th_2, tr);
+			appendNode(text_4, th_2);
+			appendNode(text_5, tr);
+			appendNode(th_3, tr);
+			appendNode(text_6, th_3);
+			appendNode(text_7, tr);
+			appendNode(th_4, tr);
+			appendNode(text_8, th_4);
+			appendNode(text_9, tr);
+			appendNode(th_5, tr);
+			appendNode(text_10, th_5);
+			appendNode(text_13, table);
+			appendNode(tbody, table);
 
-			insertNode(each_anchor, target, anchor);
+			for (var i = 0; i < each_blocks.length; i += 1) {
+				each_blocks[i].m(tbody, null);
+			}
 		},
 
 		p: function update(changed, ctx) {
@@ -3084,7 +3189,7 @@ function create_if_block$2(component, ctx) {
 					} else {
 						each_blocks[i] = create_each_block$2(component, child_ctx);
 						each_blocks[i].c();
-						each_blocks[i].m(each_anchor.parentNode, each_anchor);
+						each_blocks[i].m(tbody, null);
 					}
 				}
 
@@ -3096,11 +3201,234 @@ function create_if_block$2(component, ctx) {
 		},
 
 		d: function destroy$$1(detach) {
-			destroyEach(each_blocks, detach);
-
 			if (detach) {
-				detachNode(each_anchor);
+				detachNode(table);
 			}
+
+			destroyEach(each_blocks, detach);
+		}
+	};
+}
+
+// (67:0) {:else}
+function create_if_block_5(component, ctx) {
+	var text, text_1;
+
+	var link_initial_data = { href: "/authors" };
+	var link = new Link({
+		root: component.root,
+		store: component.store,
+		slots: { default: createFragment() },
+		data: link_initial_data
+	});
+
+	return {
+		c: function create() {
+			text = createText("Browse some authors' comments and save by clicking pro/con or adding a note!\r\n");
+			text_1 = createText("Go to All Authors list");
+			link._fragment.c();
+		},
+
+		m: function mount(target, anchor) {
+			insertNode(text, target, anchor);
+			appendNode(text_1, link._slotted.default);
+			link._mount(target, anchor);
+		},
+
+		p: noop,
+
+		d: function destroy$$1(detach) {
+			if (detach) {
+				detachNode(text);
+			}
+
+			link.destroy(detach);
+		}
+	};
+}
+
+// (85:6) {#each $favorites as author}
+function create_each_block_1(component, ctx) {
+	var tr, td, text_value = ctx.author, text, text_1, td_1;
+
+	var link_initial_data = { href: "/authors/" + ctx.author };
+	var link = new Link({
+		root: component.root,
+		store: component.store,
+		slots: { default: createFragment() },
+		data: link_initial_data
+	});
+
+	return {
+		c: function create() {
+			tr = createElement("tr");
+			td = createElement("td");
+			text = createText(text_value);
+			link._fragment.c();
+			text_1 = createText("\r\n      ");
+			td_1 = createElement("td");
+			td.className = "notebookInfo svelte-1o2irb8";
+			addLoc(td, file$6, 86, 6, 2483);
+			td_1.className = "svelte-1o2irb8";
+			addLoc(td_1, file$6, 87, 6, 2567);
+			addLoc(tr, file$6, 85, 6, 2471);
+		},
+
+		m: function mount(target, anchor) {
+			insertNode(tr, target, anchor);
+			appendNode(td, tr);
+			appendNode(text, link._slotted.default);
+			link._mount(td, null);
+			appendNode(text_1, tr);
+			appendNode(td_1, tr);
+		},
+
+		p: function update(changed, ctx) {
+			if ((changed.$favorites) && text_value !== (text_value = ctx.author)) {
+				text.data = text_value;
+			}
+
+			var link_changes = {};
+			if (changed.$favorites) link_changes.href = "/authors/" + ctx.author;
+			link._set(link_changes);
+		},
+
+		d: function destroy$$1(detach) {
+			if (detach) {
+				detachNode(tr);
+			}
+
+			link.destroy();
+		}
+	};
+}
+
+// (75:4) {#if $favorites && $favorites.length > 0}
+function create_if_block_6(component, ctx) {
+	var text, text_1, table, thead, th, text_2, text_4, tbody;
+
+	var link_initial_data = { href: "/authors" };
+	var link = new Link({
+		root: component.root,
+		store: component.store,
+		slots: { default: createFragment() },
+		data: link_initial_data
+	});
+
+	var each_value_1 = ctx.$favorites;
+
+	var each_blocks = [];
+
+	for (var i = 0; i < each_value_1.length; i += 1) {
+		each_blocks[i] = create_each_block_1(component, get_each_context_1(ctx, each_value_1, i));
+	}
+
+	return {
+		c: function create() {
+			text = createText("Go to All Authors list");
+			link._fragment.c();
+			text_1 = createText("\r\n");
+			table = createElement("table");
+			thead = createElement("thead");
+			th = createElement("th");
+			text_2 = createText("name");
+			text_4 = createText("\r\n    ");
+			tbody = createElement("tbody");
+
+			for (var i = 0; i < each_blocks.length; i += 1) {
+				each_blocks[i].c();
+			}
+			addLoc(th, file$6, 78, 6, 2367);
+			addLoc(thead, file$6, 77, 4, 2352);
+			addLoc(tbody, file$6, 82, 4, 2418);
+			table.className = "pure-table svelte-1o2irb8";
+			addLoc(table, file$6, 76, 0, 2320);
+		},
+
+		m: function mount(target, anchor) {
+			appendNode(text, link._slotted.default);
+			link._mount(target, anchor);
+			insertNode(text_1, target, anchor);
+			insertNode(table, target, anchor);
+			appendNode(thead, table);
+			appendNode(th, thead);
+			appendNode(text_2, th);
+			appendNode(text_4, table);
+			appendNode(tbody, table);
+
+			for (var i = 0; i < each_blocks.length; i += 1) {
+				each_blocks[i].m(tbody, null);
+			}
+		},
+
+		p: function update(changed, ctx) {
+			if (changed.$favorites) {
+				each_value_1 = ctx.$favorites;
+
+				for (var i = 0; i < each_value_1.length; i += 1) {
+					const child_ctx = get_each_context_1(ctx, each_value_1, i);
+
+					if (each_blocks[i]) {
+						each_blocks[i].p(changed, child_ctx);
+					} else {
+						each_blocks[i] = create_each_block_1(component, child_ctx);
+						each_blocks[i].c();
+						each_blocks[i].m(tbody, null);
+					}
+				}
+
+				for (; i < each_blocks.length; i += 1) {
+					each_blocks[i].d(1);
+				}
+				each_blocks.length = each_value_1.length;
+			}
+		},
+
+		d: function destroy$$1(detach) {
+			link.destroy(detach);
+			if (detach) {
+				detachNode(text_1);
+				detachNode(table);
+			}
+
+			destroyEach(each_blocks, detach);
+		}
+	};
+}
+
+// (95:2) {:else}
+function create_if_block_7(component, ctx) {
+	var text, text_1;
+
+	var link_initial_data = { href: "/authors" };
+	var link = new Link({
+		root: component.root,
+		store: component.store,
+		slots: { default: createFragment() },
+		data: link_initial_data
+	});
+
+	return {
+		c: function create() {
+			text = createText("Sorry, no favorite authors yet! Save any from the top of their author page.\r\n  ");
+			text_1 = createText("Go to All Authors list");
+			link._fragment.c();
+		},
+
+		m: function mount(target, anchor) {
+			insertNode(text, target, anchor);
+			appendNode(text_1, link._slotted.default);
+			link._mount(target, anchor);
+		},
+
+		p: noop,
+
+		d: function destroy$$1(detach) {
+			if (detach) {
+				detachNode(text);
+			}
+
+			link.destroy(detach);
 		}
 	};
 }
@@ -3125,14 +3453,23 @@ function click_handler_1(event) {
 	component.saveData('note', ctx.bookmark[1]);
 }
 
+function get_each_context_1(ctx, list, i) {
+	const child_ctx = Object.create(ctx);
+	child_ctx.author = list[i];
+	child_ctx.each_value_1 = list;
+	child_ctx.author_index = i;
+	return child_ctx;
+}
+
 function Notebook(options) {
 	this._debugName = '<Notebook>';
 	if (!options || (!options.target && !options.root)) throw new Error("'target' is a required option");
 	init(this, options);
 	this.store = store_1$1();
-	this._state = assign(this.store._init(["bookmarks"]), options.data);
-	this.store._add(this, ["bookmarks"]);
+	this._state = assign(this.store._init(["bookmarks","favorites"]), options.data);
+	this.store._add(this, ["bookmarks","favorites"]);
 	if (!('$bookmarks' in this._state)) console.warn("<Notebook> was created without expected data property '$bookmarks'");
+	if (!('$favorites' in this._state)) console.warn("<Notebook> was created without expected data property '$favorites'");
 	this._intro = true;
 
 	this._handlers.destroy = [removeFromStore];
@@ -3193,11 +3530,55 @@ class NotebookHandler {
 
 function author_name({ $id }) {
 let name = $id.replace(/_/g, ' ');
-	name = startCase(name);
+	name = startCase(name).replace('%c3%a9', 'é');
 return name 
 }
 
 var methods$6 = {
+		loadCat(cat,id) {
+			console.log('load '+cat);
+			let state = store.get();
+			let c = state.catLoaded;
+			console.log('c is '+c);
+			if (c == cat) {
+				new Toast(cat +' already loaded.', 'toast','error');
+				return
+			}
+			this.getCategory(cat,id);
+		},
+		getCategory(cat,id) {
+		let comp = this;
+	
+		const urly = `../data/authors_master_split/${ id }/${ cat }.json`;
+		return fetch(urly).then(function(res) {
+		return res.json();
+			})
+			.then(function(json) {
+			 let obj = {};
+			 console.log('got data for '+cat);
+			 //console.table(json)
+			 store.set({author:{}});
+			 obj = {name: cat, len: json.length, data:json};
+			 
+			 setTimeout(() => {
+			   console.log('adding Par.breaks');
+				comp.addParagraphBreaks();
+				//comp.shortenDates();
+				let state = store.get();
+				let firstRun = state.firstRun;
+				if (!firstRun) {
+					console.log('running SORT on first run');
+				    new Tablesort(document.getElementById('posts'));
+					store.set({firstRun: true}); 		
+				} 
+				else {
+					console.log('first run FALSE');
+					comp.moveTo('posts');
+				}			}, 1000);
+			store.set({catLoaded: cat, author: {name: id, cat: obj} });
+
+		});
+		},
 		favorite(id) {
 			id = id.replace(/ /g, '_').toLowerCase();
 			let favs = localStorage.getItem('favorites') || [];
@@ -3331,10 +3712,10 @@ var methods$6 = {
 
 function oncreate$3() {
 	let right = document.getElementsByClassName('right')[0];
-      if (right) console.log('GOT RIGHT');
-      right.style.backgroundColor = '#f1ebda';
-      right.style.backgroundImage = 'none';
-      right.classList.remove('has-background-white-ter');
+	if (right) console.log('GOT RIGHT');
+	right.style.backgroundColor = '#f1ebda';
+	right.style.backgroundImage = 'none';
+	right.classList.remove('has-background-white-ter');
 	const state = store.get();
 	const id = state.id;
 	console.log('dawg id is '+id);
@@ -3342,25 +3723,20 @@ function oncreate$3() {
 
 	const comp = this;
 
-	const urly = `../data/authors_master/${ id }.json`;
+	const urly = `../data/authors_master_split_keys/${ id }.json`;
 	return fetch(urly).then(function(res) {
 	return res.json();
 		})
 		.then(function(json) {
-		let arr = [];
-	     for (let cat in json) {
-			 arr.push({name: cat, len: json[cat].length, data:json[cat]});
-		 }
-		 setTimeout(() => {
-		   console.log('adding Par.breaks');
-			comp.addParagraphBreaks();
-			//comp.shortenDates();
-			for (let cat in json) {
-				new Tablesort(document.getElementById(cat));
-			}
-		}, 2000);
-		store.set({author: {name: id, cats: arr} });
-
+			/* we need to know how many posts per category so we can list it on each author's page,
+			so JSON can't be an array of strings, but rather need to be an arr of objects like 
+			{ name: 'art', len: 15 },
+			{ name: 'history, len: 3}
+			*/
+		  store.set({
+			  cats:json
+			});
+	      comp.getCategory(json[0].name, id);
 		});
 
 	}
@@ -3371,13 +3747,13 @@ function store_1$2() {
 const file$7 = "src\\pages\\author-details\\author-details.html";
 
 function create_main_fragment$7(component, ctx) {
-	var div, h1, text, span, text_1, text_3, text_4, text_5, table, thead, tr, th, text_6, text_7, th_1, text_8, text_11, tbody, text_14, div_transition, current;
+	var div, h1, text, text_1, span, text_2, text_3, span_1, text_4, text_5, span_2, text_6, text_7, table, thead, tr, th, text_8, text_9, th_1, text_10, text_13, tbody, text_16, div_transition, current;
 
 	function click_handler(event) {
 		component.favorite(ctx.author_name);
 	}
 
-	var link_initial_data = { href: "../notebook", class: "arrowRight" };
+	var link_initial_data = { href: "../notebook" };
 	var link = new Link({
 		root: component.root,
 		store: component.store,
@@ -3385,49 +3761,67 @@ function create_main_fragment$7(component, ctx) {
 		data: link_initial_data
 	});
 
-	var if_block = (ctx.$author && ctx.$author.cats) && create_if_block$3(component, ctx);
+	var link_1_initial_data = { href: "../authors" };
+	var link_1 = new Link({
+		root: component.root,
+		store: component.store,
+		slots: { default: createFragment() },
+		data: link_1_initial_data
+	});
 
-	var if_block_1 = (ctx.$author && ctx.$author.cats) && create_if_block_1$1(component, ctx);
+	var if_block = (ctx.$cats) && create_if_block$3(component, ctx);
+
+	var if_block_1 = (ctx.$author && ctx.$author.cat) && create_if_block_1$1(component, ctx);
 
 	return {
 		c: function create() {
 			div = createElement("div");
 			h1 = createElement("h1");
 			text = createText(ctx.author_name);
+			text_1 = createText("\r\n ");
 			span = createElement("span");
-			text_1 = createText("add to favorites");
-			text_3 = createText("\r\n\t");
-			text_4 = createText("→ notebook");
+			text_2 = createText("add to favorites");
+			text_3 = createText("\r\n \r\n ");
+			span_1 = createElement("span");
+			text_4 = createText("go to notebook");
 			link._fragment.c();
 			text_5 = createText("\r\n\r\n ");
+			span_2 = createElement("span");
+			text_6 = createText("all authors");
+			link_1._fragment.c();
+			text_7 = createText("\r\n\t\r\n\r\n ");
 			table = createElement("table");
 			thead = createElement("thead");
 			tr = createElement("tr");
 			th = createElement("th");
-			text_6 = createText("category");
-			text_7 = createText("\r\n\t\t\t");
+			text_8 = createText("category");
+			text_9 = createText("\r\n\t\t\t");
 			th_1 = createElement("th");
-			text_8 = createText("number posts");
-			text_11 = createText("\r\n\t\t\r\n\t\t");
+			text_10 = createText("number posts");
+			text_13 = createText("\r\n\t\t\r\n\t\t");
 			tbody = createElement("tbody");
 			if (if_block) if_block.c();
-			text_14 = createText("\r\n\r\n\t");
+			text_16 = createText("\r\n\r\n\t");
 			if (if_block_1) if_block_1.c();
+			h1.className = "svelte-peuc5d";
+			addLoc(h1, file$7, 1, 1, 64);
 			addListener(span, "click", click_handler);
 			span.className = "follow tb_buttons tb_note";
-			addLoc(span, file$7, 1, 18, 81);
-			h1.className = "svelte-vbobyl";
-			addLoc(h1, file$7, 1, 1, 64);
-			addLoc(th, file$7, 8, 3, 306);
-			addLoc(th_1, file$7, 9, 3, 328);
-			addLoc(tr, file$7, 7, 4, 297);
-			addLoc(thead, file$7, 6, 2, 284);
+			addLoc(span, file$7, 2, 1, 89);
+			span_1.className = "follow btn-nav tb_buttons tb_note";
+			addLoc(span_1, file$7, 4, 1, 191);
+			span_2.className = "follow btn-nav tb_buttons tb_note";
+			addLoc(span_2, file$7, 6, 1, 297);
+			addLoc(th, file$7, 12, 3, 454);
+			addLoc(th_1, file$7, 13, 3, 476);
+			addLoc(tr, file$7, 11, 4, 445);
+			addLoc(thead, file$7, 10, 2, 432);
 			tbody.id = "categories";
-			addLoc(tbody, file$7, 18, 2, 468);
+			addLoc(tbody, file$7, 22, 2, 616);
 			table.className = "pure-table";
-			addLoc(table, file$7, 5, 1, 254);
+			addLoc(table, file$7, 9, 1, 402);
 			div.id = "postWrap";
-			div.className = "content is-medium svelte-vbobyl";
+			div.className = "content is-medium svelte-peuc5d";
 			addLoc(div, file$7, 0, 0, 0);
 		},
 
@@ -3435,25 +3829,31 @@ function create_main_fragment$7(component, ctx) {
 			insertNode(div, target, anchor);
 			appendNode(h1, div);
 			appendNode(text, h1);
-			appendNode(span, h1);
-			appendNode(text_1, span);
+			appendNode(text_1, div);
+			appendNode(span, div);
+			appendNode(text_2, span);
 			appendNode(text_3, div);
+			appendNode(span_1, div);
 			appendNode(text_4, link._slotted.default);
-			link._mount(div, null);
+			link._mount(span_1, null);
 			appendNode(text_5, div);
+			appendNode(span_2, div);
+			appendNode(text_6, link_1._slotted.default);
+			link_1._mount(span_2, null);
+			appendNode(text_7, div);
 			appendNode(table, div);
 			appendNode(thead, table);
 			appendNode(tr, thead);
 			appendNode(th, tr);
-			appendNode(text_6, th);
-			appendNode(text_7, tr);
+			appendNode(text_8, th);
+			appendNode(text_9, tr);
 			appendNode(th_1, tr);
-			appendNode(text_8, th_1);
-			appendNode(text_11, table);
+			appendNode(text_10, th_1);
+			appendNode(text_13, table);
 			appendNode(tbody, table);
 			if (if_block) if_block.m(tbody, null);
-			appendNode(text_14, div);
-			if (if_block_1) if_block_1.m(div, null);
+			appendNode(text_16, div);
+			if (if_block_1) if_block_1.i(div, null);
 			current = true;
 		},
 
@@ -3463,7 +3863,7 @@ function create_main_fragment$7(component, ctx) {
 				text.data = ctx.author_name;
 			}
 
-			if (ctx.$author && ctx.$author.cats) {
+			if (ctx.$cats) {
 				if (if_block) {
 					if_block.p(changed, ctx);
 				} else {
@@ -3476,17 +3876,21 @@ function create_main_fragment$7(component, ctx) {
 				if_block = null;
 			}
 
-			if (ctx.$author && ctx.$author.cats) {
+			if (ctx.$author && ctx.$author.cat) {
 				if (if_block_1) {
 					if_block_1.p(changed, ctx);
 				} else {
 					if_block_1 = create_if_block_1$1(component, ctx);
-					if_block_1.c();
-					if_block_1.m(div, null);
+					if (if_block_1) if_block_1.c();
 				}
+
+				if_block_1.i(div, null);
 			} else if (if_block_1) {
-				if_block_1.d(1);
-				if_block_1 = null;
+				transitionManager.groupOutros();
+				if_block_1.o(function() {
+					if_block_1.d(1);
+					if_block_1 = null;
+				});
 			}
 		},
 
@@ -3522,13 +3926,14 @@ function create_main_fragment$7(component, ctx) {
 
 			removeListener(span, "click", click_handler);
 			link.destroy();
+			link_1.destroy();
 			if (if_block) if_block.d();
 			if (if_block_1) if_block_1.d();
 		}
 	};
 }
 
-// (21:2) {#each $author.cats as cat}
+// (25:2) {#each $cats as cat}
 function create_each_block$3(component, ctx) {
 	var tr, td, text_value = ctx.cat.name, text, text_1, td_1, text_2_value = ctx.cat.len, text_2;
 
@@ -3543,11 +3948,11 @@ function create_each_block$3(component, ctx) {
 			td._svelte = { component, ctx };
 
 			addListener(td, "click", click_handler$1);
-			td.className = "linky svelte-vbobyl";
-			addLoc(td, file$7, 22, 4, 569);
-			td_1.className = "svelte-vbobyl";
-			addLoc(td_1, file$7, 23, 4, 636);
-			addLoc(tr, file$7, 21, 2, 559);
+			td.className = "linky svelte-peuc5d";
+			addLoc(td, file$7, 26, 4, 692);
+			td_1.className = "svelte-peuc5d";
+			addLoc(td_1, file$7, 27, 4, 765);
+			addLoc(tr, file$7, 25, 2, 682);
 		},
 
 		m: function mount(target, anchor) {
@@ -3560,12 +3965,12 @@ function create_each_block$3(component, ctx) {
 		},
 
 		p: function update(changed, ctx) {
-			if ((changed.$author) && text_value !== (text_value = ctx.cat.name)) {
+			if ((changed.$cats) && text_value !== (text_value = ctx.cat.name)) {
 				text.data = text_value;
 			}
 
 			td._svelte.ctx = ctx;
-			if ((changed.$author) && text_2_value !== (text_2_value = ctx.cat.len)) {
+			if ((changed.$cats) && text_2_value !== (text_2_value = ctx.cat.len)) {
 				text_2.data = text_2_value;
 			}
 		},
@@ -3580,11 +3985,11 @@ function create_each_block$3(component, ctx) {
 	};
 }
 
-// (20:2) {#if $author && $author.cats}
+// (24:2) {#if $cats}
 function create_if_block$3(component, ctx) {
 	var each_anchor;
 
-	var each_value = ctx.$author.cats;
+	var each_value = ctx.$cats;
 
 	var each_blocks = [];
 
@@ -3610,8 +4015,8 @@ function create_if_block$3(component, ctx) {
 		},
 
 		p: function update(changed, ctx) {
-			if (changed.$author) {
-				each_value = ctx.$author.cats;
+			if (changed.$cats || changed.$id) {
+				each_value = ctx.$cats;
 
 				for (var i = 0; i < each_value.length; i += 1) {
 					const child_ctx = get_each_context$3(ctx, each_value, i);
@@ -3642,103 +4047,9 @@ function create_if_block$3(component, ctx) {
 	};
 }
 
-// (32:0) {#each $author.cats as cat}
-function create_each_block_1(component, ctx) {
-	var table, thead, tr, th, text, text_1, th_1, text_2, text_5, tbody, table_id_value;
-
-	var each_value_2 = ctx.cat.data;
-
-	var each_blocks = [];
-
-	for (var i = 0; i < each_value_2.length; i += 1) {
-		each_blocks[i] = create_each_block_2(component, get_each_context_2(ctx, each_value_2, i));
-	}
-
-	return {
-		c: function create() {
-			table = createElement("table");
-			thead = createElement("thead");
-			tr = createElement("tr");
-			th = createElement("th");
-			text = createText("post");
-			text_1 = createText("\r\n\t\t\t\t");
-			th_1 = createElement("th");
-			text_2 = createText("date");
-			text_5 = createText("\r\n\t\t\t\r\n\t\t\t");
-			tbody = createElement("tbody");
-
-			for (var i = 0; i < each_blocks.length; i += 1) {
-				each_blocks[i].c();
-			}
-			addLoc(th, file$7, 36, 4, 850);
-			setAttribute(th_1, "width", "250");
-			addLoc(th_1, file$7, 37, 4, 870);
-			addLoc(tr, file$7, 34, 5, 835);
-			addLoc(thead, file$7, 33, 3, 821);
-			tbody.id = "posts";
-			addLoc(tbody, file$7, 46, 3, 1021);
-			table.id = table_id_value = ctx.cat.name;
-			table.className = "pure-table svelte-vbobyl";
-			addLoc(table, file$7, 32, 1, 774);
-		},
-
-		m: function mount(target, anchor) {
-			insertNode(table, target, anchor);
-			appendNode(thead, table);
-			appendNode(tr, thead);
-			appendNode(th, tr);
-			appendNode(text, th);
-			appendNode(text_1, tr);
-			appendNode(th_1, tr);
-			appendNode(text_2, th_1);
-			appendNode(text_5, table);
-			appendNode(tbody, table);
-
-			for (var i = 0; i < each_blocks.length; i += 1) {
-				each_blocks[i].m(tbody, null);
-			}
-		},
-
-		p: function update(changed, ctx) {
-			if (changed.$author) {
-				each_value_2 = ctx.cat.data;
-
-				for (var i = 0; i < each_value_2.length; i += 1) {
-					const child_ctx = get_each_context_2(ctx, each_value_2, i);
-
-					if (each_blocks[i]) {
-						each_blocks[i].p(changed, child_ctx);
-					} else {
-						each_blocks[i] = create_each_block_2(component, child_ctx);
-						each_blocks[i].c();
-						each_blocks[i].m(tbody, null);
-					}
-				}
-
-				for (; i < each_blocks.length; i += 1) {
-					each_blocks[i].d(1);
-				}
-				each_blocks.length = each_value_2.length;
-			}
-
-			if ((changed.$author) && table_id_value !== (table_id_value = ctx.cat.name)) {
-				table.id = table_id_value;
-			}
-		},
-
-		d: function destroy$$1(detach) {
-			if (detach) {
-				detachNode(table);
-			}
-
-			destroyEach(each_blocks, detach);
-		}
-	};
-}
-
-// (49:3) {#each cat.data as post, x}
-function create_each_block_2(component, ctx) {
-	var tr, td, p, text, text_1_value = ctx.cat.name, text_1, text_2, span, a, text_3_value = ctx.post.title, text_3, a_href_value, span_1, span_2, text_4, text_6, p_1, span_3, text_7, span_4, text_8, span_5, text_9, text_11, p_2, text_12_value = ctx.post.post, text_12, text_15, td_1, text_16_value = ctx.post.date, text_16, span_6, text_17_value = ctx.post.mins, text_17, span_7;
+// (53:3) {#each $author.cat.data as post, x}
+function create_each_block_1$1(component, ctx) {
+	var tr, td, p, text, text_1_value = ctx.$author.cat.name, text_1, text_2, span, a, text_3_value = ctx.post.title, text_3, a_href_value, span_1, span_2, text_4, text_6, p_1, span_3, text_7, span_4, text_8, span_5, text_9, text_11, p_2, text_12_value = ctx.post.post, text_12, text_15, td_1, text_16_value = ctx.post.date, text_16, span_6, text_17_value = ctx.post.mins, text_17, span_7;
 
 	return {
 		c: function create() {
@@ -3773,47 +4084,47 @@ function create_each_block_2(component, ctx) {
 			span_7 = createElement("span");
 			a.href = a_href_value = "" + ctx.post.url + (ctx.post.id ? `#${ctx.post.id}` : '');
 			a.target = "_blank";
-			addLoc(a, file$7, 52, 55, 1158);
+			addLoc(a, file$7, 56, 63, 1299);
 
 			span_2._svelte = { component };
 
 			addListener(span_2, "click", click_handler_1$1);
 			span_2.className = "pull-right";
-			addLoc(span_2, file$7, 52, 144, 1247);
-			addLoc(span_1, file$7, 52, 138, 1241);
-			addLoc(span, file$7, 52, 49, 1152);
+			addLoc(span_2, file$7, 56, 152, 1388);
+			addLoc(span_1, file$7, 56, 146, 1382);
+			addLoc(span, file$7, 56, 57, 1293);
 			p.className = "postInfo";
-			addLoc(p, file$7, 52, 4, 1107);
+			addLoc(p, file$7, 56, 4, 1240);
 
 			span_3._svelte = { component, ctx };
 
 			addListener(span_3, "click", click_handler_2);
 			span_3.className = "tb_pro";
-			addLoc(span_3, file$7, 55, 5, 1356);
+			addLoc(span_3, file$7, 59, 5, 1497);
 
 			span_4._svelte = { component, ctx };
 
 			addListener(span_4, "click", click_handler_3);
 			span_4.className = "tb_con";
-			addLoc(span_4, file$7, 55, 80, 1431);
+			addLoc(span_4, file$7, 59, 88, 1580);
 
 			span_5._svelte = { component, ctx };
 
 			addListener(span_5, "click", click_handler_4);
 			span_5.className = "tb_note";
-			addLoc(span_5, file$7, 55, 155, 1506);
+			addLoc(span_5, file$7, 59, 171, 1663);
 			p_1.className = "toolbar";
-			addLoc(p_1, file$7, 54, 4, 1330);
-			p_2.className = "posting svelte-vbobyl";
-			addLoc(p_2, file$7, 57, 4, 1604);
-			td.className = "svelte-vbobyl";
-			addLoc(td, file$7, 51, 5, 1096);
-			addLoc(span_7, file$7, 61, 66, 1729);
+			addLoc(p_1, file$7, 58, 4, 1471);
+			p_2.className = "posting svelte-peuc5d";
+			addLoc(p_2, file$7, 61, 4, 1769);
+			td.className = " svelte-peuc5d";
+			addLoc(td, file$7, 55, 5, 1220);
+			addLoc(span_7, file$7, 65, 66, 1894);
 			span_6.className = "right10";
-			addLoc(span_6, file$7, 61, 33, 1696);
-			td_1.className = "date svelte-vbobyl";
-			addLoc(td_1, file$7, 61, 5, 1668);
-			addLoc(tr, file$7, 49, 3, 1079);
+			addLoc(span_6, file$7, 65, 33, 1861);
+			td_1.className = "date svelte-peuc5d";
+			addLoc(td_1, file$7, 65, 5, 1833);
+			addLoc(tr, file$7, 53, 3, 1203);
 		},
 
 		m: function mount(target, anchor) {
@@ -3849,7 +4160,7 @@ function create_each_block_2(component, ctx) {
 		},
 
 		p: function update(changed, ctx) {
-			if ((changed.$author) && text_1_value !== (text_1_value = ctx.cat.name)) {
+			if ((changed.$author) && text_1_value !== (text_1_value = ctx.$author.cat.name)) {
 				text_1.data = text_1_value;
 			}
 
@@ -3890,48 +4201,78 @@ function create_each_block_2(component, ctx) {
 	};
 }
 
-// (31:1) {#if $author && $author.cats}
+// (35:1) {#if $author && $author.cat  }
 function create_if_block_1$1(component, ctx) {
-	var each_anchor;
+	var table, thead, tr, th, text, text_1, th_1, text_2, text_5, tbody, table_transition, current;
 
-	var each_value_1 = ctx.$author.cats;
+	var each_value_1 = ctx.$author.cat.data;
 
 	var each_blocks = [];
 
 	for (var i = 0; i < each_value_1.length; i += 1) {
-		each_blocks[i] = create_each_block_1(component, get_each_context_1(ctx, each_value_1, i));
+		each_blocks[i] = create_each_block_1$1(component, get_each_context_1$1(ctx, each_value_1, i));
 	}
 
 	return {
 		c: function create() {
+			table = createElement("table");
+			thead = createElement("thead");
+			tr = createElement("tr");
+			th = createElement("th");
+			text = createText("post");
+			text_1 = createText("\r\n\t\t\t\t");
+			th_1 = createElement("th");
+			text_2 = createText("date");
+			text_5 = createText("\r\n\t\t\t\r\n\t\t\t");
+			tbody = createElement("tbody");
+
 			for (var i = 0; i < each_blocks.length; i += 1) {
 				each_blocks[i].c();
 			}
-
-			each_anchor = createComment();
+			addLoc(th, file$7, 40, 4, 966);
+			setAttribute(th_1, "width", "250");
+			addLoc(th_1, file$7, 41, 4, 986);
+			addLoc(tr, file$7, 38, 5, 951);
+			addLoc(thead, file$7, 37, 3, 937);
+			tbody.id = "posts";
+			addLoc(tbody, file$7, 50, 3, 1137);
+			table.id = "posts";
+			table.className = "pure-table";
+			addLoc(table, file$7, 36, 1, 877);
 		},
 
 		m: function mount(target, anchor) {
+			insertNode(table, target, anchor);
+			appendNode(thead, table);
+			appendNode(tr, thead);
+			appendNode(th, tr);
+			appendNode(text, th);
+			appendNode(text_1, tr);
+			appendNode(th_1, tr);
+			appendNode(text_2, th_1);
+			appendNode(text_5, table);
+			appendNode(tbody, table);
+
 			for (var i = 0; i < each_blocks.length; i += 1) {
-				each_blocks[i].m(target, anchor);
+				each_blocks[i].m(tbody, null);
 			}
 
-			insertNode(each_anchor, target, anchor);
+			current = true;
 		},
 
 		p: function update(changed, ctx) {
 			if (changed.$author) {
-				each_value_1 = ctx.$author.cats;
+				each_value_1 = ctx.$author.cat.data;
 
 				for (var i = 0; i < each_value_1.length; i += 1) {
-					const child_ctx = get_each_context_1(ctx, each_value_1, i);
+					const child_ctx = get_each_context_1$1(ctx, each_value_1, i);
 
 					if (each_blocks[i]) {
 						each_blocks[i].p(changed, child_ctx);
 					} else {
-						each_blocks[i] = create_each_block_1(component, child_ctx);
+						each_blocks[i] = create_each_block_1$1(component, child_ctx);
 						each_blocks[i].c();
-						each_blocks[i].m(each_anchor.parentNode, each_anchor);
+						each_blocks[i].m(tbody, null);
 					}
 				}
 
@@ -3942,12 +4283,37 @@ function create_if_block_1$1(component, ctx) {
 			}
 		},
 
-		d: function destroy$$1(detach) {
-			destroyEach(each_blocks, detach);
+		i: function intro(target, anchor) {
+			if (current) return;
+			if (component.root._intro) {
+				if (table_transition) table_transition.invalidate();
 
-			if (detach) {
-				detachNode(each_anchor);
+				component.root._aftercreate.push(() => {
+					if (!table_transition) table_transition = wrapTransition(component, table, fade, {}, true);
+					table_transition.run(1);
+				});
 			}
+			this.m(target, anchor);
+		},
+
+		o: function outro(outrocallback) {
+			if (!current) return;
+
+			if (!table_transition) table_transition = wrapTransition(component, table, fade, {}, false);
+			table_transition.run(0, () => {
+				outrocallback();
+				table_transition = null;
+			});
+
+			current = false;
+		},
+
+		d: function destroy$$1(detach) {
+			if (detach) {
+				detachNode(table);
+			}
+
+			destroyEach(each_blocks, detach);
 		}
 	};
 }
@@ -3963,21 +4329,13 @@ function get_each_context$3(ctx, list, i) {
 function click_handler$1(event) {
 	const { component, ctx } = this._svelte;
 
-	component.moveTo(ctx.cat.name);
+	component.loadCat(ctx.cat.name, ctx.$id);
 }
 
-function get_each_context_1(ctx, list, i) {
-	const child_ctx = Object.create(ctx);
-	child_ctx.cat = list[i];
-	child_ctx.each_value_1 = list;
-	child_ctx.cat_index_1 = i;
-	return child_ctx;
-}
-
-function get_each_context_2(ctx, list, i) {
+function get_each_context_1$1(ctx, list, i) {
 	const child_ctx = Object.create(ctx);
 	child_ctx.post = list[i];
-	child_ctx.each_value_2 = list;
+	child_ctx.each_value_1 = list;
 	child_ctx.x = i;
 	return child_ctx;
 }
@@ -3991,19 +4349,19 @@ function click_handler_1$1(event) {
 function click_handler_2(event) {
 	const { component, ctx } = this._svelte;
 
-	component.saveData('pro',ctx.cat.name, ctx.post,ctx.x);
+	component.saveData('pro',ctx.$author.cat.name, ctx.post,ctx.x);
 }
 
 function click_handler_3(event) {
 	const { component, ctx } = this._svelte;
 
-	component.saveData('con',ctx.cat.name, ctx.post,ctx.x);
+	component.saveData('con',ctx.$author.cat.name, ctx.post,ctx.x);
 }
 
 function click_handler_4(event) {
 	const { component, ctx } = this._svelte;
 
-	component.saveData('note',ctx.cat.name, ctx.post,ctx.x);
+	component.saveData('note',ctx.$author.cat.name, ctx.post,ctx.x);
 }
 
 function Author_details(options) {
@@ -4011,11 +4369,12 @@ function Author_details(options) {
 	if (!options || (!options.target && !options.root)) throw new Error("'target' is a required option");
 	init(this, options);
 	this.store = store_1$2();
-	this._state = assign(this.store._init(["id","author"]), options.data);
-	this.store._add(this, ["id","author"]);
+	this._state = assign(this.store._init(["id","cats","author"]), options.data);
+	this.store._add(this, ["id","cats","author"]);
 	this._recompute({ $id: 1 }, this._state);
 	if (!('$id' in this._state)) console.warn("<Author_details> was created without expected data property '$id'");
 
+	if (!('$cats' in this._state)) console.warn("<Author_details> was created without expected data property '$cats'");
 	if (!('$author' in this._state)) console.warn("<Author_details> was created without expected data property '$author'");
 	this._intro = true;
 

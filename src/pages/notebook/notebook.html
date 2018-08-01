@@ -2,6 +2,19 @@
 <h1 class="auth">My Shroud Notebook</h1>
 <p>As you read comments and check the resources included, you can build your own list of evidence which will be listed  here.
   </p>
+<div class="tabs">
+    <input id="tab1" type="radio" name="tabs" checked>
+  <label for="tab1">Notes</label>
+    
+  <input id="tab2" type="radio" name="tabs">
+  <label for="tab2">Authors</label>
+    
+  <input id="tab3" type="radio" name="tabs">
+  <label for="tab3">Resources</label>
+  
+   <section id="content1">
+    {#if $bookmarks && $bookmarks.length > 0}
+
 <table class="pure-table">
 	<thead>
 	  <tr>
@@ -15,14 +28,9 @@
 
 	  </tr>
 	</thead>
-	<!-- <tfoot>
-	  <tr>
-		<th>name</th>
-		<th>subject</th>
-	  </tr>
-	</tfoot> -->
+
 	<tbody id='authors'>
-    {#if $bookmarks && $bookmarks.length > 0}
+ 
     {#each $bookmarks as bookmark}
     <tr>
         <td>
@@ -52,14 +60,128 @@
       </td>
     </tr>
     {/each}
-    {/if}
+
 	  </tbody>
 </table>
 
+{:else}
+Browse some authors' comments and save by clicking pro/con or adding a note!
+<Link href="/authors">Go to All Authors list</Link>
+
+{/if}
+</section>
+<section id="content2">
+
+    {#if $favorites && $favorites.length > 0}
+    <Link href="/authors">Go to All Authors list</Link>
+<table class="pure-table">
+    <thead>
+      <th>
+        name
+      </th>
+    </thead>
+    <tbody>
+
+      {#each $favorites as author}
+      <tr>
+      <td class="notebookInfo"><Link href="/authors/{author}">{author}</Link></td>
+      <td></td>
+      </tr>
+      {/each}
+
+    </tbody>
+  </table>
+
+  {:else}
+  Sorry, no favorite authors yet! Save any from the top of their author page.
+  <Link href="/authors">Go to All Authors list</Link>
+  {/if}
+
+  </section>
+
+<section id="content3">
+    Resources
+</section>
+
 
 </div>
+</div>
 <style>
+  .pure-table {
+  border: 0;
+  }
+.tabs {
+  min-width: 320px;
+  max-width: 1200px;
+  padding: 50px;
+  margin: 0 auto;
+  background: #fff;
+}
+section {
+  display: none;
+  padding: 20px 0 0;
+  border-top: 1px solid #ddd;
+}
 
+input {
+  display: none;
+}
+
+label {
+  display: inline-block;
+  margin: 0 0 -1px;
+  padding: 15px 25px;
+  font-weight: 600;
+  text-align: center;
+  color: #bbb;
+  border: 1px solid transparent;
+}
+
+label:before {
+  font-family: fontawesome;
+  font-weight: normal;
+  margin-right: 10px;
+}
+
+label[for*='1']:before { content: '☑'; }
+label[for*='2']:before { content: '♀'; }
+label[for*='3']:before { content: '≡'; }
+label[for*='4']:before { content: '\f1a9'; }
+
+label:hover {
+  color: #888;
+  cursor: pointer;
+}
+
+input:checked + label {
+  color: #555;
+  border: 1px solid #ddd;
+  border-top: 2px solid orange;
+  border-bottom: 1px solid #fff;
+}
+
+#tab1:checked ~ #content1,
+#tab2:checked ~ #content2,
+#tab3:checked ~ #content3,
+#tab4:checked ~ #content4 {
+  display: block;
+}
+
+@media screen and (max-width: 650px) {
+  label {
+    font-size: 0;
+  }
+  label:before {
+    margin: 0;
+    font-size: 18px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  label {
+    padding: 15px;
+  }
+}
 .content {
 	padding-top:20px;
 	padding-bottom:50px;
@@ -101,10 +223,15 @@ td {
       // console.log('bm: '+JSON.stringify(bookmarks))
         bookmarks = Object.entries(bookmarks);
       // console.table(bookmarks)
-        store.set({bookmarks, bookmarks})
+        store.set({bookmarks: bookmarks})
       },
       goto(path) {
         roadtrip.goto(path);
+      },
+      addAuthors() {
+        let authors = localStorage.getItem('favorites') || [];
+        if (authors && authors.length > 0) authors = JSON.parse(authors);
+        store.set({favorites: authors})
       }
     },
     oncreate() {
@@ -121,7 +248,7 @@ td {
       bookmarks.sort((a, b) => a[1].updated - b[1].updated).reverse();
      // console.table(bookmarks)
       store.set({bookmarks: bookmarks})
-      
+      this.addAuthors();
     }
   }
 </script>
