@@ -3905,6 +3905,10 @@ var methods$6 = {
 			count.textContent = '';
 			search.textContent = '';
 			search.value = '';
+			let rows = document.querySelectorAll('#posts > tr');
+			for (let row of rows) {
+				row.style.display = 'table-row';
+			}
 		});
 		},
 		favorite(id) {

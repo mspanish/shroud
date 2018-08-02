@@ -235,6 +235,11 @@ td {
 			count.textContent = '';
 			search.textContent = '';
 			search.value = '';
+			let rows = document.querySelectorAll('#posts > tr');
+			let ct = 0;
+			for (let row of rows) {
+				row.style.display = 'table-row'
+			}
 		});
 		},
 		favorite(id) {
