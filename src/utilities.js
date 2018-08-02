@@ -136,6 +136,9 @@
       //sorting here is confusing, leave as is
          store.set({bookmarks: bookmarks})
         new Toast(st,'toast','success')
+        setTimeout(() => {
+          deleteAllToasts();
+        }, 500);
         break;
       case 'con':
         obj.type = 'con';				
@@ -146,6 +149,9 @@
         store.set({bookmarks: bookmarks})				
         st = 'saved '+post.title+ ' to notebook as evidence against authenticity.'
         new Toast(st,'toast','error')
+        setTimeout(() => {
+          deleteAllToasts();
+        }, 500);
         break;			
 
       case 'note':
@@ -155,8 +161,6 @@
         new Toast(str, 'modal', 'input', 0, [], 'note');
         break;
     }
-    setTimeout(() => {
-      deleteAllToasts();
-    }, 500);
+
   }
   export {getRandomWord, startCase, saveToNotebook}
