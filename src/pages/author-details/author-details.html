@@ -33,6 +33,9 @@
 	</table>
 
 	{#if $author && $author.cat  }
+	<div class="search"><input id="searchy" placeholder="search this category..."><span on:click="search()" class="expand go">go</span>
+		<span id="searchCt"></span>
+	</div>
 
 	<table id="posts"  transition:fade  class="pure-table">
 			<thead>
@@ -153,6 +156,29 @@ td {
     components:{ Link
 	}, 
     methods: {
+		search() {
+			let input = document.getElementById('searchy');
+			input = input.value.toLowerCase();
+		
+			let rows = document.querySelectorAll('#posts > tr');
+			let ct = 0;
+			for (let row of rows) {
+				let str = row.textContent.toLowerCase();
+				if (str.includes(input)){
+					ct++;
+				}
+				if (!str.includes(input)){
+					row.style.display = 'none';
+				}
+				if (!input) {
+					row.style.display = 'table-row';
+
+				}
+			}
+			let count = document.getElementById('searchCt');
+			count.textContent = "found "+ct+ ' posts.'
+			if (!input) count.textContent = '';
+		},
 		loadCat(cat,id) {
 			console.log('load '+cat)
 			let state = store.get();
@@ -203,7 +229,12 @@ td {
 
 			}, 500);
 			store.set({catLoaded: cat, author: {name: id, cat: obj} })
-		
+			// reset search
+			let count = document.getElementById('searchCt');
+			let search = document.getElementById('searchy');
+			count.textContent = '';
+			search.textContent = '';
+			search.value = '';
 		});
 		},
 		favorite(id) {

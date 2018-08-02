@@ -3827,6 +3827,29 @@ return name
 }
 
 var methods$6 = {
+		search() {
+			let input = document.getElementById('searchy');
+			input = input.value.toLowerCase();
+		
+			let rows = document.querySelectorAll('#posts > tr');
+			let ct = 0;
+			for (let row of rows) {
+				let str = row.textContent.toLowerCase();
+				if (str.includes(input)){
+					ct++;
+				}
+				if (!str.includes(input)){
+					row.style.display = 'none';
+				}
+				if (!input) {
+					row.style.display = 'table-row';
+
+				}
+			}
+			let count = document.getElementById('searchCt');
+			count.textContent = "found "+ct+ ' posts.';
+			if (!input) count.textContent = '';
+		},
 		loadCat(cat,id) {
 			console.log('load '+cat);
 			let state = store.get();
@@ -3876,7 +3899,12 @@ var methods$6 = {
 				}
 			}, 500);
 			store.set({catLoaded: cat, author: {name: id, cat: obj} });
-		
+			// reset search
+			let count = document.getElementById('searchCt');
+			let search = document.getElementById('searchy');
+			count.textContent = '';
+			search.textContent = '';
+			search.value = '';
 		});
 		},
 		favorite(id) {
@@ -4343,7 +4371,7 @@ function create_if_block$3(component, ctx) {
 	};
 }
 
-// (53:3) {#each $author.cat.data as post, x}
+// (56:3) {#each $author.cat.data as post, x}
 function create_each_block_1$1(component, ctx) {
 	var tr, td, p, text, text_1_value = ctx.$author.cat.name, text_1, text_2, span, a, text_3_value = ctx.post.title, text_3, a_href_value, span_1, span_2, text_4, text_6, p_1, span_3, text_7, span_4, text_8, span_5, text_9, text_11, p_2, raw_value = ctx.post.post, text_14, td_1, text_15_value = ctx.post.date, text_15, span_6, text_16_value = ctx.post.mins, text_16, span_7;
 
@@ -4379,47 +4407,47 @@ function create_each_block_1$1(component, ctx) {
 			span_7 = createElement("span");
 			a.href = a_href_value = "" + ctx.post.url + (ctx.post.id ? `#${ctx.post.id}` : '');
 			a.target = "_blank";
-			addLoc(a, file$8, 56, 63, 1299);
+			addLoc(a, file$8, 59, 63, 1473);
 
 			span_2._svelte = { component };
 
 			addListener(span_2, "click", click_handler_1$1);
 			span_2.className = "pull-right";
-			addLoc(span_2, file$8, 56, 152, 1388);
-			addLoc(span_1, file$8, 56, 146, 1382);
-			addLoc(span, file$8, 56, 57, 1293);
+			addLoc(span_2, file$8, 59, 152, 1562);
+			addLoc(span_1, file$8, 59, 146, 1556);
+			addLoc(span, file$8, 59, 57, 1467);
 			p.className = "postInfo";
-			addLoc(p, file$8, 56, 4, 1240);
+			addLoc(p, file$8, 59, 4, 1414);
 
 			span_3._svelte = { component, ctx };
 
 			addListener(span_3, "click", click_handler_2$1);
 			span_3.className = "tb_pro";
-			addLoc(span_3, file$8, 59, 5, 1497);
+			addLoc(span_3, file$8, 62, 5, 1671);
 
 			span_4._svelte = { component, ctx };
 
 			addListener(span_4, "click", click_handler_3$1);
 			span_4.className = "tb_con";
-			addLoc(span_4, file$8, 59, 88, 1580);
+			addLoc(span_4, file$8, 62, 88, 1754);
 
 			span_5._svelte = { component, ctx };
 
 			addListener(span_5, "click", click_handler_4$1);
 			span_5.className = "tb_note";
-			addLoc(span_5, file$8, 59, 171, 1663);
+			addLoc(span_5, file$8, 62, 171, 1837);
 			p_1.className = "toolbar";
-			addLoc(p_1, file$8, 58, 4, 1471);
+			addLoc(p_1, file$8, 61, 4, 1645);
 			p_2.className = "posting svelte-peuc5d";
-			addLoc(p_2, file$8, 61, 4, 1769);
+			addLoc(p_2, file$8, 64, 4, 1943);
 			td.className = " svelte-peuc5d";
-			addLoc(td, file$8, 55, 5, 1220);
-			addLoc(span_7, file$8, 65, 66, 1900);
+			addLoc(td, file$8, 58, 5, 1394);
+			addLoc(span_7, file$8, 68, 66, 2074);
 			span_6.className = "right10";
-			addLoc(span_6, file$8, 65, 33, 1867);
+			addLoc(span_6, file$8, 68, 33, 2041);
 			td_1.className = "date svelte-peuc5d";
-			addLoc(td_1, file$8, 65, 5, 1839);
-			addLoc(tr, file$8, 53, 3, 1203);
+			addLoc(td_1, file$8, 68, 5, 2013);
+			addLoc(tr, file$8, 56, 3, 1377);
 		},
 
 		m: function mount(target, anchor) {
@@ -4498,7 +4526,11 @@ function create_each_block_1$1(component, ctx) {
 
 // (35:1) {#if $author && $author.cat  }
 function create_if_block_1$1(component, ctx) {
-	var table, thead, tr, th, text, text_1, th_1, text_2, text_5, tbody, table_transition, current;
+	var div, input, span, text, text_1, span_1, text_3, table, thead, tr, th, text_4, text_5, th_1, text_6, text_9, tbody, table_transition, current;
+
+	function click_handler_1(event) {
+		component.search();
+	}
 
 	var each_value_1 = ctx.$author.cat.data;
 
@@ -4510,42 +4542,66 @@ function create_if_block_1$1(component, ctx) {
 
 	return {
 		c: function create() {
+			div = createElement("div");
+			input = createElement("input");
+			span = createElement("span");
+			text = createText("go");
+			text_1 = createText("\r\n\t\t");
+			span_1 = createElement("span");
+			text_3 = createText("\r\n\r\n\t");
 			table = createElement("table");
 			thead = createElement("thead");
 			tr = createElement("tr");
 			th = createElement("th");
-			text = createText("post");
-			text_1 = createText("\r\n\t\t\t\t");
+			text_4 = createText("post");
+			text_5 = createText("\r\n\t\t\t\t");
 			th_1 = createElement("th");
-			text_2 = createText("date");
-			text_5 = createText("\r\n\t\t\t\r\n\t\t\t");
+			text_6 = createText("date");
+			text_9 = createText("\r\n\t\t\t\r\n\t\t\t");
 			tbody = createElement("tbody");
 
 			for (var i = 0; i < each_blocks.length; i += 1) {
 				each_blocks[i].c();
 			}
-			addLoc(th, file$8, 40, 4, 966);
+			input.id = "searchy";
+			input.placeholder = "search this category...";
+			addLoc(input, file$8, 35, 21, 895);
+			addListener(span, "click", click_handler_1);
+			span.className = "expand go";
+			addLoc(span, file$8, 35, 79, 953);
+			span_1.id = "searchCt";
+			addLoc(span_1, file$8, 36, 2, 1010);
+			div.className = "search";
+			addLoc(div, file$8, 35, 1, 875);
+			addLoc(th, file$8, 43, 4, 1140);
 			setAttribute(th_1, "width", "250");
-			addLoc(th_1, file$8, 41, 4, 986);
-			addLoc(tr, file$8, 38, 5, 951);
-			addLoc(thead, file$8, 37, 3, 937);
+			addLoc(th_1, file$8, 44, 4, 1160);
+			addLoc(tr, file$8, 41, 5, 1125);
+			addLoc(thead, file$8, 40, 3, 1111);
 			tbody.id = "posts";
-			addLoc(tbody, file$8, 50, 3, 1137);
+			addLoc(tbody, file$8, 53, 3, 1311);
 			table.id = "posts";
 			table.className = "pure-table";
-			addLoc(table, file$8, 36, 1, 877);
+			addLoc(table, file$8, 39, 1, 1051);
 		},
 
 		m: function mount(target, anchor) {
+			insertNode(div, target, anchor);
+			appendNode(input, div);
+			appendNode(span, div);
+			appendNode(text, span);
+			appendNode(text_1, div);
+			appendNode(span_1, div);
+			insertNode(text_3, target, anchor);
 			insertNode(table, target, anchor);
 			appendNode(thead, table);
 			appendNode(tr, thead);
 			appendNode(th, tr);
-			appendNode(text, th);
-			appendNode(text_1, tr);
+			appendNode(text_4, th);
+			appendNode(text_5, tr);
 			appendNode(th_1, tr);
-			appendNode(text_2, th_1);
-			appendNode(text_5, table);
+			appendNode(text_6, th_1);
+			appendNode(text_9, table);
 			appendNode(tbody, table);
 
 			for (var i = 0; i < each_blocks.length; i += 1) {
@@ -4605,6 +4661,12 @@ function create_if_block_1$1(component, ctx) {
 
 		d: function destroy$$1(detach) {
 			if (detach) {
+				detachNode(div);
+			}
+
+			removeListener(span, "click", click_handler_1);
+			if (detach) {
+				detachNode(text_3);
 				detachNode(table);
 			}
 

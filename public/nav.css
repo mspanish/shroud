@@ -810,6 +810,9 @@ th[role=columnheader]:not(.no-sort):hover:after {
     width: 130px;
     text-align:center;
 }
+.go {
+  padding: 10px 15px 10px 15px;
+}
 .hidden {
   visibility:hidden;
   height:0;
@@ -828,4 +831,14 @@ font-family: monospace;
 display: inline-block;
 text-align: center;
 border-radius: 10px;
+}
+
+.search > input {
+  width: 300px;
+  margin-left: 20px;
+  margin-top: 10px;
+}
+.searchCt {
+  margin-left: 30px;
+
 }
