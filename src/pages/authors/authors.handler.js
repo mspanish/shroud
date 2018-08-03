@@ -4,6 +4,10 @@ export default class AuthorsHandler {
   get route() {
     return {
       enter(current, previous) {
+        
+        if (gtag) {
+          gtag('event', 'authors page');
+        }
         this.component = new Authors({
           target: document.getElementById('app'),
           data: {

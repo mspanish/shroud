@@ -840,5 +840,9 @@ border-radius: 10px;
 }
 .searchCt {
   margin-left: 30px;
-
+}
+.subdir {
+  font-size: 1rem;
+  line-height: .3;
+  margin-left: 40px;
 }
