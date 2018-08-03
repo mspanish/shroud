@@ -1854,11 +1854,11 @@ class AuthorsHandler {
             name: 'world'
           }
         });
-        console.log('Entered authors!');
+       // console.log('Entered authors!');
       },
       leave(current, previous) {
         this.component.destroy();
-        console.log('Left authors!');
+       // console.log('Left authors!');
       }
     }
   }
@@ -5226,7 +5226,9 @@ class AuthorDetailsHandler {
   get route() {
     return {
       beforeenter: function ( route ) {
-     
+        if (gtag) {
+          gtag('event', 'author detail '+route);
+        }
       },
 
       enter(current, previous) {
@@ -5822,7 +5824,9 @@ class PostDetailsHandler {
   get route() {
     return {
       beforeenter: function ( route ) {
-     
+        if (gtag) {
+          gtag('event', 'post page '+route);
+        }
       },
 
       enter(current, previous) {

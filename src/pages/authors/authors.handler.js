@@ -14,11 +14,11 @@ export default class AuthorsHandler {
             name: 'world'
           }
         })
-        console.log('Entered authors!');
+       // console.log('Entered authors!');
       },
       leave(current, previous) {
         this.component.destroy();
-        console.log('Left authors!');
+       // console.log('Left authors!');
       }
     }
   }

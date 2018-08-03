@@ -5,7 +5,9 @@ export default class AuthorDetailsHandler {
   get route() {
     return {
       beforeenter: function ( route ) {
-     
+        if (gtag) {
+          gtag('event', 'author detail '+route);
+        }
       },
 
       enter(current, previous) {
