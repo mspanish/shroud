@@ -22,9 +22,10 @@
 	<script>
 		const host = window.location.hostname;
 	
-		if(host != "localhost")
+		if (host.includes("localhost"))
 		{
-				let gtag = false;
+				console.log('localhost!')
+				gtag = false;
 		}
 
 	</script>

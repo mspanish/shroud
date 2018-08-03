@@ -5,8 +5,9 @@ export default class PostDetailsHandler {
   get route() {
     return {
       beforeenter: function ( route ) {
+     
         if (gtag) {
-          gtag('event', 'post page '+route);
+          gtag('event', 'post page '+route.pathname);
         }
       },
 

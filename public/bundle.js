@@ -5227,7 +5227,7 @@ class AuthorDetailsHandler {
     return {
       beforeenter: function ( route ) {
         if (gtag) {
-          gtag('event', 'author detail '+route);
+          gtag('event', 'author detail '+route.pathname);
         }
       },
 
@@ -5824,8 +5824,9 @@ class PostDetailsHandler {
   get route() {
     return {
       beforeenter: function ( route ) {
+     
         if (gtag) {
-          gtag('event', 'post page '+route);
+          gtag('event', 'post page '+route.pathname);
         }
       },
 
