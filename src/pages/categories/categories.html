@@ -18,10 +18,10 @@
     {#if $categories && $categories.length > 0}
     {#each $categories as cat}
     <tr>
-      <td>{cat[0]}
+      <td><Link href="/categories/{cat[0]}">{cat[0]}</Link>
         {#if cat[1].subdirs && cat[1].subdirs.length > 0}
             {#each cat[1].subdirs as subdir}
-              <p class="subdir"><Link href="/categories/{subdir[0]}">{subdir[0]}</Link></p>
+              <p class="subdir"><Link href="/categories/{cat[0]}-{subdir[0]}">{subdir[0]}</Link></p>
             {/each}
         {/if}
 
@@ -55,7 +55,7 @@ td {
   import roadtrip from 'roadtrip';
   import { fade } from 'svelte-transitions';		
   import Link from '../../components/Link.html';
-  //import { startCase } from '../../utilities.js';
+  import { parseSubCats} from '../../utilities.js';
 
   export default {
     transitions: { fade },
@@ -79,17 +79,7 @@ td {
       fetch(urly).then(function(res) {
       return res.json() })
       .then( json => {
-      for (let key in json) {
-        let obj = json[key].subdirs;
-        if (obj && Object.keys(obj).length > 0) {
-          // make into an arry so we can load into svelte
-          json[key].subdirs = Object.entries(obj);
-          console.log(JSON.stringify(json[key].subdirs))
-        }
-      }  
-      let cats =  Object.entries(json);
-
-       
+        let cats = parseSubCats(json)   
        store.set({categories: cats});
       // console.table(cats)
 			})

@@ -3,6 +3,11 @@ import Notebook from './notebook.html';
 export default class NotebookHandler {
   get route() {
     return {
+      beforeenter: function ( route ) {
+        if (gtag) {
+          gtag('event', 'notebook');
+        }
+      },
       enter(current, previous) {
         this.component = new Notebook ({
           target: document.getElementById('app'),

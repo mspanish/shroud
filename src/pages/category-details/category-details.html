@@ -1,11 +1,60 @@
 <div transition:fade id="postWrap" class="content is-medium">
 
-<h1>Category: </h1>
+<h1>Category: {category_name} </h1>
 
  <span class="follow btn-nav tb_buttons tb_note"><Link href="../notebook">go to notebook</Link></span>
 
  <span class="follow btn-nav tb_buttons tb_note"><Link href="../authors">all authors</Link></span>
 	
+ <span class="follow btn-nav tb_buttons tb_note"><Link href="../categories">← categories</Link></span>
+	
+
+ {#if $category }
+ <p>{$category.length} posts</p>
+ <div class="search"><input id="searchy" placeholder="search this category..."><span on:click="search()" class="expand go">go</span>
+	 <span id="searchCt"></span>
+ </div>
+
+ <table id="posts"  transition:fade  class="pure-table">
+		 <thead>
+		   <tr>
+		 
+			 <th >post</th>
+			 <th width="250">date</th>
+		 </tr>
+		 </thead>
+		 <!-- <tfoot>
+		   <tr>
+			 <th>name</th>
+			 <th>subject</th>
+		   </tr>
+		 </tfoot> -->
+		 <tbody id='posts'>
+ 
+		 {#each $category as post, x}
+		 <tr>
+		  
+		   <td class="" >
+			<Link href="/authors/{post.author}">{post.author}</Link>
+			 <p class="postInfo">/{$id}/    article: <span><a href="{post.url}{post.id ? `#${post.id}` : ''}" target="_blank">{post.title}</a><span><span on:click="moveTo('postWrap')" class="pull-right">↑ top</span>
+			 </p>
+			 <p class="toolbar">
+				 <span on:click="saveData('pro',$author.cat.name, post,x)" class="tb_pro">pro</span><span class="tb_con" on:click="saveData('con',$author.cat.name, post,x)">con</span><span class="tb_note" on:click="saveData('note',$author.cat.name, post,x)">add note</span>
+			 </p>
+			 <p class="posting">
+			 {@html post.post}
+			 </p>
+			 </td>
+		   <td class="date">{post.date}<span class="right10">{post.mins ? post.mins : ''}<span></td>			  
+		 </tr>
+		 {/each}
+	 
+		   </tbody>
+	 </table>
+		 
+	 {/if}
+
+
 
 </div>
 
@@ -75,7 +124,7 @@ td {
 
 <script >
 		import { fade } from 'svelte-transitions';		
-		import { startCase, saveToNotebook } from '../../utilities.js';
+		import { startCase, saveToNotebook, urlify, addParagraphBreaks, parseSubCats, objectify } from '../../utilities.js';
 		import Link from '../../components/Link.html';
 		import { Toast, deleteAllToasts} from '../../toaster-js/index.js';   
   
@@ -86,6 +135,52 @@ td {
     components:{ Link
 	}, 
     methods: {
+		processCategories(categories,sub,id) {
+			let i = 0;
+			let len;
+			let cats2 = objectify(categories);
+			if (!sub) {
+				i = 0;
+			
+				len = cats2[id].len;
+				getCategoryFile(i, len, sub, id)
+			}
+			else {
+				// this is a subcat, we have to drill down to get length
+				let parentCat = cats2[sub];
+				let subDirs = objectify(parentCat.subdirs);
+				let subDir = subDirs[id];
+				if (subDir) {
+					len = subDir.len;
+					getCategoryFile(i, len, sub, id)
+					// trigger getting of all json files in that dir up to this len
+				}
+			}
+			function getCategoryFile(i, len, sub, id) {
+				console.log('len is '+len)
+				console.log('i is '+i)
+		
+				// ok so if we have a sub, that is the parent cat - otherwise, the id is the only cat, so we skip the second var and '/' altogether
+			  let urly = `../../data/data_indexes/${ sub? sub : id}/${ sub? id+'/' : ''}${i}.json`;
+				console.log('urly is '+urly)
+				fetch(urly).then(function(res) {
+				if (!res.body) return
+			 	return res.json() })
+			 	.then( json => {
+					let state = store.get();
+					let category = state.category ||  [];
+					for (let p of json){
+						if (!p.post) continue;
+						p.post = addParagraphBreaks(p.post);	
+					}
+					category = category.concat(json);
+					store.set({category: category})
+					i++;
+					if (i >= len-1) return
+					getCategoryFile(i, len, sub, id);
+				})
+			}
+		},
 		search() {
 			let input = document.getElementById('searchy');
 			input = input.value.toLowerCase();
@@ -134,121 +229,10 @@ td {
 		},
 		saveData(type,cat,post,x) {
 			saveToNotebook(type,cat,post,x);
-		},
-		addParagraphBreaks(post) {
-			let comp = this;
-		//	let postings = document.getElementsByClassName('posting');
-			//console.log('got postings? '+postings)
-			let j = 0;
-
-			const authorsArr  = ['david', 'hugh', 'dan', 'colin', 'yannick', 'charles', 'daveb', 'max', 'stephen', 'mario', 'mark', 'antonio', 'john', 'giulio', 'louis', 'anoxie', 'dave', 'kelly', 'barry', 'barrie', 'russ', 'joe', 'colinsberry', 'ron'];
-			const scholars = ['barbet','rucker','zugibe', 'wesselow', 'piczak', 'piczek', 'benford','vignon', 'bucklin', 'marino','rolfe', 'meacham', 'fanti', 'rogers', 'adler', 'heller', 'mccrone', 'jackson', 'strup', 'enea']
-			const shroudWords = ['pray', 'codex', 'tomb', 'cloth', 'textile', 'shroud', 'woven', 'ancient', 'formation', 'pollen', 'dna']
-			const bloodWords = ['blood', 'bloodstains', 'bloodstain', 'bloody', 'wounds'];
-			const holyWords = ['christ', 'yeshua','jesus', 'god', 'holy', 'spirit', 'trinity', 'lord', 'lords']
-			return alterPost(post);
-			
-			
-			function alterPost(str) { 
-				//console.log('altering: '+str)
-			//	if (j > postings.length-1) return
-//			for (let posting of postings) {
-	
-			//	let str = post  // postings[j].textContent.replace(/\\n/g, '');
-				//console.log(str)
-			
-				let arr = [];
-
-				let words = str.split(' ');
-			
-				//let result = this.chunkArray(str, 50);
-				let newStr = '';
-				let lines = [];
-
-				let i = 0; // for lines
-				let e = 0; // for words
-				let z = 0;
-		
-				
-				for (let word of words) {
-					// fix people like Charles Freeman who are always adding commas w/ no space after them...
-					word = word.replace(/,[s]*/g, ", ");
-
-					let line = lines[i] || '';	
-					//console.log(word)
-					if (authorsArr.includes(word.trim().toLowerCase().replace('-','').replace('“', '').replace(',', '').replace('.', ''))) {
-						word = '<span class="authorName">'+word+'</span>';
-					}
-					if (scholars.includes(word.trim().toLowerCase().replace('“', '').replace('’s', '').replace(',', '').replace('.', ''))) {
-						word = '<span class="scholars">'+word+'</span>';
-					}
-
-
-					if (bloodWords.includes(word.trim().toLowerCase().replace('“', '').replace(',', '').replace('.', ''))) {
-						word = '<span class="blood">'+word+'</span>';
-					}
-
-					if (shroudWords.includes(word.trim().toLowerCase().replace('“', '').replace(',', '').replace('.', ''))) {
-						word = '<span class="shroud">'+word+'</span>';
-					}
-	
-					if (holyWords.includes(word.trim().toLowerCase().replace('“', '').replace(',', '').replace('.', '').replace('’s', ''))) {
-						word = '<span class="holy">'+word+'</span>';
-					}				
-
-					line = line + ' ' + word;
-					lines[i] = line;
-					e++
-					if (e > 50 && word.includes('.') || e > 50 && word.includes('!')) {
-						e = 0;
-						//console.log("\n\nGOT A HIT")
-						i++;
-					}
-				}
-				for (let line of lines) {
-					//console.log(line)
-					line = comp.urlify(line);
-					newStr = newStr + '<p>'+line+'</p>'
-				}
-				return newStr;
-			//	postings[j].innerHTML =  newStr;
-			//	j++
-				
-				// setTimeout(() => {
-				// 	alterPost(j);
-				// }, 50);
-			
-			}
-		},
-		urlify(text) {
-			let urlRegex = /(((https?:\/\/)|(www\.))[^\s]+)/g;
-			//var urlRegex = /(https?:\/\/[^\s]+)/g;
-			return text.replace(urlRegex, function(url,b,c) {
-			
-			let url2 = (c == 'www.') ?  'http://' +url : url;
-				url2 = url2.replace(')', '').replace('(', '')
-			
-				return '<a href="' +url2.toLowerCase()+ '" target="_blank">' + url.toLowerCase() + '</a>';
-			}) 
-		},
-		chunkArray(myArray, chunk_size){
-			var index = 0;
-			var arrayLength = myArray.length;
-			var tempArray = [];
-
-			for (let index = 0; index < arrayLength; index += chunk_size) {
-		
-				let myChunk = myArray.slice(index, index+chunk_size);
-				// Do something if you want with the group
-				
-				tempArray.push(myChunk);
-			}
-
-			return tempArray;
 		}
     },
 	computed: {
-		author_name: ( { $id }) => {
+		category_name: ( { $id }) => {
 		let name = $id.replace(/_/g, ' ')
 			name = startCase(name).replace('%c3%a9', 'é');
 		return name 
@@ -256,6 +240,7 @@ td {
 	},
 
 	oncreate() {
+		store.set({category: []})
 		let right = document.getElementsByClassName('right')[0];
 		if (right) console.log('GOT RIGHT')
 		right.style.backgroundColor = '#f1ebda';
@@ -263,11 +248,45 @@ td {
 		right.classList.remove('has-background-white-ter')
 		const state = store.get();
 		const id = state.id;
-		console.log('dawg id is '+id)
-		console.log('id is '+id)
-
+		const sub = state.sub;
+		let len;
+		let categories = state.categories;
 		const comp = this;
+		console.log('parent is '+sub)
+		//console.log('got categories? '+categories)
+		if (!categories) {
+			let urly = '../../data/categories_nonames.json'
+			fetch(urly).then(function(res) {
+				return res.json() })
+			.then( json => {
+				let cats  = parseSubCats(json)   
+				store.set({categories: cats});	
+			    comp.processCategories(cats, sub, id);	
+			})
+		}
+		else {
 
+			comp.processCategories(categories, sub, id);
+
+		}
+
+
+// 	const urly = `../data/data_indexes/${ id }/.json`;
+	// 	return fetch(urly).then(function(res) {
+	// 	return res.json();
+	// 	})	
+	// 	.then(function(json) {
+	// 	/* we need to know how many posts per category so we can list it on each author's page,
+	// 	so JSON can't be an array of strings, but rather need to be an arr of objects like 
+	// 	{ name: 'art', len: 15 },
+	// 	{ name: 'history, len: 3}
+	// 	*/
+	//   store.set({
+	// 	  firstRun: false,
+	// 	  cats:json
+	// 	})
+
+	//});
 
 		}  // end oncreate()
 }
