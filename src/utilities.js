@@ -353,15 +353,18 @@ const expandTD = (i) => {
 	//console.log('expand '+i)
   let posting = document.getElementById('post'+i);
   let expands = document.getElementById('expand'+i);
+  let tb = document.getElementById('toolbar'+i); 
 
   if (posting.getAttribute('expanded') == 'true') {
     posting.style.display = 'none';
+    tb.style.display = 'none';
     posting.setAttribute('expanded', 'false');  
     expands.classList.remove('catclose');
     expands.textContent = '▼';
   }
   else {
     posting.style.display = 'inline';
+    tb.style.display = 'inline';
     posting.setAttribute('expanded', 'true');  
     expands.classList.add('catclose')
     expands.textContent = '▲';  

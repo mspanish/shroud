@@ -2928,15 +2928,18 @@ const expandTD = (i) => {
 	//console.log('expand '+i)
   let posting = document.getElementById('post'+i);
   let expands = document.getElementById('expand'+i);
+  let tb = document.getElementById('toolbar'+i); 
 
   if (posting.getAttribute('expanded') == 'true') {
     posting.style.display = 'none';
+    tb.style.display = 'none';
     posting.setAttribute('expanded', 'false');  
     expands.classList.remove('catclose');
     expands.textContent = '▼';
   }
   else {
     posting.style.display = 'inline';
+    tb.style.display = 'inline';
     posting.setAttribute('expanded', 'true');  
     expands.classList.add('catclose');
     expands.textContent = '▲';  
@@ -6392,31 +6395,32 @@ function create_each_block$6(component, ctx) {
 
 			addListener(span_4, "click", click_handler_2$2);
 			span_4.className = "tb_pro";
-			addLoc(span_4, file$11, 54, 5, 1775);
+			addLoc(span_4, file$11, 54, 5, 1791);
 
 			span_5._svelte = { component, ctx };
 
 			addListener(span_5, "click", click_handler_3$2);
 			span_5.className = "tb_con";
-			addLoc(span_5, file$11, 54, 75, 1845);
+			addLoc(span_5, file$11, 54, 75, 1861);
 
 			span_6._svelte = { component, ctx };
 
 			addListener(span_6, "click", click_handler_4$2);
 			span_6.className = "tb_note";
-			addLoc(span_6, file$11, 54, 145, 1915);
-			p_1.className = "toolbar";
+			addLoc(span_6, file$11, 54, 145, 1931);
+			p_1.id = "toolbar" + ctx.x;
+			p_1.className = "toolbar svelte-peuc5d";
 			addLoc(p_1, file$11, 53, 4, 1749);
 			p_2.id = "post" + ctx.x;
 			p_2.className = "posting svelte-peuc5d";
-			addLoc(p_2, file$11, 56, 4, 2008);
+			addLoc(p_2, file$11, 56, 4, 2024);
 			td_2.className = " svelte-peuc5d";
 			addLoc(td_2, file$11, 43, 5, 1390);
-			addLoc(span_8, file$11, 60, 89, 2175);
+			addLoc(span_8, file$11, 60, 89, 2191);
 			span_7.className = "right10";
-			addLoc(span_7, file$11, 60, 39, 2125);
+			addLoc(span_7, file$11, 60, 39, 2141);
 			td_3.className = "date small svelte-peuc5d";
-			addLoc(td_3, file$11, 60, 5, 2091);
+			addLoc(td_3, file$11, 60, 5, 2107);
 			addLoc(tr, file$11, 38, 3, 1173);
 		},
 
