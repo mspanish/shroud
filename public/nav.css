@@ -671,6 +671,9 @@ th[role=columnheader]:not(.no-sort):hover:after {
   margin-bottom: -30px;
   cursor:pointer;
 }
+.posting {
+  line-height: 2;
+}
 .date {
   vertical-align: text-top;
   padding-top: 25px;
@@ -810,6 +813,19 @@ th[role=columnheader]:not(.no-sort):hover:after {
     width: 130px;
     text-align:center;
 }
+.catexpander {
+  width: 50px;
+  margin-top:10px;
+  color: grey;
+  background-color: #d7eaf1;
+}
+.catclose {
+  color:white;
+  background-color:black;
+}
+.hideMe {
+  display:none;
+}
 .go {
   padding: 10px 15px 10px 15px;
 }
@@ -845,4 +861,7 @@ border-radius: 10px;
   font-size: 1rem;
   line-height: .3;
   margin-left: 40px;
+}
+.small {
+  font-size: .9rem;
 }

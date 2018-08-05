@@ -13,14 +13,18 @@
  <p>{$category.length} posts</p>
  <div class="search"><input id="searchy" placeholder="search this category..."><span on:click="search()" class="expand go">go</span>
 	 <span id="searchCt"></span>
- </div>
+
+
+	<span id="sorter" on:click="tableMode()" class="tb_buttons tb_note">View as Table (hide posts)</span>
+  </div>
 
  <table id="posts"  transition:fade  class="pure-table">
 		 <thead>
 		   <tr>
-		 
-			 <th >post</th>
-			 <th width="250">date</th>
+			<th class="hideMe" width="10%">▼</th>
+			<th class="hideMe" width="20%">author</th>
+			<th width="55%">post</th>
+			<th width="15%">date</th>
 		 </tr>
 		 </thead>
 		 <!-- <tfoot>
@@ -33,19 +37,28 @@
  
 		 {#each $category as post, x}
 		 <tr>
-		  
+		  <td class="hideMe">
+				<span on:click="expand(x)" class="expand catexpander">▼</span> 
+		  </td>
+		  <td class="hideMe"><Link href="/authors/{post.author}">{post.author}</Link></td>
 		   <td class="" >
-			<Link href="/authors/{post.author}">{post.author}</Link>
-			 <p class="postInfo">/{$id}/    article: <span><a href="{post.url}{post.id ? `#${post.id}` : ''}" target="_blank">{post.title}</a><span><span on:click="moveTo('postWrap')" class="pull-right">↑ top</span>
-			 </p>
+			<Link cssClass="auth_link" href="/authors/{post.author}">{post.author}</Link>
+		
+			<!-- /{$id}/    article:  -->
+			 <p class="postInfo"><span><a href="{post.url}{post.id ? `#${post.id}` : ''}" target="_blank">{post.title}</a><span>
+				<span on:click="moveTo('postWrap')" class="pull-right">↑ top</span>
+				
+			
+			</p>
+			
 			 <p class="toolbar">
-				 <span on:click="saveData('pro',$author.cat.name, post,x)" class="tb_pro">pro</span><span class="tb_con" on:click="saveData('con',$author.cat.name, post,x)">con</span><span class="tb_note" on:click="saveData('note',$author.cat.name, post,x)">add note</span>
+				 <span on:click="saveData('pro',$id, post,x)" class="tb_pro">pro</span><span class="tb_con" on:click="saveData('con',$id, post,x)">con</span><span class="tb_note" on:click="saveData('note',$id, post,x)">add note</span>
 			 </p>
 			 <p class="posting">
 			 {@html post.post}
 			 </p>
 			 </td>
-		   <td class="date">{post.date}<span class="right10">{post.mins ? post.mins : ''}<span></td>			  
+		   <td class="date small">{post.date}<span class="right10">{post.mins ? post.mins : ''}<span></td>			  
 		 </tr>
 		 {/each}
 	 
@@ -123,8 +136,9 @@ td {
 </style> 
 
 <script >
+
 		import { fade } from 'svelte-transitions';		
-		import { startCase, saveToNotebook, urlify, addParagraphBreaks, parseSubCats, objectify } from '../../utilities.js';
+		import {expandTD, goTableMode, shortenDates, startCase, saveToNotebook, urlify, addParagraphBreaks, parseSubCats, objectify } from '../../utilities.js';
 		import Link from '../../components/Link.html';
 		import { Toast, deleteAllToasts} from '../../toaster-js/index.js';   
   
@@ -135,6 +149,12 @@ td {
     components:{ Link
 	}, 
     methods: {
+		expand (i) {
+			expandTD(i);
+		},
+		tableMode() {
+			goTableMode();
+		},
 		processCategories(categories,sub,id) {
 			let i = 0;
 			let len;
@@ -172,6 +192,9 @@ td {
 					for (let p of json){
 						if (!p.post) continue;
 						p.post = addParagraphBreaks(p.post);	
+						let d = shortenDates(p.date.toLowerCase());
+						p.date = d[0];
+						p.mins = d[1];
 					}
 					category = category.concat(json);
 					store.set({category: category})
@@ -269,7 +292,7 @@ td {
 			comp.processCategories(categories, sub, id);
 
 		}
-
+		new Tablesort(document.getElementById('posts'));
 
 // 	const urly = `../data/data_indexes/${ id }/.json`;
 	// 	return fetch(urly).then(function(res) {

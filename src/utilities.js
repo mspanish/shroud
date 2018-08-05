@@ -18,13 +18,9 @@
     if (minutes < 10) sMinutes = "0" + sMinutes;
     return sHours + ":" + sMinutes;
   },
-  shortenDates() {
-    let dates = document.getElementsByClassName('date');
-    let i = 0;
-    for (let date of dates) {
-  
-      let el = date;
-      date = date.textContent.toLowerCase();
+    */
+  const shortenDates = (date) => {
+
       date = date.split(' ');
       let ml={
         'january': '01',
@@ -47,11 +43,9 @@
       let str = date[2] + '-'+  ml[date[0]] + '-' + day;
       // +  ':'+mins;
       //str = new Date(str).toISOString();
-      dates[i].innerHTML = '<span>'+ str + '</span><span class="right10">'+minutes+'</span>';
-      i++;
-    }
+      return [str, minutes]
   }
-  */
+
 
   const getRandomInt = (min, max) => {
     min = Math.ceil(min);
@@ -296,4 +290,84 @@
    return arr.map(([key, val]) => ([key, val])).reduce((obj, [k, v]) => Object.assign(obj, { [k]: v }), {})
   }
 
-export {getRandomWord, startCase, saveToNotebook, urlify, addParagraphBreaks, parseSubCats, objectify }
+const goTableMode = ()=> {
+  let postings = document.getElementsByClassName('posting');
+  let toolbars = document.getElementsByClassName('toolbar');
+  let postInfos = document.getElementsByClassName('postInfo');
+  let sorter = document.getElementById('sorter');
+//  let expands = document.getElementsByClassName('catexpander');
+  let authLink = document.getElementsByClassName('auth_link');
+  let hiddenCols = document.getElementsByClassName('hideMe');
+  let allTD = document.querySelectorAll('.pure-table td');
+
+
+  let mode = sorter.getAttribute('data-expanded');
+  let i = 0;
+  
+  if (mode == 'true') {
+    sorter.textContent = 'View as Table (hide posts)';
+    sorter.setAttribute('data-expanded', 'false');
+    for (let posting of postings){
+      postInfos[i].style.backgroundColor = 'beige';
+      postInfos[i].style.marginBottom = '20px';
+      postInfos[i].style.padding = '10px';
+      posting.style.display = 'block';
+    //	expands[i].style.display = 'none';
+      toolbars[i].style.display = 'block';
+      authLink[i].style.display = 'block';
+    i++;
+    }
+    for (let col of hiddenCols) {
+      col.style.display = 'none';
+    //	col.style.lineHeight = 2;
+    }
+    for (let col of allTD) {
+      col.style.lineHeight = 2;	
+    }								
+  } 
+  else {
+    sorter.textContent = 'Show all posts';
+   //   sorter.style.backgroundColor = 'red'
+    sorter.setAttribute('data-expanded', 'true');
+    for (let posting of postings){
+    postInfos[i].style.backgroundColor = 'transparent';
+    postInfos[i].style.marginBottom = '5px';
+    postInfos[i].style.padding = '0';
+    posting.style.display = 'none';
+  //	expands[i].style.display = 'inline-block';
+    toolbars[i].style.display = 'none';
+    authLink[i].style.display = 'none';
+    i++;
+    }
+    for (let col of hiddenCols) {
+        col.style.display = 'inline';
+    //		col.style.lineHeight = 0;
+    }
+    for (let col of allTD) {
+      col.style.lineHeight = 1;	
+    }	
+  }
+}
+
+const expandTD = (i) => {
+	//console.log('expand '+i)
+  let postings = document.getElementsByClassName('posting');
+  let expands = document.getElementsByClassName('catexpander');
+
+  let posting = postings[i];
+
+  if (posting.getAttribute('expanded') == 'true') {
+    posting.style.display = 'none';
+    posting.setAttribute('expanded', 'false');  
+    expands[i].classList.remove('catclose');
+    expands[i].textContent = '▼';
+  }
+  else {
+    posting.style.display = 'inline';
+    posting.setAttribute('expanded', 'true');  
+    expands[i].classList.add('catclose')
+    expands[i].textContent = '▲';  
+  }
+}
+
+export { expandTD, goTableMode, shortenDates, getRandomWord, startCase, saveToNotebook, urlify, addParagraphBreaks, parseSubCats, objectify }
