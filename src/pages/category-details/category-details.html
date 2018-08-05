@@ -38,7 +38,7 @@
 		 {#each $category as post, x}
 		 <tr>
 		  <td class="hideMe">
-				<span on:click="expand(x)" class="expand catexpander">▼</span> 
+				<span id="expand{x}" on:click="expand(x)" class="expand catexpander">▼</span> 
 		  </td>
 		  <td class="hideMe"><Link href="/authors/{post.author}">{post.author}</Link></td>
 		   <td class="" >
@@ -54,7 +54,7 @@
 			 <p class="toolbar">
 				 <span on:click="saveData('pro',$id, post,x)" class="tb_pro">pro</span><span class="tb_con" on:click="saveData('con',$id, post,x)">con</span><span class="tb_note" on:click="saveData('note',$id, post,x)">add note</span>
 			 </p>
-			 <p class="posting">
+			 <p id="post{x}" class="posting">
 			 {@html post.post}
 			 </p>
 			 </td>

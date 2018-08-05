@@ -2926,22 +2926,20 @@ const goTableMode = ()=> {
 
 const expandTD = (i) => {
 	//console.log('expand '+i)
-  let postings = document.getElementsByClassName('posting');
-  let expands = document.getElementsByClassName('catexpander');
-
-  let posting = postings[i];
+  let posting = document.getElementById('post'+i);
+  let expands = document.getElementById('expand'+i);
 
   if (posting.getAttribute('expanded') == 'true') {
     posting.style.display = 'none';
     posting.setAttribute('expanded', 'false');  
-    expands[i].classList.remove('catclose');
-    expands[i].textContent = '▼';
+    expands.classList.remove('catclose');
+    expands.textContent = '▼';
   }
   else {
     posting.style.display = 'inline';
     posting.setAttribute('expanded', 'true');  
-    expands[i].classList.add('catclose');
-    expands[i].textContent = '▲';  
+    expands.classList.add('catclose');
+    expands.textContent = '▲';  
   }
 };
 
@@ -6369,54 +6367,56 @@ function create_each_block$6(component, ctx) {
 			span._svelte = { component, ctx };
 
 			addListener(span, "click", click_handler$3);
-			span.className = "expand catexpander";
+			span.id = "expand" + ctx.x;
+			span.className = "expand catexpander svelte-peuc5d";
 			addLoc(span, file$11, 40, 4, 1208);
 			td.className = "hideMe svelte-peuc5d";
 			addLoc(td, file$11, 39, 4, 1183);
 			td_1.className = "hideMe svelte-peuc5d";
-			addLoc(td_1, file$11, 42, 4, 1288);
+			addLoc(td_1, file$11, 42, 4, 1303);
 			a.href = a_href_value = "" + ctx.post.url + (ctx.post.id ? `#${ctx.post.id}` : '');
 			a.target = "_blank";
-			addLoc(a, file$11, 47, 30, 1541);
+			addLoc(a, file$11, 47, 30, 1556);
 
 			span_3._svelte = { component };
 
 			addListener(span_3, "click", click_handler_1$2);
 			span_3.className = "pull-right";
-			addLoc(span_3, file$11, 48, 4, 1636);
-			addLoc(span_2, file$11, 47, 113, 1624);
-			addLoc(span_1, file$11, 47, 24, 1535);
+			addLoc(span_3, file$11, 48, 4, 1651);
+			addLoc(span_2, file$11, 47, 113, 1639);
+			addLoc(span_1, file$11, 47, 24, 1550);
 			p.className = "postInfo";
-			addLoc(p, file$11, 47, 4, 1515);
+			addLoc(p, file$11, 47, 4, 1530);
 
 			span_4._svelte = { component, ctx };
 
 			addListener(span_4, "click", click_handler_2$2);
 			span_4.className = "tb_pro";
-			addLoc(span_4, file$11, 54, 5, 1760);
+			addLoc(span_4, file$11, 54, 5, 1775);
 
 			span_5._svelte = { component, ctx };
 
 			addListener(span_5, "click", click_handler_3$2);
 			span_5.className = "tb_con";
-			addLoc(span_5, file$11, 54, 75, 1830);
+			addLoc(span_5, file$11, 54, 75, 1845);
 
 			span_6._svelte = { component, ctx };
 
 			addListener(span_6, "click", click_handler_4$2);
 			span_6.className = "tb_note";
-			addLoc(span_6, file$11, 54, 145, 1900);
+			addLoc(span_6, file$11, 54, 145, 1915);
 			p_1.className = "toolbar";
-			addLoc(p_1, file$11, 53, 4, 1734);
+			addLoc(p_1, file$11, 53, 4, 1749);
+			p_2.id = "post" + ctx.x;
 			p_2.className = "posting svelte-peuc5d";
-			addLoc(p_2, file$11, 56, 4, 1993);
+			addLoc(p_2, file$11, 56, 4, 2008);
 			td_2.className = " svelte-peuc5d";
-			addLoc(td_2, file$11, 43, 5, 1375);
-			addLoc(span_8, file$11, 60, 89, 2147);
+			addLoc(td_2, file$11, 43, 5, 1390);
+			addLoc(span_8, file$11, 60, 89, 2175);
 			span_7.className = "right10";
-			addLoc(span_7, file$11, 60, 39, 2097);
+			addLoc(span_7, file$11, 60, 39, 2125);
 			td_3.className = "date small svelte-peuc5d";
-			addLoc(td_3, file$11, 60, 5, 2063);
+			addLoc(td_3, file$11, 60, 5, 2091);
 			addLoc(tr, file$11, 38, 3, 1173);
 		},
 
