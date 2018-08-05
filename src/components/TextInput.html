@@ -1,11 +1,11 @@
-<form class="pure-form">
+
 
 	<textarea id="input_form" rows="10" bind:value='text_input' required type="text" minlength="1" maxlength="{maxLength || 20}" placeholder="{placeholder}">
     </textarea>
 
     <button id="input_btn" on:click='fire("saveInput", { text_input })'  class='pure-button'>save</button>
     
-</form>
+
   
 <script>
 

@@ -2057,7 +2057,7 @@ function data$3() {
 const file$5 = "src\\components\\TextInput.html";
 
 function create_main_fragment$5(component, ctx) {
-	var form, textarea, textarea_updating = false, textarea_maxlength_value, text, button, text_1;
+	var textarea, textarea_updating = false, textarea_maxlength_value, text, button, text_1;
 
 	function textarea_input_handler() {
 		textarea_updating = true;
@@ -2071,7 +2071,6 @@ function create_main_fragment$5(component, ctx) {
 
 	return {
 		c: function create() {
-			form = createElement("form");
 			textarea = createElement("textarea");
 			text = createText("\r\n\r\n    ");
 			button = createElement("button");
@@ -2085,23 +2084,20 @@ function create_main_fragment$5(component, ctx) {
 			textarea.maxLength = textarea_maxlength_value = ctx.maxLength || 20;
 			textarea.placeholder = ctx.placeholder;
 			textarea.value = "\r\n    ";
-			addLoc(textarea, file$5, 2, 1, 29);
+			addLoc(textarea, file$5, 2, 1, 5);
 			addListener(button, "click", click_handler);
 			button.id = "input_btn";
 			button.className = "pure-button";
-			addLoc(button, file$5, 5, 4, 207);
-			form.className = "pure-form";
-			addLoc(form, file$5, 0, 0, 0);
+			addLoc(button, file$5, 5, 4, 183);
 		},
 
 		m: function mount(target, anchor) {
-			insertNode(form, target, anchor);
-			appendNode(textarea, form);
+			insertNode(textarea, target, anchor);
 
 			textarea.value = ctx.text_input;
 
-			appendNode(text, form);
-			appendNode(button, form);
+			insertNode(text, target, anchor);
+			insertNode(button, target, anchor);
 			appendNode(text_1, button);
 		},
 
@@ -2119,10 +2115,15 @@ function create_main_fragment$5(component, ctx) {
 
 		d: function destroy$$1(detach) {
 			if (detach) {
-				detachNode(form);
+				detachNode(textarea);
 			}
 
 			removeListener(textarea, "input", textarea_input_handler);
+			if (detach) {
+				detachNode(text);
+				detachNode(button);
+			}
+
 			removeListener(button, "click", click_handler);
 		}
 	};
