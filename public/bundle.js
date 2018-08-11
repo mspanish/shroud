@@ -1048,6 +1048,11 @@ const catsData = {
 			"desc": "",
 			"img": ""
 		},
+		"blog": {
+			"menu": "Blog",
+			"desc": "",
+			"img": ""
+		},
 		"about": {
 			"menu": "About Us",
 			"desc": "",
